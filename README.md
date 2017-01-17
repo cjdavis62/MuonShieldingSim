@@ -1,0 +1,1 @@
+This version of qshields is meant to have functionality to simulate muons correctl and to simulate their passage through the lead shielding in CUORE and to determine the effectiveness of a muon tagging system.
