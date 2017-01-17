@@ -1,0 +1,390 @@
+// *****************************************************************
+// *** Define Solids ***   *****************************************
+// *****************************************************************
+
+// ** Rock Layer ** **************
+
+/*
+G4Sphere * Rock0 = new G4Sphere ("Rock0",
+				 RockRadMin,
+				 RockRadMax,
+				 RockStartPhi,
+				 RockDeltaPhi,
+				 0 * deg,
+				 RockDeltaTheta);
+G4Sphere * Rock25 = new G4Sphere("Rock25",
+				 RockRadMin,
+				 RockRadMax,
+				 RockStartPhi,
+				 RockDeltaPhi,
+				 25 * deg,
+				 RockDeltaTheta);
+G4Sphere * Rock50 = new G4Sphere("Rock50",
+				 RockRadMin,
+				 RockRadMax,
+				 RockStartPhi,
+				 RockDeltaPhi,
+				 50 * deg,
+				 RockDeltaTheta);
+G4Sphere * Rock75 = new G4Sphere("Rock75",
+				 RockRadMin,
+				 RockRadMax,
+				 RockStartPhi,
+				 RockDeltaPhi,
+				 75 * deg,
+				 RockDeltaTheta);
+G4Sphere * Rock100 = new G4Sphere("Rock100",
+				  RockRadMin,
+				  RockRadMax,
+				  RockStartPhi,
+				  RockDeltaPhi,
+				  100 * deg,
+				  RockDeltaTheta);
+
+G4Sphere * Rock125 = newG4Sphere("Rock125",
+				 RockRadMin,
+				 RockRadMax,
+				 RockStartPhi,
+				 RockDeltaPhi,
+				 125 * deg,
+				 RockDeltaTheta);
+G4Sphere * Rock150 = new G4Sphere("Rock150",
+				  RockRadMin,
+				  RockRadMax,
+				  RockStartPhi,
+				  RockDeltaPhi,
+				  150 * deg,
+				  RockDeltaTheta);
+G4Sphere * Rock175 = new G4Sphere("Rock175",
+				  RockRadMin,
+				  RockRadMax,
+				  RockStartPhi,
+				  RockDeltaPhi,
+				  175 * deg,
+				  5 * deg);
+
+*/
+G4Sphere * Rock = new G4Sphere("Rock",
+			       RockRadMin,
+			       RockRadMax,
+			       RockStartPhi,
+			       RockDeltaPhi,
+			       0 * deg,
+			       180 * deg);
+
+
+// ** Muon Panel ** ******************
+
+G4Box * MuonLatX1 = new G4Box("MuonLatX1", MuonExtL, MuonExtL, MuonH);
+G4Box * MuonLatX2 = new G4Box("MuonLatX2", MuonExtL, MuonExtL, MuonH);
+G4Box * MuonLatX3 = new G4Box("MuonLatX3", MuonIntL, MuonIntL, MuonH);
+G4Box * MuonLatX4 = new G4Box("MuonLatX4", MuonIntL, MuonIntL, MuonH);
+
+G4RotationMatrix* zRot = new G4RotationMatrix;
+zRot->rotateZ(M_PI/4.*rad);
+
+G4VSolid * MuonLatX12;
+MuonLatX12 = new G4IntersectionSolid ( "MuonLatX12", MuonLatX1,
+				       MuonLatX2,zRot, G4ThreeVector(0.,0.,0.));
+
+G4VSolid * MuonLatX34;
+MuonLatX34 = new G4IntersectionSolid ( "MuonLatX34", MuonLatX3,
+				       MuonLatX4, zRot, G4ThreeVector(0, 0, 0));
+			    		
+G4VSolid * MuonLatX;
+MuonLatX = new G4SubtractionSolid ( "MuonLatX", MuonLatX12,
+				    MuonLatX34, new G4RotationMatrix, G4ThreeVector(0, 0, 0));
+
+// ** Polyethylene External Shield ** ********************
+
+   G4Box * PETLatX1
+   = new G4Box("PETLatX1",PETExtL,PETExtL,PETH );
+
+   G4Box * PETLatX2
+   = new G4Box("PETLatX2",PETExtL,PETExtL,PETH );
+		
+   G4Box * PETLatX3
+   = new G4Box("PETLatX3",PETIntL,PETIntL,PETH );
+
+   G4Box * PETLatX4
+   = new G4Box("PETLatX4",PETIntL,PETIntL,PETH );		
+
+   G4ThreeVector zTransPET(0, 0, PETHBot);
+
+   G4VSolid * PETLatX12;
+   PETLatX12 = new G4IntersectionSolid ( "PETLatX12", PETLatX1,
+    			    PETLatX2,zRot, G4ThreeVector(0.,0.,0.));
+
+   G4VSolid * PETLatX34;
+   PETLatX34 = new G4IntersectionSolid ( "PETLatX34", PETLatX3,
+    			    PETLatX4, zRot, G4ThreeVector(0, 0, 0));
+			    		
+   G4VSolid * PETLatX;
+   PETLatX = new G4SubtractionSolid ( "PETLatX", PETLatX12,
+    			    PETLatX34, new G4RotationMatrix, zTransPET);
+			    
+
+		    
+
+// ** Boric Acid Shield ** ****************
+
+   G4Box * BAcidLatX1
+   = new G4Box("BAcidLatX1",BAcidExtL,BAcidExtL, BAcidH );
+
+   G4Box * BAcidLatX2
+   = new G4Box("PETLatX2",BAcidExtL, BAcidExtL, BAcidH );
+		
+   G4Box * BAcidLatX3
+   = new G4Box("BAcidLatX3", BAcidIntL, BAcidIntL, BAcidH+Epsilon );
+
+   G4Box * BAcidLatX4
+   = new G4Box("BAcidLatX4", BAcidIntL, BAcidIntL, BAcidH+Epsilon );
+
+   G4ThreeVector zTransBAcid(0, 0, 0);
+
+   G4VSolid * BAcidLatX12;
+   BAcidLatX12 = new G4IntersectionSolid ( "BAcidLatX12", BAcidLatX1,
+    			    BAcidLatX2, zRot, G4ThreeVector(0, 0, 0));
+
+   G4VSolid * BAcidLatX34;
+   BAcidLatX34 = new G4IntersectionSolid ( "BAcidLatX34", BAcidLatX3,
+    			    BAcidLatX4, zRot, G4ThreeVector(0, 0, 0));
+			    		
+   G4VSolid * BAcidLatX;
+   BAcidLatX = new G4SubtractionSolid ( "BAcidLatX", BAcidLatX12,
+    			    BAcidLatX34, new G4RotationMatrix, zTransBAcid);
+			    
+
+// ** Lead External Shield ** ****************
+
+   G4Box * ExtPbLatX1
+   = new G4Box("ExtPbLatX1", PbExtL, PbExtL, PbH );
+
+   G4Box * ExtPbLatX2
+   = new G4Box("PETLatX2", PbExtL, PbExtL, PbH );
+		
+   G4Box * ExtPbLatX3
+   = new G4Box("ExtPbLatX3", PbIntL, PbIntL, PbH );
+
+   G4Box * ExtPbLatX4
+   = new G4Box("ExtPbLatX4", PbIntL, PbIntL, PbH );
+
+   G4ThreeVector zTransPb(0, 0, PbHBot);
+
+   G4VSolid * ExtPbLatX12;
+   ExtPbLatX12 = new G4IntersectionSolid ( "ExtPbLatX12", ExtPbLatX1,
+    			    ExtPbLatX2, zRot, G4ThreeVector(0, 0, 0));
+
+   G4VSolid * ExtPbLatX34;
+   ExtPbLatX34 = new G4IntersectionSolid ( "ExtPbLatX34", ExtPbLatX3,
+    			    ExtPbLatX4, zRot, G4ThreeVector(0, 0, 0));
+			    		
+   G4VSolid * ExtPbLatX;
+   ExtPbLatX = new G4SubtractionSolid ( "ExtPbLatX", ExtPbLatX12,
+    			    ExtPbLatX34, new G4RotationMatrix, zTransPb);
+
+
+// ** Top Polyethylene External Shield ** ****************
+
+   G4Box * PETupLatX1
+   = new G4Box("PETupLatX1", PETUpExtL, PETUpExtL, PETUpH );
+
+   G4Box * PETupLatX2
+   = new G4Box("PETLatX2", PETUpExtL, PETUpExtL, PETUpH );
+		
+   G4Box * PETupLatX3
+   = new G4Box("PETupLatX3", PETUpIntL, PETUpIntL, PETUpH );
+
+   G4Box * PETupLatX4
+   = new G4Box("PETupLatX4", PETUpIntL, PETUpIntL, PETUpH );
+
+   G4VSolid * PETupLatX12;
+   PETupLatX12 = new G4IntersectionSolid ( "PETupLatX12", PETupLatX1,
+    			    PETupLatX2, zRot, G4ThreeVector(0, 0, 0));
+
+   G4VSolid * PETupLatX34;
+   PETupLatX34 = new G4IntersectionSolid ( "PETupLatX34", PETupLatX3,
+    			    PETupLatX4, zRot, G4ThreeVector(0, 0, 0));
+
+   G4ThreeVector zTransPETUp(0, 0, PETHUpTop);
+   
+   G4VSolid * PETupLatX;
+   PETupLatX = new G4SubtractionSolid ( "PETupLatX", PETupLatX12,
+    			    PETupLatX34, new G4RotationMatrix, -zTransPETUp);
+
+
+// *****************************************************************
+// *** Logical Volume ***   *****************************************
+// *****************************************************************
+
+// ** Effective Rock Layer ** ***************
+G4LogicalVolume * Rock_log = new G4LogicalVolume(Rock, MaterialMap["GranSassoRock"], "Rock_L", 0,0,0);
+
+// ** Muon Panels ** **************
+G4LogicalVolume * MuonLatX_log = new G4LogicalVolume(MuonLatX, MaterialMap["Polyvinyltoluene"], "MuonLatX_L", 0,0,0);
+
+// ** Polyethylene External Shield ** ****************
+   
+   G4LogicalVolume * PETLatX_log 
+    = new G4LogicalVolume (PETLatX, MaterialMap["PolyB"], "ExtShieldS_L", 0,0,0);
+
+
+// ** Boric Acid Shield ** ****************
+
+  G4LogicalVolume * BAcidLatX_log 
+    = new G4LogicalVolume (BAcidLatX, MaterialMap["BAcid"], "ExtShieldS_L", 0,0,0);
+
+// ** Lead External Shield ** ****************
+
+  G4LogicalVolume * ExtPbLatX_log 
+    = new G4LogicalVolume (ExtPbLatX, MaterialMap["Lead"], "ExtShieldS_L", 0,0,0);
+
+
+// ** Top Polyethylene External Shield ** ****************
+
+  G4LogicalVolume * PETupLatX_log 
+    = new G4LogicalVolume (PETupLatX, MaterialMap["PolyB"], "ExtShieldS_L", 0,0,0);
+
+
+// *****************************************************************
+// *** Visibility ***   *****************************************
+// *****************************************************************
+
+// ** Effective Rock Layer ** *************
+if (theC->GraphicMask[1] & (1 << (63-1)) ) {
+  Rock_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,0.,1.)));
+  G4cout << "test1" << G4endl;
+ }
+ else
+   Rock_log->SetVisAttributes (new G4VisAttributes(G4Colour(false)));
+
+if (theC->GraphicMask[1] & (1 << (64-1))) {
+  MuonLatX_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,1.)));
+G4cout << "test2" << G4endl;
+ }
+ else
+   MuonLatX_log->SetVisAttributes (new G4VisAttributes(G4Colour(false)));
+
+// ** Polyethylene External Shield ** ****************
+
+   if( theC->GraphicMask[0] & (1 << (1-1)) ) 
+    PETLatX_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,1.)) );
+   else
+    PETLatX_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Top Polyethylene External Shield ** ****************
+
+  if( theC->GraphicMask[0] & (1 << (2-1)) ) 
+   PETupLatX_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,1.)) );
+  else
+   PETupLatX_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Boric Acid Shield ** ****************
+
+  if( theC->GraphicMask[0] & (1 << (3-1)) ) 
+   BAcidLatX_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,1.,0.)) );
+  else
+   BAcidLatX_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+
+// ** Lead External Shield ** ****************
+
+  if( theC->GraphicMask[0] & (1 << (4-1)) ) 
+   ExtPbLatX_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,1.,1.)) );
+  else
+   ExtPbLatX_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// *****************************************************************
+// *** Physical Volume ***   *****************************************
+// *****************************************************************
+
+// ** Effective Rock Layer ** ***************
+
+G4VPhysicalVolume* Rock_phys;
+Rock_phys = new G4PVPlacement (0, G4ThreeVector(0,0,0), "Rock_P", Rock_log, Hall_phys, false, 0);
+
+// ** MuonLatX Panels ** ******************
+
+G4VPhysicalVolume* MuonLatX_phys;
+MuonLatX_phys = new G4PVPlacement (0, POFF+G4ThreeVector(0,0,MuonH), "MuonLatX_P", MuonLatX_log, Hall_phys, false, 0);
+
+// ** Polyethylene External Shield ** ****************
+
+   G4VPhysicalVolume* PETLatX_phys;  
+   PETLatX_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,PETH),
+			  "PETLatX_P", 
+			  PETLatX_log, 
+			  Hall_phys , false, 0);
+
+// ** Top Polyethylene External Shield ** ****************
+   
+   G4VPhysicalVolume* PETupLatX_phys;  
+   PETupLatX_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,PETH*2+PETUpH+PETDist),
+			  "PETupLatX_P", 
+			  PETupLatX_log, 
+			  Hall_phys , false, 0);
+
+
+// ** Boric Acid Shield ** ****************
+
+   G4VPhysicalVolume* BAcidLatX_phys;  
+   BAcidLatX_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,PETHBot/2.+PETH),
+			  "BAcidLatX_P", 
+			  BAcidLatX_log, 
+			  Hall_phys , false, 0);
+
+
+// ** Lead External Shield ** ****************
+
+  if(theC->minEn >0) ExtPbLatX_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+//  PbRegion->AddRootLogicalVolume( ExtPbLat_log );
+   
+   G4VPhysicalVolume* ExtPbLatX_phys;  
+   ExtPbLatX_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,PETHBot/2.+PETH),
+			  "ExtPbLatX_P", 
+			  ExtPbLatX_log, 
+			  Hall_phys , false, 0);
+
+
+
+
+
+// *****************************************************************
+// *** Source ***   *****************************************
+// *****************************************************************
+
+// ** Rock Layer ** *******************
+if(Cel == 63) aSource.push_back(new G4DistributedSource(Rock, G4Transform3D(G4RotationMatrix(), G4ThreeVector(0, 0, 0)))); // G4ThreeVector(0, 0, 2224)
+
+// ** MuonLatX Panels ** ****************
+if(Cel == 64) aSource.push_back(new G4DistributedSource(MuonLatX, G4Transform3D(G4RotationMatrix(), G4ThreeVector(0,0, MuonH))));
+
+// ** Polyethylene External Shield ** ****************
+
+  if( Cel == 1 ) aSource.push_back(new G4DistributedSource(PETLatX,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,PETH))));
+
+// ** Top Polyethylene External Shield ** ****************
+   
+  if( Cel == 2 ) aSource.push_back(new G4DistributedSource(PETupLatX,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,PETH*2+PETUpH+PETDist))));
+
+// ** Boric Acid Shield ** ****************
+
+  if( Cel == 3 ) aSource.push_back(new G4DistributedSource(BAcidLatX,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,PETHBot/2.+PETH))));
+
+
+// ** Lead External Shield ** ****************
+
+  if( Cel == 4 ) aSource.push_back(new G4DistributedSource(ExtPbLatX,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,PETHBot/2.+PETH))));
+
+    if( theC->Mode == 3)
+    {
+        int v = theC->v1;
+
+        if(v == 0 || v == 1) PETLatX_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 2) PETupLatX_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 3) BAcidLatX_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 4) ExtPbLatX_phys->CheckOverlaps(theC->DebugEvents);
+    }
+
+

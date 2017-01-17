@@ -1,0 +1,484 @@
+G4double Epsilon=1;
+
+//**********************************************************
+//** Surrounding Rock ** ***********************************
+//**********************************************************
+G4double RockRadMax = 473 * cm;
+G4double RockRadMin = 373 * cm;
+G4double RockStartPhi = 0 * deg;
+G4double RockDeltaPhi = 360 * deg;
+//G4double RockStartTheta = 0 * deg;
+//G4double RockDeltaTheta = 25 * deg;
+
+//**********************************************************
+//** Muon Panel ** ****************************************
+//**********************************************************
+
+G4double MuonExtL = 137 * cm;
+G4double MuonIntL = 135 * cm;
+G4double MuonH = 100 * cm;
+
+//**********************************************************
+//** EXTERNAL SHIELDS ** ***********************************
+//**********************************************************
+
+G4double PETExtL = 130.0*cm ;  
+G4double PETIntL = 112.0*cm ;  
+G4double PETH = 174.*cm ;      
+G4double PETHBot = 20.*cm ;    
+G4double BAcidExtL = 112.0*cm ;
+G4double BAcidIntL = 110.0*cm ;
+G4double BAcidH = 164.*cm ;    
+//G4double BAcidHBot = 1.*cm ;   
+G4double PbExtL = 110.0*cm ;   
+G4double PbIntL = 85.0*cm ;    
+G4double PbH = 164.*cm ;       
+G4double PbHBot = 25.*cm ;     
+G4double PETUpExtL = 135.0*cm ;
+G4double PETUpIntL = 117.0*cm ;
+G4double PETUpH = 30.*cm ;     
+G4double PETHUpTop = 20.*cm ;  
+G4double PETDist = 25.*cm ;    
+
+//**********************************************************
+// ** CRYOSTAT ** ******************************************
+// *********************************************************
+
+// ** 1ST RADIATION SHIELD (300K) ** ***************************** 
+
+G4double CuRS1Z = 52*cm ;									//Da 52cm a 355 cm (il bottom della RS1Flan): 52+301.5(Alt)+1.5(SpesBottom)
+
+G4double CuRS1FlanRag = 103.0*cm ;								//18.03.13
+G4double CuRS1FlanSpes = 6.4*cm ;								//18.03.13
+
+G4double CuRS1Spes = 1.5*cm ;									//18.03.13
+G4double CuRS1Rag = 81.35*cm ;									//18.03.13 
+G4double CuRS1Alt = 264.8*cm ;									//18.03.13 Dal top del Cone1 (89.7) al bottom di RS1Flan
+G4double CuRS1Cone1Alt = 18.7*cm;								//19.03.13
+G4double CuRS1Cone2Rag = 71.35*cm;								//19.03.13
+G4double CuRS1Cone2Alt = 19*cm;									//19.03.13
+
+// ** 2ND RADIATION SHIELD (40K) ** ******************************
+
+G4double DistCuRS2CuRS1 = 5 *cm;								//19.03.13
+G4double CuRS2Z = CuRS1Z+DistCuRS2CuRS1; 							//19.03.13 Da 57cm a 333.5 cm (il bottom della RS2Flan): 57+276(Alt)+0.5(SpesBottom)
+
+G4double CuRS2FlanRag = 78.65*cm ;								//18.03.13
+G4double CuRS2FlanSpes = 2*cm ;									//18.03.13
+
+G4double CuRS2Spes = 0.5*cm ; 									//18.03.13
+G4double CuRS2Alt = 243.8*cm ;									//19.03.13 Dal top del Cone1 (89.7) al bottom di RS2Flan
+G4double CuRS2Rag = 75.65*cm ; 									//18.03.13
+G4double CuRS2Cone1Alt = 18.7*cm;								//19.03.13
+G4double CuRS2Cone2Rag = 65.65*cm;								//19.03.13
+G4double CuRS2Cone2Alt = 14*cm;									//19.03.13
+
+// ** 2ND RADIATION SHIELD SI (40K) ** ******************************				//17.02.14
+
+G4double SIRS2FlanRag = CuRS2FlanRag;
+G4double SIRS2FlanSpes = 0.0006*cm ;
+
+G4double SIRS2Spes =   0.0018*cm ;									
+G4double SIRS2Alt = CuRS2Alt;								
+G4double SIRS2Rag = CuRS2Rag-CuRS2Spes ; 									
+
+
+
+// ** 3RD RADIATION SHIELD (4K) ** *******************************
+
+G4double DistCuRS3CuRS2 = 3 *cm;								//19.03.13
+G4double CuRS3Z = CuRS2Z+DistCuRS3CuRS2;							//19.03.13 Da 60cm a 307.7 cm (il bottom della RS3Flan): 60+246.5(Alt)+1.2(SpesBottom)
+
+G4double CuRS3FlanRag = 73.65*cm ;								//18.03.13
+G4double CuRS3FlanSpes = 6*cm ;									//18.03.13
+
+G4double CuRS3Spes = 1.2*cm ;									//18.03.13
+G4double CuRS3Alt = 218.0*cm ;									//19.03.13 Dal top del Cone1 (89.7) al bottom di RS3Flan
+G4double CuRS3Rag = 69.15*cm ;									//18.03.13 
+G4double CuRS3Cone1Alt = 18.7*cm;								//19.03.13
+G4double CuRS3Cone2Rag = 59.15*cm;								//19.03.13
+G4double CuRS3Cone2Alt = 11*cm;									//19.03.13
+
+
+// ** 3ND RADIATION SHIELD SI (40K) ** ******************************				//17.02.14
+
+G4double SIRS3FlanRag = CuRS3FlanRag;
+G4double SIRS3FlanSpes = 0.0006*cm ;
+
+G4double SIRS3Spes =   0.0006*cm ;									
+G4double SIRS3Alt = CuRS3Alt;								
+G4double SIRS3Rag = CuRS3Rag-CuRS3Spes ; 									
+
+
+
+// **** 4TH RADIATION SHIELD (600mK) ** **************************
+
+G4double DistCuRS4CuRS3 = 29.7 *cm;								//19.03.13
+G4double CuRS4Z = CuRS3Z+DistCuRS4CuRS3;							//19.03.13 Da 89.7cm a 274.7 cm (bottom della CuRS4Flan): 89.7+185
+
+G4double CuRS4Rag = 56.0*cm ;		       							//18.01.13
+G4double CuRS4Alt = 169.5*cm ;		       							//21.01.13 L'altezza totale e` 185 cm: CuRS4Alt(169.5cm)+CuRS4ConeAlt(15cm)+CuRS4Spes(0.5)
+G4double CuRS4Spes = 0.5*cm ;									//18.01.13
+G4double CuRS4FlanRag = 66.65*cm ;								//18.01.13
+G4double CuRS4FlanSpes = 4.3*cm ;								//18.01.13
+G4double CuRS4RingRag = 58.0*cm ;								//21.01.13
+G4double CuRS4RingSpes = 2.0*cm ;								//21.01.13
+G4double CuRS4RingAlt = 2.95*cm ;								//21.01.13
+G4double CuRS4ConeRagInf = 40.5*cm ;								//21.01.13
+G4double CuRS4ConeAlt = 15.0*cm ;								//21.01.13
+
+G4double CuRS4FlanZ = CuRS4Z+CuRS4Spes+CuRS4ConeAlt+CuRS4Alt;					//19.03.13 Ovvero 274.7 cm
+
+// **** GIUNTI DI CU-BE ** **********************************					//06.05.13
+
+G4double GiuntiCuBeAlt = 129.6*mm;
+G4double GiuntiCuBeRag = 54*mm;
+G4double GiuntiCuBePosR = 59*cm;
+G4double GiuntiCuBeZ = CuRS4FlanZ - GiuntiCuBeAlt;
+
+// **** INTERNAL LEAD AROUND THE 600mK  ** ************************
+
+G4double DistPbRS4CuRingCuRS4Flan = 18.7*cm;							//18.03.13
+
+//** Top Copper Ring   **
+G4double PbRS4CuRingAlt = 8*cm ;								//18.03.13 
+G4double PbRS4CuRingRag = 66.65*cm ; 								//18.03.13
+G4double PbRS4CuRingSpes = 8.85*cm ;								//27.05.13 
+
+//** PbRom Lateral Cylinder  **
+G4double PbRS4Alt = 156.75*cm ;   								//27.05.13 L'altezza solo del cilindro di Pb Laterale
+G4double PbRS4Rag = 63.80*cm ;  								//27.05.13 raggio esterno del Pb
+G4double PbRS4Spes = 5.95*cm ;									//27.05.13 spessore laterale del Pb
+
+//Top Ring of the Cu crandle
+G4double PbRS4CuCrandleAltTop = 9.5*cm ;							//27.05.13  E` un anello con Rext=63.85cm, Rint=54.0cm, Alt=9.5cm
+G4double PbRS4CuCrandleSpesTop = 9.85*cm ;							//27.05.13  
+G4double PbRS4CuCrandleRagTop = 63.85*cm ;							//27.05.13  
+
+//Bottom of the Cu crandle
+G4double PbRS4CuCrandleAltBot = 3.5*cm ;							//27.05.13  E` un cilindro pieno
+G4double PbRS4CuCrandleRagBot = 57.5*cm ;
+
+
+//** Bottom Pb inside Cu crandle   **
+G4double PbRS4PbBotAlt = 6.0*cm ;							     	//18.03.13 
+G4double PbRS4PbBotRag = 54*cm ;							     	//18.03.13 Raggio esterno
+
+G4double PbRS4Z = CuRS4FlanZ-DistPbRS4CuRingCuRS4Flan-PbRS4CuRingAlt-PbRS4Alt-PbRS4CuCrandleAltTop-PbRS4CuCrandleAltBot;	//27.05.13 Da  a cm: cm						
+
+// **** STEEL RODS ** ******************************* 
+G4double SteelRodsHole = 16.*mm ;       
+G4double SteelRods = 9.*mm ;            
+G4double SteelRodsLenght = PbRS4CuCrandleAltBot+PbRS4CuCrandleAltTop+PbRS4Alt+PbRS4CuRingAlt+DistPbRS4CuRingCuRS4Flan+CuRS4FlanSpes+2*cm;            
+G4double SteelRodsCenterZ = 11*cm+PbRS4Z+PbRS4CuCrandleAltBot+(PbRS4CuCrandleAltTop+PbRS4Alt+PbRS4CuRingAlt+DistPbRS4CuRingCuRS4Flan+CuRS4FlanSpes)/2;
+
+
+// **** 5TH RADIATION SHIELD (50mK) ** ***********************************			//18.01.13
+
+G4double DistBotCuRS4BotCuRS5 = 6.0*cm ;							//24.01.13 Da 95.7cm a 260.7(bottom della CuRS5Flan): 95.7+0.5(CuRS5Spes)+5.5(CuRS5ConeAlt)+159(CuRS5Alt)
+G4double CuRS5Z = CuRS4Z+DistBotCuRS4BotCuRS5 ;							//24.01.13
+
+G4double CuRS5Rag = 51.5*cm ;									//18.01.13
+G4double CuRS5Alt = 159.0*cm;									//21.01.13
+G4double CuRS5Spes = 0.5*cm ;									//18.01.13
+G4double CuRS5FlanRag = 53.5*cm ;								//18.01.13
+G4double CuRS5FlanSpes = 2.8*cm ;								//18.01.13
+G4double CuRS5RingRag = 53.5*cm ;								//21.01.13
+G4double CuRS5RingSpes = 2.0*cm ;								//21.01.13
+G4double CuRS5RingAlt = 2.95*cm ;								//21.01.13
+G4double CuRS5ConeRagInf = 45.5*cm ;								//21.01.13
+G4double CuRS5ConeAlt = 5.5*cm ;								//21.01.13
+
+
+// **** 6TH RADIATION SHIELD (10mK) ** **********************************			//18.01.13
+
+G4double DistBotCuRS5BotCuRS6 = 6.0*cm; 							//24.01.13
+G4double CuRS6Z = CuRS5Z+DistBotCuRS5BotCuRS6 ; 						//24.01.13 Da 101.7cm a 238.7 cm (bottom della CuRS6Flan): 101.7+0.5(CuRS6BotAlt)+136.5(CuRS6Alt)
+
+G4double CuRS6Rag = 47.5*cm ;									//18.01.13
+G4double CuRS6Alt = 136.5*cm ;									//18.01.13
+G4double CuRS6Spes = 0.5*cm ;									//18.01.13
+G4double CuRS6TilesSpes = 0.05*cm ;									//18.01.13
+G4double CuRS6FlanRag = 49.0*cm ;								//18.01.13
+G4double CuRS6FlanSpes = 1.8*cm ;								//18.01.13
+G4double CuRS6RingRag = 49.0*cm ;								//21.01.13
+G4double CuRS6RingSpes = 1.5*cm ;								//21.01.13
+G4double CuRS6RingAlt = 2.8*cm ;								//21.01.13
+G4double CuRS6BotRag = 49.0*cm ;								//21.01.13
+G4double CuRS6BotAlt = 0.5*cm ; 								//21.01.13
+G4double CuRS6RingDouble1ZRelToRing0 = -35.8*cm ;						//22.01.13
+G4double CuRS6RingDouble2ZRelToRing0 = -60.3*cm ;						//22.01.13
+G4double CuRS6RingDouble3ZRelToRing0 = -84.3*cm ;						//22.01.13
+G4double CuRS6RingDouble4ZRelToRing0 = -108.3*cm ;						//22.01.13
+G4double CuRS6Ring5ZRelToRing0 = -133.7*cm ;							//21.01.13
+
+G4double CuRS6FlanZ = CuRS6Z+CuRS6BotAlt+CuRS6Alt;						//22.01.13 Ovvero 238.7cm: 101.7+0.5+136.5
+
+// **** 6TH RADIATION SHIELD Poly WRAPPING(10mK) ** **********************************		//07.11.13
+
+//G4double PETRS6Rag = 47*cm ;									//07.11.13
+//G4double PETRS6Alt = 136.5*cm ;									//07.11.13
+//G4double PETRS6Spes = 0.007*cm ;								//07.11.13
+
+//G4double PETRS6Z = CuRS6Z + CuRS6BotAlt; 
+
+// **** INTERNAL TOP PLATES SHIELDS  ** **********************************			//22.01.13
+
+// ** Cu top plate above Std Pb** **************************************			//22.01.13
+
+G4double DistCuRS6FlanCuTopPlate = 6.0*cm;
+G4double CuTopPlateRag = 45.0*cm ;								//22.01.13
+G4double CuTopPlateSpes = 1.8*cm ;								//27.05.13
+G4double CuTopPlateZ = CuRS6FlanZ-DistCuRS6FlanCuTopPlate-CuTopPlateSpes;			//22.01.13 Ovvero 230.9 cm : 238.7-6-1.8
+
+// ** Std Pb plug ** ***************************************************			//22.01.13
+
+G4double StdPbRag = 45.0*cm ;									//22.01.13
+G4double StdPbSpes = 30.0*cm ;									//30July2015
+G4double StdPbZ =  CuTopPlateZ-StdPbSpes;							//22.01.13 Ovvero 206.9 cm: 230.9-24
+
+
+// ** Roman Lead plug ** ***********************************************			//22.01.13
+/*
+G4double PbRRag = 45.0*cm ;									//22.01.13
+G4double PbRSpes = 6.0*cm ;									//22.01.13
+//G4double PbRZ =  CuMiddlePlateZ-PbRSpes;							//22.01.13 Ovvero 199.3 cm: 205.3-6
+G4double PbRZ = StdPbZ-PbRSpes;									//27.05.13 Ovvero 200.9 cm: 206.9-6
+*/
+// ** Cu bottom plate below Roman Pb ** *********************************			//22.01.13
+
+G4double CuBottomPlateRag = 45.0*cm ;								//22.01.13
+G4double CuBottomPlateSpes = 4.6*cm ;								//22.01.13
+//G4double CuBottomPlateZ =  PbRZ-CuBottomPlateSpes;
+G4double CuBottomPlateZ = StdPbZ - CuBottomPlateSpes; //22.01.13 Ovvero 196.3 cm: 200.9-4.6
+G4double SoapPbR1 = 1*cm;
+G4double SoapPbR2 = 2*cm;
+G4double SoapPbAlt = 0.1*mm;
+G4double SoapPbZ = CuBottomPlateZ-SoapPbAlt;
+	
+// ** Cu TSP plate ** **************************************************			//22.01.13
+
+G4double DistCuBottomPlateCuTSP = 7.68*cm ;							//27.05.13
+G4double CuTSPRag = 45.0*cm ;									//22.01.13
+G4double CuTSPAlt = 4.8*cm ;									//27.05.13
+G4double CuTSPZ = CuBottomPlateZ-DistCuBottomPlateCuTSP-CuTSPAlt ;				//22.01.13 Ovvero 183.82 cm: 196.3-7.68-4.8
+G4double SoapTSPR1 = 1*cm;
+G4double SoapTSPR2 = 2*cm;
+G4double SoapTSPAlt = 0.1*mm;
+G4double SoapTSPZ = CuTSPZ-SoapTSPAlt;
+
+
+// **** DETECTOR CU PLATES ** ******************************************			//22.01.13
+
+// ** Detector Cu Up plate ** ******************************************			//22.01.13
+
+G4double CuDetUpPlateRag = 46.0*cm ;								//22.01.13
+G4double CuDetUpPlateSpes = 1.*mm ;								//01.02.14 Corretto da 1 cm ad 1 mm!!!
+G4double CuDetUpPlateZ =  CuTSPZ-CuDetUpPlateSpes;						//22.01.13 Ovvero 182.7 cm: 182.7-1
+
+// ** Detector Cu Up plate wrapping ** *********************************			//22.01.13
+
+//G4double PETDetUpPlateRag = 46.0*cm ;								//22.01.13
+//G4double PETDetUpPlateSpes = 0.007*cm ; 							//22.01.13
+//G4double PETDetUpPlateZ =  CuDetUpPlateZ-PETDetUpPlateSpes;					//22.01.13 Ovvero 182.693 cm: 182.7-0.007
+
+// ** Detector Cu bottom plate ** **************************************			//22.01.13
+
+G4double DistCuDetUpPlateCuDetBottomPlate = 79.1*cm ;						//01.02.14
+G4double CuDetBottomPlateRag = 46.0*cm ;							//22.01.13
+G4double CuDetBottomPlateSpes = 1.0*mm ;							//01.02.14 Corretto da 1 cm ad 1 mm!!!
+G4double CuDetBottomPlateZ = CuDetUpPlateZ-DistCuDetUpPlateCuDetBottomPlate-CuDetBottomPlateSpes;//22.01.13 Ovvero 102.8 cm: 182.7-78.9-1
+
+// ** Detector Cu bottom plate wrapping** ******************************			//22.01.13
+
+//G4double PETDetBottomPlateRag = 46.0*cm ;							//22.01.13
+//G4double PETDetBottomPlateSpes = 0.007*cm ;							//22.01.13
+//G4double PETDetBottomPlateZ = CuDetBottomPlateZ+CuDetBottomPlateSpes;				//22.01.13 Ovvero 103.8 cm: 102.8+1
+
+
+// **** DCS - CALIBRATION TUBES ** **************************************			//29.02.14after T.Wise e-mail(03/02/2014) 
+
+G4double CalTubeCuRag = 4.0*mm ; 		      
+G4double CalTubeCuSpes = 1.0*mm;
+G4double CalTubeLen = 90.48*cm;                 	//Da 12 mm sotto il CuBottomPlateBelowRomanPb al top del CuDetBotPlate (tutto il tubo finale incluso l'imbuto di 2.6cm in alto) 	   		  
+//G4double CalTubeZ = CuDetBottomPlateZ+CuDetBottomPlateSpes+CalTubeLen/2.;        //In basso parte dal top del CuDetBotPlate          	   		  
+G4double CalTubeZ = CuDetBottomPlateZ+CuDetBottomPlateSpes;        //15.10.14 SC: In basso parte dal top del CuDetBotPlate. Corretto errore (aggiungevo +CalTubeLen/2.)      	   		  
+
+G4double SourceTeflonRag = 0.9*mm ;
+G4double SourceTeflonSpes = 0.1*mm;
+G4double SourceCuRag = 0.8*mm ;	   
+G4double SourceCuSpes = 0.35*mm;
+G4double SourceTungstenRag = 0.1*mm ;
+G4double SourceZ = CuDetBottomPlateZ+CuDetBottomPlateSpes;		//15.10.14 SC: In basso parte dal top del CuDetBotPlate. Corretto errore (aggiungevo +SourceLen/2.)
+G4double SourceCapsuleLen = 8*mm;
+G4double WeightCapsuleLen = 6.35*mm;
+
+G4double CapsuleSpacing[34] = {0.1*cm, 1.4*cm, 2.7*cm, 4*cm, 5.3*cm, 6.6*cm, 7.9*cm, 9.2*cm, 10.5*cm, 13.4*cm, 16.3*cm, 19.2*cm, 22.1*cm, 25.0*cm, 27.9*cm, 30.8*cm, 33.7*cm, 36.6*cm, 39.5*cm, 42.4*cm, 45.3*cm, 48.2*cm, 51.1*cm, 54.0*cm, 56.9*cm, 59.8*cm, 62.7*cm, 65.6*cm, 68.5*cm, 71.4*cm, 74.3*cm, 77.2*cm, 80.1*cm, 83.0*cm}; // 11Jun2015 CD: vertical spacing of capsules. The last entry is only needed for the Internal Capsules
+
+
+
+//**********************************************************
+//** DETECTOR** ********************************************
+//**********************************************************
+
+
+G4double WireTraySpes = 1*mm ;    
+G4double WireTrayLat = 20*mm ;
+G4double WireTrayVLenght = 4*mm ;	//29.04.14 SC 
+G4double WireTrayVSpes = 1*mm;		//29.04.14 SC 
+G4double WireTrayVh = 6*mm;		//29.04.14 SC 
+G4double WireTrayArmLenght = 16*mm ;	//29.04.14 SC 
+G4double WireTrayArmSpes = 1*mm;	//29.04.14 SC 
+G4double WireTrayArmh = 6*mm;		//29.04.14 SC 
+
+G4double PENTapeSpes = 0.8*mm ;    
+G4double PENTapeLat = 16*mm ;
+G4double PENTapeArmLat = 9*mm ;		//SC:15.04.14
+G4double PENTapeArmAlt = 6*mm ;		//SC:15.04.14
+
+G4double WirePadSpes = 0.1*mm ;   
+G4double WirePadAlt = 5*mm ;
+G4double WirePadLung = 11*mm ;
+
+//G4double TopTowerSpes = 0.5*cm ;  //24.01.13 SC: sbaglio o non esiste piu` il piattino sopra ogni torre????
+//G4double TopTowerLat = 14.0*cm ;
+//G4double TopTowerZ = 179.5*cm ;
+
+
+
+// ** Detector ** ******************************
+
+// ** Frame **
+
+G4double FrameL = 12.2*cm;
+G4double FrameH = 1.2*cm;
+G4double FrameW = 0.4*cm;
+G4double FrameHoC = 3.87*cm;
+G4double FrameHoX = (FrameL-3*FrameW)/2.;
+//G4double FrameHoY = FrameL-2*FrameW;
+G4double FrameHoSX = 3.82*cm;//31.01.13 SC, era 3.72
+//G4double FrameHoSY = 12.2*cm;//31.01.13 SC, era 12.5
+G4double FrameHoSZ = 0.3*cm;
+//G4double FrameHoSV = FrameH-FrameHoSZ/2.;		//31.01.13 SC
+G4double Frameh = FrameH-2*FrameHoSZ;			//25.01.13 SC cioe`6*cm
+
+// ** Crystals **
+
+//const G4int NPlanes = theC->NumberOfPlanes;
+const G4int NPlanes = 13;
+const G4int NCrystals = 4;
+G4double TeO2Lato = 5*cm;
+G4double TeO2LDist = (FrameHoX-TeO2Lato)/2.;
+G4double PlaneH = 5.8*cm;				//SC ovvero dal fondo del frame basso al fondo del frame alto. 
+G4double dtmp = (FrameL-TeO2Lato)/2-FrameW-TeO2LDist;
+
+G4double ColumnRag = 0.15*cm;
+G4double ColumnL = PlaneH-FrameH;
+
+// NTD
+G4double NTDX = 1. * mm;   
+G4double NTDY = 2.9 * mm;
+G4double NTDZ = 3. * mm;
+
+G4double NTDoff = 1.5*cm;
+G4ThreeVector NTDO = G4ThreeVector(0.,0.,NTDoff);
+
+// Gold wires
+//G4double GWireRad = 0.005 * cm;
+//G4double GWireCutZ =-NTDX/2+FrameW+TeO2LDist;
+
+G4double DistCuDetUpPlateTowersTop = 1.4*cm;
+G4double DistCuDetBottomPlateTowersBottom = 1.5*cm;
+
+G4double TowerH = PlaneH*NPlanes+Frameh;		//24.01.13 SC
+//G4double TowerH = PlaneH*NPlanes;
+//G4cout << "Tower Height: " << TowerH << G4endl;
+G4double TowersCenterZ= CuDetUpPlateZ - DistCuDetUpPlateTowersTop - TowerH/2.;
+//G4double TowersBottomZ= CuDetBottomPlateZ + CuDetBottomPlateSpes + DistCuDetUpPlateTowersTop ;
+G4double TowersBottomZ= CuDetUpPlateZ - DistCuDetUpPlateTowersTop - TowerH;
+G4double TowersTopZ= CuDetUpPlateZ - DistCuDetUpPlateTowersTop;
+
+
+//**********************************************************
+//** DUMMY elements** **************************************
+//**********************************************************
+
+//DUMMY Flat Cylinder around top part of PbRLat
+G4double DummyLatZ=231.5*cm;
+G4double DummyLatAlt=47.5*cm;
+G4double DummyLatRag=SIRS3Rag-SIRS3Spes;
+//G4double DummyLatRag=67.95*cm;
+G4double DummyLatSpes=0.0001*cm;
+
+//DUMMY Flat Partial Disk at top of PbRLat
+G4double DummyTopZ=279*cm;
+G4double DummyTopAlt=0.0001*cm;
+G4double DummyTopRag=67.95*cm;
+G4double DummyTopSpes=50.76*cm;
+
+
+
+//**********************************************************
+//** CENTERS coordinates** *********************************
+//**********************************************************
+
+// **** CENTERS OF SCASSI NEL CuRS4 relativamente al centro dell'RS4lat ** **
+
+NumScassiRS4=0;
+NumScassiRS4++; ScassiRS4Pos.push_back( G4ThreeVector (GiuntiCuBePosR,0.,(CuRS4Alt-GiuntiCuBeAlt)/2.) ); // 1           
+NumScassiRS4++; ScassiRS4Pos.push_back( G4ThreeVector (-GiuntiCuBePosR*0.5,GiuntiCuBePosR*0.866,(CuRS4Alt-GiuntiCuBeAlt)/2.) ); // 2
+NumScassiRS4++; ScassiRS4Pos.push_back( G4ThreeVector (-GiuntiCuBePosR*0.5,-GiuntiCuBePosR*0.866,(CuRS4Alt-GiuntiCuBeAlt)/2.) ); // 3
+
+
+// **** CENTERS OF SOURCES ** **
+
+// ** Centers of internal sources ** ** 
+NumHoles=0;
+NumHoles++; HoleP.push_back( G4ThreeVector (147.,80.,0.) ); // 1           
+NumHoles++; HoleP.push_back( G4ThreeVector (147.,-80.,0.) ); // 2
+NumHoles++; HoleP.push_back( G4ThreeVector (-147.,80.,0.) ); // 3
+NumHoles++; HoleP.push_back( G4ThreeVector (-147.,-80.,0.) ); // 4
+NumHoles++; HoleP.push_back( G4ThreeVector (0.,214.,0.) ); // 5
+NumHoles++; HoleP.push_back( G4ThreeVector (0.,-214.,0.) ); // 6
+
+// ** Centers of external sources ** ** 
+NumHolesExt=0;
+NumHolesExt++; HolePExt.push_back( G4ThreeVector (458.99,265,0.) ); // 1          
+NumHolesExt++; HolePExt.push_back( G4ThreeVector (458.99,-265,0.) ); // 2
+NumHolesExt++; HolePExt.push_back( G4ThreeVector (-458.99,265,0.) ); // 3
+NumHolesExt++; HolePExt.push_back( G4ThreeVector (-458.99,-265,0.) ); // 4
+NumHolesExt++; HolePExt.push_back( G4ThreeVector (0.,530.,0.) ); // 5
+NumHolesExt++; HolePExt.push_back( G4ThreeVector (0.,-530.,0.) ); // 6
+
+
+// **** CENTERS OF STEEL RODS (tiranti PbR)** **
+
+G4double Raggio = PbRS4Rag-PbRS4Spes/2.+0.7*cm;
+PbRS4LatHoleP.push_back( G4ThreeVector (Raggio,0.,0.) );     
+PbRS4LatHoleP.push_back( G4ThreeVector (-Raggio,0.,0.) );           
+PbRS4LatHoleP.push_back( G4ThreeVector (Raggio/2,Raggio*0.866,0.) );
+PbRS4LatHoleP.push_back( G4ThreeVector (Raggio/2,-Raggio*0.866,0.) );
+PbRS4LatHoleP.push_back( G4ThreeVector (-Raggio/2,Raggio*0.866,0.) );
+PbRS4LatHoleP.push_back( G4ThreeVector (-Raggio/2,-Raggio*0.866,0.) );
+
+
+G4ThreeVector ACRodsHoleP[3] = {PbRS4LatHoleP[1], PbRS4LatHoleP[2], PbRS4LatHoleP[3]};
+//G4ThreeVector ACRodsHoleP[3] ={G4ThreeVector (Raggio, 0., 0.), G4ThreeVector (-Raggio/2, Raggio*0.866, 0.), G4ThreeVector (-Raggio/2, -Raggio * 0.866, 0.)};
+
+// **** CENTERS OF GIUNTI CU_BE ** **
+
+NumGiuntiCuBe=0;
+GiuntiCuBePosR=Raggio;
+NumGiuntiCuBe++; GiuntiCuBePos.push_back( G4ThreeVector (GiuntiCuBePosR,0.,GiuntiCuBeZ+GiuntiCuBeAlt/2.) ); // 1           
+NumGiuntiCuBe++; GiuntiCuBePos.push_back( G4ThreeVector (-GiuntiCuBePosR*0.5,GiuntiCuBePosR*0.866,GiuntiCuBeZ+GiuntiCuBeAlt/2.) ); // 2
+NumGiuntiCuBe++; GiuntiCuBePos.push_back( G4ThreeVector (-GiuntiCuBePosR*0.5,-GiuntiCuBePosR*0.866,GiuntiCuBeZ+GiuntiCuBeAlt/2.) ); // 3
+
+
+////////////////////////////
+
+G4int counterT = 0, counterF = 0, counterB = 0, counterWT = 0, counterPT = 0, counterWP = 0, counterN = 0; 
+G4int j,k;
+
+G4ThreeVector v3f = G4ThreeVector();						 
+G4ThreeVector v3s(1.,1.,1.);
+G4double xt,yt,zt,x1w,y1w,z1w,r1w,x2w,y2w,z2w,r2w;									 

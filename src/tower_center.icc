@@ -1,0 +1,22 @@
+// tower centers
+
+  NumTowers++; TowersC.push_back( G4ThreeVector () ); // 1
+  NumTowers++; TowersC.push_back( G4ThreeVector (147.,0.,0.) ); // 2
+  NumTowers++; TowersC.push_back( G4ThreeVector (-147.,0.,0.) ); // 3
+  NumTowers++; TowersC.push_back( G4ThreeVector (294.,0.,0.) ); // 4
+  NumTowers++; TowersC.push_back( G4ThreeVector (-294.,0.,0.) ); // 5
+  NumTowers++; TowersC.push_back( G4ThreeVector (73.5,147.,0.) ); // 6
+  NumTowers++; TowersC.push_back( G4ThreeVector (-73.5,147.,0.) ); // 7
+  NumTowers++; TowersC.push_back( G4ThreeVector (220.5,147.,0.) ); // 8
+  NumTowers++; TowersC.push_back( G4ThreeVector (-220.5,147.,0.) ); // 9
+  NumTowers++; TowersC.push_back( G4ThreeVector (73.5,-147.,0.) ); // 10
+  NumTowers++; TowersC.push_back( G4ThreeVector (-73.5,-147.,0.) ); // 11
+  NumTowers++; TowersC.push_back( G4ThreeVector (220.5,-147.,0.) ); // 12
+  NumTowers++; TowersC.push_back( G4ThreeVector (-220.5,-147.,0) ); // 13
+  NumTowers++; TowersC.push_back( G4ThreeVector (0.,294.,0.) ); // 14
+  NumTowers++; TowersC.push_back( G4ThreeVector (147.,294.,0.) ); // 15
+  NumTowers++; TowersC.push_back( G4ThreeVector (-147.,294.,0.) ); // 16
+  NumTowers++; TowersC.push_back( G4ThreeVector (0.,-294.,0.) ); // 17
+  NumTowers++; TowersC.push_back( G4ThreeVector (147.,-294.,0.) ); // 18
+  NumTowers++; TowersC.push_back( G4ThreeVector (-147.,-294.,0.) ); // 19
+

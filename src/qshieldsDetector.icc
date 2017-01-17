@@ -1,0 +1,781 @@
+// *****************************************************************
+// *** Define Solids ***   *****************************************
+// *****************************************************************
+
+// **** TeO2 crystals ************
+
+  G4Box * TeO2
+    = new G4Box("TeO2", 
+        	TeO2Lato/2., 
+        	TeO2Lato/2., 
+        	TeO2Lato/2. );
+
+// **** Cu Frames and columns ****
+
+  G4VSolid * FrameC 					//04.02.13 SC: Solido per i frame centrali
+    = new G4Box("FrameC", 
+        	FrameL/2., 
+        	FrameL/2., 
+        	FrameH/2. );
+
+  G4VSolid * FrameT 					//04.02.13 SC: Solido per il top frame
+    = new G4Box("FrameT", 
+        	FrameL/2., 
+        	FrameL/2., 
+        	FrameH/2. );
+
+  G4VSolid * FrameB 					//04.02.13 SC: Solido per il bottom frame
+    = new G4Box("FrameB", 
+        	FrameL/2., 
+        	FrameL/2., 
+        	FrameH/2. );
+
+
+  G4Box * FrameHoleC1 					//04.02.13 SC: 4 buchi per alloggiamento cristalli                        
+		   = new G4Box("FrameHoleC", 
+		        	FrameHoX/2., 
+		        	FrameHoX/2., 
+		        	FrameH/2.+1.e-1 );
+
+  G4Box * FrameHoleC2    				//04.02.13 SC: 2 buchi per creare l'apertura in mezzo                       
+		   = new G4Box("FrameHoleC", 
+		        	FrameHoC/2., 
+		        	FrameW/2.+1.e-1, 
+		        	FrameH/2.+1.e-1 );
+
+  G4Box * FrameTBcut         				//04.02.13 SC: taglio di slab perche` top e bottom non hanno uno strato di spessore  FrameHoSZ                    
+		   = new G4Box("FrameTBcut", 
+		        	FrameL/2.+1.e-1, 
+		        	FrameL/2.+1.e-1, 
+		        	FrameHoSZ/2.+1.e-1);
+  G4Box * FrameHoleTB1                     		//04.02.13 SC: 4 buchi per alloggiamento cristalli in top e bottom (spessore inferiore di quello centrale!)         
+		   = new G4Box("FrameHoleTB", 
+		        	FrameHoX/2., 
+		        	FrameHoX/2., 
+		        	(FrameH-FrameHoSZ)/2.+1.e-1 );
+
+  G4Box * FrameHoleTB2                       		//04.02.13 SC: 2 buchi per apertura in mezzo in top e bottom (spessore inferiore di quello centrale!)                       
+		   = new G4Box("FrameHoleTB", 
+		        	FrameHoC/2., 
+		        	FrameW/2.+1.e-1, 
+		        	(FrameH-FrameHoSZ)/2.+1.e-1 );
+				
+  G4Box * FrameScasso1                         
+		   = new G4Box("FrameScasso", 
+		        	FrameHoSX/2.,
+		        	FrameW/2.+1.e-1, 
+		        	FrameHoSZ/2.+1.e-1 );
+
+  G4Box * FrameScasso2                         
+		   = new G4Box("FrameScasso", 
+		        	FrameW/2.+1.e-1, 
+		        	FrameHoSX/2., 
+		        	FrameHoSZ/2.+1.e-1 );
+
+  for ( G4int it=0; it<NCrystals; it++ ) {		//04.02.13 SC: FRAME CENTRALI    
+
+     FrameC = new G4SubtractionSolid ( "FrameC", FrameC,	  
+  			  FrameHoleC1,new G4RotationMatrix(),
+  			  G4ThreeVector((2*(it%2)-1)*dtmp,(2*(it/2)-1)*dtmp,0.));
+ 			  
+     FrameC = new G4SubtractionSolid ( "FrameC", FrameC,	  
+			FrameScasso1,new G4RotationMatrix(),
+			G4ThreeVector((2*(it%2)-1)*dtmp,(2*(2*(it/2)-1)*dtmp),(Frameh+FrameHoSZ)/2.));       
+
+     FrameC = new G4SubtractionSolid ( "FrameC", FrameC,	  
+			FrameScasso1,new G4RotationMatrix(),
+			G4ThreeVector((2*(it%2)-1)*dtmp,(2*(2*(it/2)-1)*dtmp),-(Frameh+FrameHoSZ)/2.));       
+
+     FrameC = new G4SubtractionSolid ( "FrameC", FrameC,	  
+			FrameScasso2,new G4RotationMatrix(),
+			G4ThreeVector((2*(2*(it/2)-1)*dtmp),(2*(it%2)-1)*dtmp,(Frameh+FrameHoSZ)/2.));       
+
+     FrameC = new G4SubtractionSolid ( "FrameC", FrameC,	  
+			FrameScasso2,new G4RotationMatrix(),
+			G4ThreeVector((2*(2*(it/2)-1)*dtmp),(2*(it%2)-1)*dtmp,-(Frameh+FrameHoSZ)/2.));       
+  }
+  
+				
+  for ( G4int it=0; it<2; it++ ) {				
+     FrameC = new G4SubtractionSolid ( "FrameC", FrameC,	  
+			FrameHoleC2,new G4RotationMatrix(),
+			G4ThreeVector((2*(it%2)-1)*dtmp,0.,0.));
+
+ 
+     FrameC = new G4SubtractionSolid ( "FrameC", FrameC,	  
+			FrameScasso2,new G4RotationMatrix(),
+			G4ThreeVector(0.,(2*(it%2)-1)*dtmp,(2*(it%2)-1)*(Frameh+FrameHoSZ)/2.));
+
+     FrameC = new G4SubtractionSolid ( "FrameC", FrameC,	  
+			FrameScasso2,new G4RotationMatrix(),
+			G4ThreeVector(0.,(2*(it%2)-1)*dtmp,-(2*(it%2)-1)*(Frameh+FrameHoSZ)/2.));
+
+  }
+
+  
+  FrameT = new G4SubtractionSolid ( "FrameT", FrameT, 		//04.02.13 SC: FRAME TOP
+		      FrameTBcut,new G4RotationMatrix(),
+		      G4ThreeVector(0.,0.,(Frameh+FrameHoSZ)/2.));
+
+  for ( G4int it=0; it<NCrystals; it++ ) {
+     FrameT = new G4SubtractionSolid ( "FrameT", FrameT,	
+			FrameHoleTB1,new G4RotationMatrix(),
+			G4ThreeVector((2*(it%2)-1)*dtmp,(2*(it/2)-1)*dtmp,-FrameHoSZ/2.));
+        		
+
+     FrameT = new G4SubtractionSolid ( "FrameT", FrameT,					  
+		    FrameScasso1,new G4RotationMatrix(),
+		    G4ThreeVector((2*(it%2)-1)*dtmp,(2*(2*(it/2)-1)*dtmp),-(Frameh+FrameHoSZ)/2.));	  
+
+
+     FrameT = new G4SubtractionSolid ( "FrameT", FrameT,					  
+		    FrameScasso2,new G4RotationMatrix(),
+		    G4ThreeVector((2*(2*(it/2)-1)*dtmp),(2*(it%2)-1)*dtmp,-(Frameh+FrameHoSZ)/2.));	  
+  }
+        		      
+  for ( G4int it=0; it<2; it++ ) {			    
+     FrameT = new G4SubtractionSolid ( "FrameT", FrameT,      
+		    FrameHoleTB2,new G4RotationMatrix(),
+		    G4ThreeVector((2*(it%2)-1)*dtmp,0.,-FrameHoSZ/2.));
+
+
+     FrameT = new G4SubtractionSolid ( "FrameT", FrameT,      
+		    FrameScasso2,new G4RotationMatrix(),
+		    G4ThreeVector(0.,(2*(it%2)-1)*dtmp,-(Frameh+FrameHoSZ)/2.));
+
+  }
+
+
+
+  FrameB = new G4SubtractionSolid ( "FrameB", FrameB,  		//04.02.13 SC: FRAME BOTTOM
+		      FrameTBcut,new G4RotationMatrix(),
+		      G4ThreeVector(0.,0.,-(Frameh+FrameHoSZ)/2.));
+
+  for ( G4int it=0; it<NCrystals; it++ ) {
+     FrameB = new G4SubtractionSolid ( "FrameB", FrameB,	
+			FrameHoleTB1,new G4RotationMatrix(),
+			G4ThreeVector((2*(it%2)-1)*dtmp,(2*(it/2)-1)*dtmp,+FrameHoSZ/2.));
+        		
+
+     FrameB = new G4SubtractionSolid ( "FrameB", FrameB,					  
+		    FrameScasso1,new G4RotationMatrix(),
+		    G4ThreeVector((2*(it%2)-1)*dtmp,(2*(2*(it/2)-1)*dtmp),+(Frameh+FrameHoSZ)/2.));	  
+
+
+     FrameB = new G4SubtractionSolid ( "FrameB", FrameB,					  
+		    FrameScasso2,new G4RotationMatrix(),
+		    G4ThreeVector((2*(2*(it/2)-1)*dtmp),(2*(it%2)-1)*dtmp,+(Frameh+FrameHoSZ)/2.));	  
+  }
+        		      
+  for ( G4int it=0; it<2; it++ ) {			    
+     FrameB = new G4SubtractionSolid ( "FrameB", FrameB,      
+		    FrameHoleTB2,new G4RotationMatrix(),
+		    G4ThreeVector((2*(it%2)-1)*dtmp,0.,+FrameHoSZ/2.));
+
+
+     FrameB = new G4SubtractionSolid ( "FrameB", FrameB,      
+		    FrameScasso2,new G4RotationMatrix(),
+		    G4ThreeVector(0.,(2*(it%2)-1)*dtmp,+(Frameh+FrameHoSZ)/2.));
+
+  }
+
+    
+  G4Tubs * Column			//Columns
+  		= new G4Tubs("Column",   
+		0.,
+		ColumnRag,
+		ColumnL/2.0,
+		0.0*deg, theC->CAngle*deg );
+
+
+ //********** ** WIRE TRAY ** ***********************************
+
+double WOffset = -6.; 
+double wOffset = 0.; 
+G4ThreeVector MTOffset = G4ThreeVector(0,0,-6);
+/*
+if( theC->NumberOfPlanes>0 ) {
+  MTOffset = G4ThreeVector(0,0,-6);
+  WOffset = -6 + TowerH/2.*(13-theC->NumberOfPlanes)/13.;
+  wOffset = TowerH/2.*(13-theC->NumberOfPlanes)/13.;
+}
+*/
+G4VSolid * WireTray; 
+    WireTray = new G4Box("WireTray",  //canaline
+ 		 WireTraySpes/2,
+ 		 WireTrayLat/2,
+ 		 TowerH/2.0);						//27.06.13 SC 
+G4VSolid * WireTrayV;
+    WireTrayV = new G4Box("WireTrayV",  //canaline
+ 		 WireTrayVLenght/2,
+ 		 WireTrayVSpes/2,
+ 		 WireTrayVh/2.0);						//29.04.14 SC 
+G4VSolid * WireTrayArm;
+    WireTrayArm = new G4Box("WireTrayArm",  //canaline
+ 		 WireTrayArmSpes/2,
+ 		 WireTrayArmLenght/2,
+ 		 WireTrayArmh/2.0);						//29.04.14 SC 
+G4VSolid * WireTrayCover;
+    WireTrayCover = new G4Box("WireTrayCover",  //canaline
+ 		 WireTraySpes/2,
+ 		 WireTrayLat/2,
+ 		 TowerH/2.0);							 
+  for ( G4int k=0; k<NPlanes+1; k++) {						//29.04.14 SC 
+      WireTrayCover = new G4UnionSolid ("WireTrayCover",WireTrayCover,
+  			WireTrayV, new G4RotationMatrix(),
+			G4ThreeVector(WireTrayVLenght/2-WireTraySpes/2,WireTrayLat/2+WireTrayVSpes/2,-TowerH/2.+k*PlaneH+Frameh/2.-wOffset));
+      WireTrayCover = new G4UnionSolid ("WireTrayCover",WireTrayCover,
+  			WireTrayV, new G4RotationMatrix(),
+			G4ThreeVector(WireTrayVLenght/2-WireTraySpes/2,-(WireTrayLat/2+WireTrayVSpes/2),-TowerH/2.+k*PlaneH+Frameh/2.-wOffset));
+      WireTrayCover = new G4UnionSolid ("WireTrayCover",WireTrayCover,
+  			WireTrayArm, new G4RotationMatrix(),
+			G4ThreeVector(WireTrayVLenght-WireTraySpes/2-WireTrayArmSpes/2,+(WireTrayLat/2+WireTrayVSpes+WireTrayArmLenght/2),-TowerH/2.+k*PlaneH+Frameh/2.-wOffset));
+      WireTrayCover = new G4UnionSolid ("WireTrayCover",WireTrayCover,
+  			WireTrayArm, new G4RotationMatrix(),
+			G4ThreeVector(WireTrayVLenght-WireTraySpes/2-WireTrayArmSpes/2,-(WireTrayLat/2+WireTrayVSpes+WireTrayArmLenght/2),-TowerH/2.+k*PlaneH+Frameh/2.-wOffset));
+  }			
+			
+
+WireTray = new G4UnionSolid ("WireTray",WireTray,				//29.04.14 SC 
+  			WireTrayCover, new G4RotationMatrix(),
+			G4ThreeVector(WireTraySpes/2+PENTapeSpes+WireTraySpes/2,0.,0.));			
+   
+
+
+
+// **** PEN Tape ** ***********************************
+
+  G4VSolid * PENTape; 
+    PENTape = new G4Box("PENTape",  
+    	 PENTapeSpes/2,
+    	 PENTapeLat/2,
+    	 TowerH/2.0);
+	 
+  G4VSolid * PENTapeArm;			 		//SC:15.04.14 Aggiunto braccetti laterali del PENTape
+    PENTapeArm = new G4Box("PENTapeArm",  
+    	 PENTapeSpes/2,
+    	 PENTapeArmLat/2,
+    	 PENTapeArmAlt/2.0);
+	 
+
+  for ( G4int k=0; k<NPlanes+1; k++) {				//SC:15.04.14 		    
+ 	 PENTape = new G4UnionSolid ("PENTape", PENTape,
+  			PENTapeArm, new G4RotationMatrix(),
+			G4ThreeVector(0.,PENTapeLat/2.+PENTapeArmLat/2.,-TowerH/2.+k*PlaneH+FrameH/2.-Frameh/2.+PENTapeArmAlt+WOffset));
+ 	 PENTape = new G4UnionSolid ("PENTape", PENTape,
+  			PENTapeArm, new G4RotationMatrix(),
+			G4ThreeVector(0.,-PENTapeLat/2.-PENTapeArmLat/2.,-TowerH/2.+k*PlaneH+FrameH/2.-Frameh/2.+PENTapeArmAlt+WOffset));
+  }	 
+
+// **** Wire PAD ******************
+
+  G4VSolid * WirePad; 	
+    WirePad = new G4Box("WirePad",                   
+ 		 WirePadSpes/2,
+ 		 WirePadLung/2,
+ 		 WirePadAlt/2.0);	 
+
+// **** NTD thermistor ************
+
+  G4Box * NTD	      //NTD	
+    = new G4Box("NTD",				       
+	    NTDX/2., 
+	    NTDY/2., 
+	    NTDZ/2. );
+	
+
+// **** Gold wires  ************					//SC 20.02.13
+
+//G4VSolid * GWire
+//    = new G4Torus("GWire",
+//	    0.,
+//	    GWireRad,
+//	    (PlaneH/2.-NTDoff)/2.,
+//	    90.*deg,
+//	    180.*deg);
+//
+//  G4Box * GWire_cut	      	
+//    = new G4Box("GWire",				       
+//	    NTDX/2., 
+//	    NTDY/2., 
+//	    GWireCutZ/2. );
+//
+//GWire = new G4SubtractionSolid ( "GWire", GWire,                //non va bene!!!!!
+//		    GWire_cut,new G4RotationMatrix(),
+//		    G4ThreeVector(GWireCutZ/2.,GWireRad,0.));
+
+
+// PTFE supports ******************
+
+// OLD VERSION - Intersection with frames
+/*
+   G4double  tpX=0.6*cm, tpY=1.6*cm, tpZ=0.7*cm;
+   G4double  spX=2*cm, spY=2*cm, spZ=1*cm;
+   
+      G4Box * tPTFE                         
+        = new G4Box("tPTFE", tpX/2., tpY/2., tpZ/2.);
+   
+      G4Box * sPTFE                         
+        = new G4Box("sPTFE", spX/2., spY/2., spZ/2.);
+   
+      G4VSolid * PTFE = new G4SubtractionSolid ( "PTFE", tPTFE,	  
+    			  sPTFE,new G4RotationMatrix(G4ThreeVector(0,0,1),45.*deg),
+    			  G4ThreeVector(0.,sqrt(2.)*cm,0.45*cm));
+   
+      G4Box * Block1                         
+        = new G4Box("Block1", 1*cm,1*cm,0.5*cm);
+      G4Box * Block2                         
+        = new G4Box("Block2", 0.75*cm,0.75*cm,0.6*cm);
+   
+      G4VSolid * Block = new G4SubtractionSolid ( "Block", Block1,	  
+    			  Block2,new G4RotationMatrix(G4ThreeVector(0,0,1),45.*deg),
+    			  G4ThreeVector(0.,1.06*cm,0.));
+      PTFE = new G4SubtractionSolid ( "PTFE", PTFE,	  
+       		  Block,new G4RotationMatrix(),
+       		  G4ThreeVector(0.,-0.25*cm,-0.35*cm));
+      PTFE = new G4SubtractionSolid ( "PTFE", PTFE,	  
+       		  Block,new G4RotationMatrix(),
+       		  G4ThreeVector(0.,-0.5*cm,0.));
+      PTFE = new G4SubtractionSolid ( "PTFE", PTFE,	  
+       		  tPTFE,new G4RotationMatrix(),
+       		  G4ThreeVector(0.,-1.1*cm,0.));
+*/
+
+// NEW VERSION - Same as MCuoreZ
+
+G4double  tpX=0.6*cm, tpY=1.6*cm, tpZ=0.65*cm;
+G4double  spX=2*cm, spY=2*cm, spZ=1*cm;
+ 
+   G4Box * tPTFE                         
+     = new G4Box("tPTFE", tpX/2., tpY/2., tpZ/2.);
+  
+   G4Box * sPTFE                         
+     = new G4Box("sPTFE", spX/2., spY/2., spZ/2.);
+
+   G4VSolid * PTFE = new G4SubtractionSolid ( "PTFE", tPTFE,	  
+ 			  sPTFE,new G4RotationMatrix(G4ThreeVector(0,0,1),45.*deg),
+ 			  G4ThreeVector(0.,sqrt(2.)*cm,0.45*cm));
+
+   G4Box * Block1                         
+     = new G4Box("Block1", 1*cm,1*cm,0.5*cm);
+   G4Box * Block2                         
+     = new G4Box("Block2", 0.75*cm,0.75*cm,0.6*cm);
+ 
+   G4VSolid * Block = new G4SubtractionSolid ( "Block", Block1,	  
+ 			  Block2,new G4RotationMatrix(G4ThreeVector(0,0,1),45.*deg),
+ 			  G4ThreeVector(0.,1.06*cm,0.));
+   PTFE = new G4SubtractionSolid ( "PTFE", PTFE,	  
+    		  Block,new G4RotationMatrix(),
+    		  G4ThreeVector(0.,-0.20*cm,-0.3*cm));
+   PTFE = new G4SubtractionSolid ( "PTFE", PTFE,	  
+    		  Block,new G4RotationMatrix(),
+    		  G4ThreeVector(0.,-0.5*cm,0.));
+   PTFE = new G4SubtractionSolid ( "PTFE", PTFE,	  
+    		  tPTFE,new G4RotationMatrix(),
+    		  G4ThreeVector(0.,-1.1*cm,0.));
+
+// *****************************************************************
+// *** Logical Volumes ***   ***************************************
+// *****************************************************************
+
+  G4LogicalVolume * TeO2_log = new G4LogicalVolume (TeO2, MaterialMap["Tellurite"], "TeO2_L", 0,0,0);
+  TeO2_log->SetSensitiveDetector(TSD);
+  G4LogicalVolume * FrameC_log = new G4LogicalVolume (FrameC, MaterialMap["Copper"], "FrameC_L", 0,0,0); 
+  FrameC_log->SetSensitiveDetector(CuSD);
+  G4LogicalVolume * FrameT_log = new G4LogicalVolume (FrameT, MaterialMap["Copper"], "FrameT_L", 0,0,0); 
+  FrameT_log->SetSensitiveDetector(CuSD);
+  G4LogicalVolume * FrameB_log = new G4LogicalVolume (FrameB, MaterialMap["Copper"], "FrameB_L", 0,0,0); 
+  FrameB_log->SetSensitiveDetector(CuSD);
+  G4LogicalVolume * Column_log = new G4LogicalVolume (Column, MaterialMap["Copper"], "Column_L", 0,0,0);     
+  Column_log->SetSensitiveDetector(CuSD);
+  G4LogicalVolume * WireTray_log = new G4LogicalVolume (WireTray, MaterialMap["Copper"], "WireTray_L", 0,0,0); 
+  WireTray_log->SetSensitiveDetector(OTHERSD);
+  G4LogicalVolume * PENTape_log = new G4LogicalVolume (PENTape, MaterialMap["Poly"], "PENTape_L", 0,0,0); 
+  PENTape_log->SetSensitiveDetector(OTHERSD);
+  G4LogicalVolume * WirePad_log = new G4LogicalVolume (WirePad, MaterialMap["Copper"], "WirePad_L", 0,0,0); 
+  WirePad_log->SetSensitiveDetector(OTHERSD);
+  G4LogicalVolume * NTD_log = new G4LogicalVolume (NTD, MaterialMap["Germanium"], "NTD_L", 0,0,0); 
+  NTD_log->SetSensitiveDetector(NTDSD);
+  G4LogicalVolume * PTFE_log = new G4LogicalVolume (PTFE, MaterialMap["Teflon"], "PTFE_L", 0,0,0); 
+  PTFE_log->SetSensitiveDetector(PTFESD);
+//  G4LogicalVolume * GWire_log = new G4LogicalVolume (GWire, MaterialMap["Gold"], "GWire_L", 0,0,0); 
+
+// *****************************************************************
+// *** Visibility ***   *****************************************
+// *****************************************************************
+
+  if( theC->GraphicMask[1] & (1 << (37-1)%32) ) TeO2_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,1.)) );
+  else TeO2_log->SetVisAttributes ( new G4VisAttributes(false) );
+  if( theC->GraphicMask[1] & (1 << (38-1)%32) ) FrameC_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else FrameC_log->SetVisAttributes ( new G4VisAttributes(false) );
+  if( theC->GraphicMask[1] & (1 << (38-1)%32) ) FrameT_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else FrameT_log->SetVisAttributes ( new G4VisAttributes(false) );
+  if( theC->GraphicMask[1] & (1 << (38-1)%32) ) FrameB_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else FrameB_log->SetVisAttributes ( new G4VisAttributes(false) );
+  if( theC->GraphicMask[1] & (1 << (38-1)%32) ) Column_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else Column_log->SetVisAttributes ( new G4VisAttributes(false) );
+  if( theC->GraphicMask[1] & (1 << (39-1)%32) )  WireTray_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.1,0.9,0.1)) );
+  else WireTray_log->SetVisAttributes ( new G4VisAttributes(false) );
+  if( theC->GraphicMask[1] & (1 << (44-1)%32) )  PENTape_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,0.0,1.0)) );
+  else PENTape_log->SetVisAttributes ( new G4VisAttributes(false) );
+  if( theC->GraphicMask[1] & (1 << (40-1)%32) ) WirePad_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.5,0.5,1.0)) );
+  else WirePad_log->SetVisAttributes ( new G4VisAttributes(false) );
+  if( theC->GraphicMask[1] & (1 << (41-1)%32) ) NTD_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.3,0.,0.)) );
+  else NTD_log->SetVisAttributes ( new G4VisAttributes(false) );
+  if( theC->GraphicMask[1] & (1 << (42-1)%32) ) PTFE_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,0.)) );
+  else PTFE_log->SetVisAttributes ( new G4VisAttributes(false) );
+//  if( theC->GraphicMask[1] & (1 << (43-1)%32) ) GWire_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.1,1.,0.)) );
+//  else GWire_log->SetVisAttributes ( new G4VisAttributes(false) );
+  
+
+// *****************************************************************
+// *** Centers Coordinates assignement ***   ***********************
+// *****************************************************************
+
+  for ( G4int k=0; k<NPlanes+1; k++ ) {
+	FrameZ.push_back( G4ThreeVector(0.,0.,-TowerH/2.+k*PlaneH+FrameH/2.) );				//31.01.13 SC: Posizione Z dei centri dei frame
+	G4cout << "FrameZ[" <<k<<"]: "<<TowersCenterZ-TowerH/2.+k*PlaneH+FrameH/2.+(CuRS1Z+CuRS1Spes+(CuRS1Alt-CuRS1Spes)/2.)<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+  }
+	
+	
+  for ( G4int it=0; it<NCrystals; it++ ) {
+	CrystalC.push_back( G4ThreeVector((2*(it%2)-1)*dtmp,(2*(it/2)-1)*dtmp,PlaneH/2.)); 
+  }
+
+  ColumnC.push_back( G4ThreeVector((FrameL-FrameW)/2.,0.,PlaneH/2.) ); 
+  ColumnC.push_back( G4ThreeVector(0.,(FrameL-FrameW)/2.,PlaneH/2.) ); 
+  ColumnC.push_back( G4ThreeVector((FrameW-FrameL)/2.,0.,PlaneH/2.) ); 
+  ColumnC.push_back( G4ThreeVector(0.,(FrameW-FrameL)/2.,PlaneH/2.) ); 
+
+  NTDC.push_back( CrystalC[0]+G4ThreeVector(-(TeO2Lato+NTDX)/2., NTDoff,0.) ); 
+  NTDC.push_back( CrystalC[1]+G4ThreeVector((TeO2Lato+NTDX)/2., NTDoff,0.) ); 
+  NTDC.push_back( CrystalC[2]+G4ThreeVector(-(TeO2Lato+NTDX)/2., -NTDoff,0.) ); 
+  NTDC.push_back( CrystalC[3]+G4ThreeVector((TeO2Lato+NTDX)/2., -NTDoff,0.) ); 
+
+  WirePadC.push_back( G4ThreeVector(-(FrameL+WirePadSpes)/2.,-1.2*NTDoff,0.)  ); 
+  WirePadC.push_back( G4ThreeVector(+(FrameL+WirePadSpes)/2.,-1.2*NTDoff,0.)  ); 
+  WirePadC.push_back( G4ThreeVector(-(FrameL+WirePadSpes)/2.,+1.2*NTDoff,0.)  ); 
+  WirePadC.push_back( G4ThreeVector(+(FrameL+WirePadSpes)/2.,+1.2*NTDoff,0.)  ); 
+
+//  GWireC.push_back((NTDC[0])); 
+//  GWireC.push_back((NTDC[1])); 
+//  GWireC.push_back((NTDC[2])); 
+//  GWireC.push_back((NTDC[3])); 
+
+
+  UpRot.push_back(G4RotationMatrix()); UpRot.back().rotateZ(-45.*deg);
+  DoRot.push_back(G4RotationMatrix()); DoRot.back().rotateY(180.*deg); DoRot.back().rotateZ(-45.*deg);
+  PTFEC.push_back(G4ThreeVector(-5.53,-5.53,0.40)*cm);
+  PTFEC.push_back(G4ThreeVector(-5.53,0.37,0.40)*cm); UpRot.push_back(UpRot.back()); DoRot.push_back(DoRot.back()); 
+  PTFEC.push_back(G4ThreeVector(0.37,0.37,0.40)*cm); UpRot.push_back(UpRot.back()); DoRot.push_back(DoRot.back());
+  PTFEC.push_back(G4ThreeVector(0.37,-5.53,0.40)*cm); UpRot.push_back(UpRot.back()); DoRot.push_back(DoRot.back());
+
+  UpRot.push_back(G4RotationMatrix()); UpRot.back().rotateZ(45.*deg);
+  DoRot.push_back(G4RotationMatrix()); DoRot.back().rotateY(180.*deg); DoRot.back().rotateZ(45.*deg);
+  PTFEC.push_back(G4ThreeVector(5.53,-5.53,0.40)*cm);
+  PTFEC.push_back(G4ThreeVector(-0.37,-5.53,0.40)*cm); UpRot.push_back(UpRot.back()); DoRot.push_back(DoRot.back()); 
+  PTFEC.push_back(G4ThreeVector(5.53,0.37,0.40)*cm); UpRot.push_back(UpRot.back()); DoRot.push_back(DoRot.back()); 
+  PTFEC.push_back(G4ThreeVector(-0.37,0.37,0.40)*cm); UpRot.push_back(UpRot.back()); DoRot.push_back(DoRot.back());
+
+  UpRot.push_back(G4RotationMatrix()); UpRot.back().rotateZ(-135.*deg);
+  DoRot.push_back(G4RotationMatrix()); DoRot.back().rotateY(180.*deg); DoRot.back().rotateZ(-135.*deg);
+  PTFEC.push_back(G4ThreeVector(-5.53,5.53,0.40)*cm);
+  PTFEC.push_back(G4ThreeVector(0.37,5.53,0.40)*cm); UpRot.push_back(UpRot.back()); DoRot.push_back(DoRot.back());
+  PTFEC.push_back(G4ThreeVector(-5.53,-0.37,0.40)*cm); UpRot.push_back(UpRot.back()); DoRot.push_back(DoRot.back()); 
+  PTFEC.push_back(G4ThreeVector(0.37,-0.37,0.40)*cm); UpRot.push_back(UpRot.back()); DoRot.push_back(DoRot.back());
+
+  UpRot.push_back(G4RotationMatrix()); UpRot.back().rotateZ(135.*deg);
+  DoRot.push_back(G4RotationMatrix()); DoRot.back().rotateY(180.*deg); DoRot.back().rotateZ(135.*deg);
+  PTFEC.push_back(G4ThreeVector(5.53,5.53,0.40)*cm);
+  PTFEC.push_back(G4ThreeVector(-0.37,5.53,0.40)*cm); UpRot.push_back(UpRot.back()); DoRot.push_back(DoRot.back());
+  PTFEC.push_back(G4ThreeVector(-0.37,-0.37,0.40)*cm); UpRot.push_back(UpRot.back()); DoRot.push_back(DoRot.back()); 
+  PTFEC.push_back(G4ThreeVector(5.53,-0.37,0.40)*cm); UpRot.push_back(UpRot.back()); DoRot.push_back(DoRot.back());
+
+  
+  G4RotationMatrix aRot = G4RotationMatrix();
+  G4ThreeVector kVec = G4ThreeVector(0,0,TeO2Lato);
+
+  std::ifstream towerfile;
+  if( theC->TowerCenter.length()>0 ) {			 
+    towerfile.open ( theC->TowerCenter.c_str() );				 
+    if ( towerfile ) {									 
+    	NumTowers = 0;
+    	G4cout << "Using tower center configuration file :" << theC->TowerCenter << ":" << G4endl; 
+    	while( !towerfile.eof() ) { 							 
+      		towerfile >> xt >> yt >> zt >> x1w >> y1w >> z1w >> r1w >> x2w >> y2w >> z2w >> r2w;		 
+      		v3f = G4ThreeVector (xt,yt,zt);									 
+      		if( v3f != v3s ) {								 
+  	 			NumTowers++; TowersC.push_back( v3f );
+  	 			G4cout << "Torre n.: " << NumTowers << " " <<  TowersC[NumTowers-1] << G4endl;
+  	 			v3s = v3f;
+      		} 										 
+    	}											 
+    	towerfile.close();	
+	}
+  }											 
+  else {										 
+    NumTowers=0; 	 									 
+    G4cout << "Using default values" << G4endl; 					 
+    G4cout << theC->TowerCenter << G4endl;						 
+    #include "tower_center.icc" 							 
+  }	
+
+  G4ThreeVector COF = POFF + G4ThreeVector(0,0,TowersCenterZ);
+  G4ThreeVector ZOT = COF - CryoPos;
+  //G4cout << "NTD: " << NTDO << G4endl;
+
+
+// *****************************************************************
+// *** Physical Volumes ***   **************************************
+// *****************************************************************
+
+
+  G4VPhysicalVolume*  TeO2_phys;
+  G4VPhysicalVolume*  FrameC_phys;
+  G4VPhysicalVolume*  FrameT_phys;
+  G4VPhysicalVolume*  FrameB_phys;
+  G4VPhysicalVolume*  Column_phys;
+  G4VPhysicalVolume*  WireTray_phys;
+  G4VPhysicalVolume*  PENTape_phys;
+  G4VPhysicalVolume*  WirePad_phys;
+  G4VPhysicalVolume*  NTD_phys;
+  G4VPhysicalVolume*  PTFEBottom_phys;
+  G4VPhysicalVolume*  PTFETop_phys;
+//  G4VPhysicalVolume*  GWire_phys;
+
+
+//NumTowers=1;  // ONLY FOR DEBUG - ONLY FOR DEBUG - ONLY FOR DEBUG - ONLY FOR DEBUG - ONLY FOR DEBUG - ONLY FOR DEBUG
+G4int counterP=0;
+
+G4cout << "Tower Height (from dist top-bottom plates): " <<CuDetUpPlateZ-CuDetBottomPlateZ-DistCuDetUpPlateTowersTop-DistCuDetBottomPlateTowersBottom-CuDetBottomPlateSpes<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+G4cout << "Tower Height (PlaneH*NPlanes+Frameh): " <<TowerH<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+G4cout << "Tower Center Z: " <<TowersCenterZ<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+G4cout << "Top of the Tower (Z): " <<TowersTopZ<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+
+G4cout << "Z COORDINATES of the lowest point of some elements:"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+G4cout << "CuTopPlate: " <<CuTopPlateZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+G4cout << "StdPb Plug: " <<StdPbZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+//G4cout << "Cu Middle Plate: " <<CuMiddlePlateZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+//G4cout << "PbR Plug: " <<PbRZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+G4cout << "CuBottomPlate: " <<CuBottomPlateZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+G4cout << "CuTSP: " <<CuTSPZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+G4cout << "CuDetUpPlate: " <<CuDetUpPlateZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+G4cout << "CuDetBottomPlate: " <<CuDetBottomPlateZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+G4cout << "Top of the Tower (Z): " <<TowersTopZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+G4cout << "Bottom of the tower (Z): " <<TowersBottomZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+G4cout << "CryoPos: " << CuRS1Z+CuRS1Cone2Alt+CuRS1Cone2Alt+CuRS1Alt/2.<<"*mm"<<"\n"<<G4endl;//FOR DEBUG ONLY!!!!
+
+ZMount = (COF+TowersC[0]+FrameZ[NPlanes/2]+CrystalC[0]).z();
+
+// *****************************************************************
+// *** Source ***   ************************************************
+// *****************************************************************
+
+G4cout << "Detector.icc: " << theC->singleTower << " " << theC->NumberOfPlanes << " " << NPlanes << " " << NumTowers << G4endl;
+  for ( j=0; j<NumTowers; j++ ) { 
+   if( theC->singleTower==0 || j==theC->singleTower ) {
+    for ( k=0; k<NPlanes; k++ ) { 
+     if( theC->NumberOfPlanes==0 || NPlanes-k-1<theC->NumberOfPlanes ) {
+      aRot.rotateZ((2*(k%2)-1)*90.*deg);
+      if(k==0){
+       FrameB_phys =new G4PVPlacement(G4Transform3D(aRot,ZOT+TowersC[j]+FrameZ[k]+MTOffset),								      //31.01.13 SC  Bottom Frame
+		 "FrameB_P",
+		 FrameB_log,
+		 Cryost_phys , false, counterF++);
+
+//       G4cout << "FrameB bottom Z: " << ZOT+FrameZ[k] + MTOffset - G4ThreeVector(0,0,FrameH/2.) << G4endl;
+       if( Cel == 38 && (Elm <= 0 || counterF == Elm) ) aSource.push_back(new G4DistributedSource(FrameB,G4Transform3D(aRot,COF+TowersC[j]+FrameZ[k]+MTOffset)));//31.01.13 SC 
+       if(theC->Mode == 3)
+       {
+           int v = theC->v1;
+           if(v == 0 || v == 38)
+               FrameB_phys->CheckOverlaps(theC->DebugEvents);
+       }
+//      G4cout << " Bottom Frame Center Z-coordinate relative to the center of the tower: "<< FrameZ[k] <<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!//31.01.13 SC 
+      }
+      else {																	      //31.01.13 SC  Central Frames
+       FrameC_phys = new G4PVPlacement(G4Transform3D(aRot,ZOT+TowersC[j]+FrameZ[k]+MTOffset),   
+	          "FrameC_P",
+     	          FrameC_log,
+     	          Cryost_phys , false, counterF++);
+       if( Cel == 38  && (Elm <= 0 || counterF == Elm) ) aSource.push_back(new G4DistributedSource(FrameC,G4Transform3D(aRot,COF+TowersC[j]+FrameZ[k]+MTOffset)));
+       if(theC->Mode == 3)
+       {
+           int v = theC->v1;
+           if(v == 0 || v == 38)
+               FrameC_phys->CheckOverlaps(theC->DebugEvents);
+       }
+//      G4cout << k<<" Frame Center Z-coordinate relative to the center of the tower: "<< FrameZ[k] <<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!//31.01.13 SC 
+      }
+
+      for ( G4int i=0; i< (int) PTFEC.size(); i++ ) {														//PTFE supports
+		PTFEBottom_phys = new G4PVPlacement(G4Transform3D(UpRot[i],PTFEC[i]+ZOT+TowersC[j]+FrameZ[k]+MTOffset), "PTFEBottom_P", PTFE_log, Cryost_phys, false, counterP++);
+		PTFETop_phys = new G4PVPlacement(G4Transform3D(DoRot[i],PTFEC[i]+kVec+ZOT+TowersC[j]+FrameZ[k]+MTOffset), "PTFETop_P", PTFE_log, Cryost_phys, false, counterP++);
+		if( Cel == 42 && (Elm <= 0 || counterF == Elm)  ) {
+		  aSource.push_back(new G4DistributedSource(PTFE,G4Transform3D(UpRot[i],PTFEC[i]+COF+TowersC[j]+FrameZ[k]+MTOffset)));
+		  aSource.push_back(new G4DistributedSource(PTFE,G4Transform3D(DoRot[i],PTFEC[i]+kVec+COF+TowersC[j]+FrameZ[k]+MTOffset)));
+		}
+        if(theC->Mode == 3)
+        {
+            int v = theC->v1;
+            if(v == 0 || v == 42)
+            {
+                PTFEBottom_phys->CheckOverlaps(theC->DebugEvents);
+                PTFETop_phys->CheckOverlaps(theC->DebugEvents);
+            }
+        }
+      }
+      for ( G4int i=0; i<NCrystals; i++ ) {														//TeO2 Crystals
+       TeO2_phys = new G4PVPlacement(0,ZOT+TowersC[j]+FrameZ[k]+CrystalC[i]+MTOffset,
+	    		"TeO2_P",
+        	    TeO2_log,
+        	    Cryost_phys , false, counterT++);
+	   if( theC->PrintInfo && j==0 ) G4cout << "Crystal " << i+k*4 << " " << FrameZ[k]+CrystalC[i] << G4endl;
+					
+	   if( Cel == 37 && (Elm <= 0 || counterT == Elm)  )
+       //if( Cel == 37  && ( theC->VolumeNumber < 0 || theC->VolumeNumber == counterT-1)) //SC 24.07.13 implemented single crystal source
+      	aSource.push_back(new G4DistributedSource(TeO2,G4Transform3D(G4RotationMatrix(),COF+TowersC[j]+FrameZ[k]+CrystalC[i]+MTOffset)));
+        if(theC->Mode == 3)
+        {
+            int v = theC->v1;
+            if(v == 0 || v == 37)
+                TeO2_phys->CheckOverlaps(theC->DebugEvents);
+        }
+//      	G4cout <<"Crystal: "<<i+(4*k)+(52*j)<< "\t Tower: "<<j<<"Plane: "<<k <<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!// SC
+
+       Column_phys = new G4PVPlacement(0,ZOT+TowersC[j]+FrameZ[k]+ColumnC[i]+MTOffset,										//Frame Columns
+	    		"Column_P",
+        	    Column_log,
+        	    Cryost_phys , false, counterB++);
+       if( Cel == 38 && (Elm <= 0 || counterB == Elm) ) aSource.push_back(new G4DistributedSource(Column,G4Transform3D(G4RotationMatrix(),COF+TowersC[j]+FrameZ[k]+ColumnC[i]+MTOffset )));
+       if(theC->Mode == 3)
+       {
+           int v = theC->v1;
+           if(v == 0 || v == 38)
+               Column_phys->CheckOverlaps(theC->DebugEvents);
+       }
+
+       NTD_phys = new G4PVPlacement(0,ZOT+TowersC[j]+FrameZ[k]+NTDC[i]-(2*(k%2)-1)*NTDO+MTOffset,									//NTD
+	    		"NTD_P",
+        	    NTD_log,
+        	    Cryost_phys , false, counterN++);
+       if( Cel == 41 && (Elm <= 0 || counterN == Elm) ) aSource.push_back(new G4DistributedSource(NTD,G4Transform3D(G4RotationMatrix(),COF+TowersC[j]+FrameZ[k]+NTDC[i]-(2*(k%2)-1)*NTDO+MTOffset)));
+       if(theC->Mode == 3)
+       {
+           int v = theC->v1;
+           if(v == 0 || v == 41)
+               NTD_phys->CheckOverlaps(theC->DebugEvents);
+       }
+
+// NO SMALL ELEMENTS FOR MINITOWER
+	   	   if( theC->singleTower == 0 ) {
+	   		WirePad_phys = new G4PVPlacement(0,ZOT+TowersC[j]+FrameZ[k]+WirePadC[i]+MTOffset,										//Wire Pads
+	    		"WirePad_P",
+        	    WirePad_log,
+        	    Cryost_phys , false, counterWP++);
+			if( Cel == 40 && (Elm <= 0 || counterWP == Elm) ) aSource.push_back(new G4DistributedSource(WirePad,G4Transform3D(G4RotationMatrix(),COF+TowersC[j]+FrameZ[k]+WirePadC[i]+MTOffset)));
+        	if(theC->Mode == 3)
+        	{
+          	 	int v = theC->v1;
+           		if(v == 0|| v == 40) WirePad_phys->CheckOverlaps(theC->DebugEvents);
+        	}
+
+
+//      GWire_phys = new G4PVPlacement(G4Transform3D(G4RotationMatrix().rotateY((i%2)*180.*deg).rotateX(90.*deg),ZOT+TowersC[j]+FrameZ[k]+GWireC[i]-(2*(k%2)-1)*NTDO*3/2),	////		//							
+//	    		"GWire_P",
+//        	    GWire_log,
+//        	    Cryost_phys , false, counterWP++);
+//      if( Cel == 43 && (Elm <= 0 || counterWP == Elm) ) aSource.push_back(new //G4DistributedSource(GWire,G4Transform3D(G4RotationMatrix().rotateY((i%2)*180.*deg).rotateX(90.*deg),COF+TowersC[j]+FrameZ[k]+GWireC[i]-(2*(k%2)-1)*NTDO*3/2)));
+		}
+      }
+     }
+	}
+    aRot.rotateZ((2*(NPlanes%2)-1)*90.*deg);
+
+    FrameT_phys =new G4PVPlacement(G4Transform3D(aRot,ZOT+TowersC[j]+FrameZ.back()+MTOffset), 	//01.02.13: 							//31.01.13 SC: Top frame 
+		"FrameT_P",
+   		FrameT_log,
+   		Cryost_phys , false, counterF++);
+
+//    G4cout << "FrameT top Z: " << ZOT+FrameZ[NPlanes] + MTOffset + FrameH/2. << G4endl;
+    if( Cel == 38 && (Elm <= 0 || counterF == Elm) ) aSource.push_back(new G4DistributedSource(FrameT,G4Transform3D(aRot,COF+TowersC[j]+FrameZ.back()+MTOffset)));	
+    if(theC->Mode == 3)
+    {
+        int v = theC->v1;
+        if(v == 0 || v == 38)
+            FrameT_phys->CheckOverlaps(theC->DebugEvents);
+    }
+//31.01.13 SC 
+//   G4cout << "Top Frame Center Z-coordinate relative to the center of the tower: "<< FrameZ[NPlanes-1] <<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!			//31.01.13 SC
+   
+// NO SMALL ELEMENTS FOR MINITOWER
+	if( theC->singleTower == 0 ) {
+     for ( G4int i=0; i<NCrystals; i++ ) {
+      		WirePad_phys = new G4PVPlacement(0,ZOT+TowersC[j]+FrameZ.back()+WirePadC[i]+MTOffset,										//20.03.13 Top Wire Pads
+	    		"WirePad_P",
+        	    WirePad_log,
+        	    Cryost_phys , false, counterWP++);
+      		if( Cel == 40 && (Elm <= 0 || counterWP == Elm) ) aSource.push_back(new G4DistributedSource(WirePad,G4Transform3D(G4RotationMatrix(),COF+TowersC[j]+FrameZ.back()+WirePadC[i]+MTOffset)));
+      	  if(theC->Mode == 3)
+      		{
+          		int v = theC->v1;
+          	  	if(v == 0 || v == 40) WirePad_phys->CheckOverlaps(theC->DebugEvents);
+      		 }
+	 }
+
+//////////////////DA QUI!!!!!!!!!
+     G4RotationMatrix TrayRot = G4RotationMatrix();
+     TrayRot.rotateZ(180.*deg);
+     WireTray_phys =new G4PVPlacement( 0,ZOT+TowersC[j]+G4ThreeVector((FrameL+WireTraySpes)/2.,0.,+Frameh/2+WOffset),	//Wire Tray +
+    		"WireTray_P",
+   		WireTray_log,
+   		Cryost_phys , false, counterWT++);
+     if( Cel == 39 && (Elm <= 0 || counterWT == Elm) ) aSource.push_back(new G4DistributedSource(WireTray,G4Transform3D(G4RotationMatrix(),COF+TowersC[j]+G4ThreeVector((FrameL+WireTraySpes)/2.,0.,+Frameh/2+WOffset))));
+     if(theC->Mode == 3)
+     {
+        int v = theC->v1;
+        if(v == 0 || v == 39)
+            WireTray_phys->CheckOverlaps(theC->DebugEvents);
+     }
+   
+     WireTray_phys =new G4PVPlacement( G4Transform3D(TrayRot,ZOT+TowersC[j]+G4ThreeVector(-(FrameL+WireTraySpes)/2.,0.,+Frameh/2+WOffset)),	//Wire Tray -  
+	    	"WireTray_P",
+   		WireTray_log,
+   		Cryost_phys , false, counterWT++);
+     if( Cel == 39 && (Elm <= 0 || counterWT == Elm) ) aSource.push_back(new G4DistributedSource(WireTray,G4Transform3D(TrayRot,COF+TowersC[j]+G4ThreeVector(-(FrameL+WireTraySpes)/2.,0.,+Frameh/2+WOffset))));
+     if(theC->Mode == 3)
+     {
+        int v = theC->v1;
+        if(v == 0 || v == 39)
+            WireTray_phys->CheckOverlaps(theC->DebugEvents);
+     }
+
+     PENTape_phys =new G4PVPlacement( 0,ZOT+TowersC[j]+G4ThreeVector((FrameL+PENTapeSpes)/2.+WireTraySpes,0.,+Frameh/2+WOffset),		//PEN tape +   
+	    	"PENTape_P",
+   		PENTape_log,
+   		Cryost_phys , false, counterPT++);
+     if( Cel == 44 && (Elm <= 0 || counterPT == Elm) ) aSource.push_back(new G4DistributedSource(PENTape,G4Transform3D(G4RotationMatrix(),COF+TowersC[j]+G4ThreeVector((FrameL+PENTapeSpes)/2.+WireTraySpes,0.,+Frameh/2+WOffset))));
+     if(theC->Mode == 3)
+     {
+        int v = theC->v1;
+        if(v == 0 || v == 44)
+            PENTape_phys->CheckOverlaps(theC->DebugEvents);
+     }
+   
+     PENTape_phys =new G4PVPlacement( 0,ZOT+TowersC[j]+G4ThreeVector(-(FrameL+PENTapeSpes)/2.-WireTraySpes,0.,+Frameh/2+WOffset),		//PEN tape -   
+	    	"PENTape_P",
+   		PENTape_log,
+   		Cryost_phys , false, counterPT++);
+     if( Cel == 44 && (Elm <= 0 || counterPT == Elm) ) aSource.push_back(new G4DistributedSource(PENTape,G4Transform3D(G4RotationMatrix(),COF+TowersC[j]+G4ThreeVector(-(FrameL+PENTapeSpes)/2.-WireTraySpes,0.,+Frameh/2+WOffset))));
+     if(theC->Mode == 3)
+     {
+        int v = theC->v1;
+        if(v == 0|| v == 44)
+            PENTape_phys->CheckOverlaps(theC->DebugEvents);
+     }
+    }
+   }
+   if(theC->PrintInfo ) G4cout << "Tower " << j << " " << TowersC[j] << G4endl;
+  }
+////////////
+

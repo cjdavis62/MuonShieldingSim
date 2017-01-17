@@ -1,0 +1,2502 @@
+// *****************************************************************
+// *** Define Solids ***   *****************************************
+// *****************************************************************
+
+
+//**Vacuum chamber inside the most external cryostat shield** *****
+
+  G4VSolid * Cryost
+   = new G4Tubs("Cryost",
+		 0.,
+		 CuRS1Rag-CuRS1Spes,
+		 CuRS1Alt/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+
+  G4VSolid * CryostCone1 
+   = new G4Cons ("Cryost",
+		 0.,
+		 CuRS1Cone2Rag-CuRS1Spes,
+		 0.,
+		 CuRS1Rag-CuRS1Spes,
+		 CuRS1Cone1Alt/2.0,
+		 0.*deg,
+		 theC->CAngle*deg );
+
+  G4VSolid * CryostCone2 
+   = new G4Cons ("Cryost",
+		 0.,
+		 1e-1,
+		 0.,
+		 CuRS1Cone2Rag-CuRS1Spes,
+		 CuRS1Cone2Alt/2.0,
+		 0.*deg,
+		 theC->CAngle*deg );
+
+ Cryost = new G4UnionSolid ("Cryost", Cryost,
+  			CryostCone1, new G4RotationMatrix(),
+			G4ThreeVector(0.,0.,-(CuRS1Alt+CuRS1Cone1Alt)/2.));
+
+ Cryost = new G4UnionSolid ("Cryost", Cryost,
+  			CryostCone2, new G4RotationMatrix(),
+			G4ThreeVector(0.,0.,-CuRS1Alt/2-CuRS1Cone1Alt-CuRS1Cone2Alt/2.));
+
+
+
+
+// ** 1ST RADIATION SHIELD ** ****************//18.01.13 ok
+
+  G4VSolid * CuRS1Lat
+   = new G4Tubs("CuRS1Shield",
+		 CuRS1Rag-CuRS1Spes,
+		 CuRS1Rag,
+		 CuRS1Alt/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+
+  G4VSolid * CuRS1Cone1 
+   = new G4Cons ("CuRS1Shield",
+		 CuRS1Cone2Rag-CuRS1Spes,
+		 CuRS1Cone2Rag,
+		 CuRS1Rag-CuRS1Spes,
+		 CuRS1Rag,
+		 CuRS1Cone1Alt/2.0,
+		 0.*deg,
+		 theC->CAngle*deg );
+
+  G4VSolid * CuRS1Cone2 
+   = new G4Cons ("CuRS1Shield",
+		 1e-1,
+		 1e-1+CuRS1Spes,
+		 CuRS1Cone2Rag-CuRS1Spes,
+		 CuRS1Cone2Rag,
+		 CuRS1Cone2Alt/2.0,
+		 0.*deg,
+		 theC->CAngle*deg );
+
+ CuRS1Lat = new G4UnionSolid ("CuRS1Shield", CuRS1Lat,
+  			CuRS1Cone1, new G4RotationMatrix(),
+			G4ThreeVector(0.,0.,-(CuRS1Alt+CuRS1Cone1Alt)/2.));
+
+ CuRS1Lat = new G4UnionSolid ("CuRS1Shield", CuRS1Lat,
+  			CuRS1Cone2, new G4RotationMatrix(),
+			G4ThreeVector(0.,0.,-CuRS1Alt/2-CuRS1Cone1Alt-CuRS1Cone2Alt/2.));
+
+  G4Tubs * CuRS1Flan 
+   = new G4Tubs("CuRS1Shield",
+		 0.,
+		 CuRS1FlanRag,
+		 CuRS1FlanSpes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+
+// ** 2ND RADIATION SHIELD ** ****************//18.01.13 ok
+
+  G4VSolid * CuRS2Lat
+   = new G4Tubs("CuRS2Shield",
+		 CuRS2Rag-CuRS2Spes,
+		 CuRS2Rag,
+		 CuRS2Alt/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+
+  G4VSolid * CuRS2Cone1 
+   = new G4Cons ("CuRS2Shield",
+		 CuRS2Cone2Rag-CuRS2Spes,
+		 CuRS2Cone2Rag,
+		 CuRS2Rag-CuRS2Spes,
+		 CuRS2Rag,
+		 CuRS2Cone1Alt/2.0,
+		 0.*deg,
+		 theC->CAngle*deg );
+
+  G4VSolid * CuRS2Cone2 
+   = new G4Cons ("CuRS2Shield",
+		 1e-1,
+		 1e-1+CuRS2Spes,
+		 CuRS2Cone2Rag-CuRS2Spes,
+		 CuRS2Cone2Rag,
+		 CuRS2Cone2Alt/2.0,
+		 0.*deg,
+		 theC->CAngle*deg );
+
+ CuRS2Lat = new G4UnionSolid ("CuRS2Shield", CuRS2Lat,
+  			CuRS2Cone1, new G4RotationMatrix(),
+			G4ThreeVector(0.,0.,-(CuRS2Alt+CuRS2Cone1Alt)/2.));
+
+ CuRS2Lat = new G4UnionSolid ("CuRS2Shield", CuRS2Lat,
+  			CuRS2Cone2, new G4RotationMatrix(),
+			G4ThreeVector(0.,0.,-CuRS2Alt/2-CuRS2Cone1Alt-CuRS2Cone2Alt/2.));
+
+
+  G4Tubs * CuRS2Flan 
+   = new G4Tubs("CuRS2Shield",
+		 0.,
+		 CuRS2FlanRag,
+		 CuRS2FlanSpes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+// ** 2ND RADIATION SHIELD SUPERINSULATION** ****************//17.02.14 ok
+
+  G4VSolid * SIRS2Lat
+   = new G4Tubs("SIRS2Shield",
+		 SIRS2Rag-SIRS2Spes,
+		 SIRS2Rag,
+		 SIRS2Alt/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4Tubs * SIRS2Flan 
+   = new G4Tubs("SIRS2Shield",
+		 0.,
+		 SIRS2FlanRag,
+		 SIRS2FlanSpes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+
+// ** 3RD RADIATION SHIELD ** ****************//18.01.13 ok
+
+  G4VSolid * CuRS3Lat
+   = new G4Tubs("CuRS3Shield",
+		 CuRS3Rag-CuRS3Spes,
+		 CuRS3Rag,
+		 CuRS3Alt/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4VSolid * CuRS3Cone1 
+   = new G4Cons ("CuRS3Shield",
+		 CuRS3Cone2Rag-CuRS3Spes,
+		 CuRS3Cone2Rag,
+		 CuRS3Rag-CuRS3Spes,
+		 CuRS3Rag,
+		 CuRS3Cone1Alt/2.0,
+		 0.*deg,
+		 theC->CAngle*deg );
+
+  G4VSolid * CuRS3Cone2 
+   = new G4Cons ("CuRS3Shield",
+		 1e-1,
+		 1e-1+CuRS3Spes,
+		 CuRS3Cone2Rag-CuRS3Spes,
+		 CuRS3Cone2Rag,
+		 CuRS3Cone2Alt/2.0,
+		 0.*deg,
+		 theC->CAngle*deg );
+
+ CuRS3Lat = new G4UnionSolid ("CuRS3Shield", CuRS3Lat,
+  			CuRS3Cone1, new G4RotationMatrix(),
+			G4ThreeVector(0.,0.,-(CuRS3Alt+CuRS3Cone1Alt)/2.));
+
+ CuRS3Lat = new G4UnionSolid ("CuRS3Shield", CuRS3Lat,
+  			CuRS3Cone2, new G4RotationMatrix(),
+			G4ThreeVector(0.,0.,-CuRS3Alt/2-CuRS3Cone1Alt-CuRS3Cone2Alt/2.));
+
+  G4Tubs * CuRS3Flan 
+   = new G4Tubs("CuRS3Shield",
+		 0.,
+		 CuRS3FlanRag,
+		 CuRS3FlanSpes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+// ** 3ND RADIATION SHIELD SUPERINSULATION** ****************//17.02.14 ok
+
+  G4VSolid * SIRS3Lat
+   = new G4Tubs("SIRS3Shield",
+		 SIRS3Rag-SIRS3Spes,
+		 SIRS3Rag,
+		 SIRS3Alt/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+// SuperInsulation above CuRS3
+  G4Tubs * SIRS3Flan 
+   = new G4Tubs("SIRS3Shield",
+		 0.,
+		 SIRS3FlanRag,
+		 SIRS3FlanSpes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+
+// ** INTERNAL LEAD ** ****************					//18.03.13
+
+//Internal Lead Lateral Lead (Cylinder)** ******
+
+  G4VSolid * PbRS4Lat 
+   = new G4Tubs("PbRS4Shield",
+		 PbRS4Rag-PbRS4Spes,
+		 PbRS4Rag,
+		 PbRS4Alt/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4Tubs * PbRS4LatHole;   
+    PbRS4LatHole = new G4Tubs("PbRS4LatHole",
+    		   0.,
+    		   SteelRodsHole,
+    		   PbRS4Alt/2.0+1.e-1,
+    		   0.0*deg, theC->CAngle*deg );
+   
+   for(G4int iii=0; iii<6;iii++)
+    PbRS4Lat = new G4SubtractionSolid ( "PbRS4Lat", PbRS4Lat,
+    			    PbRS4LatHole,
+                    new G4RotationMatrix,
+  			  		PbRS4LatHoleP[iii]);  
+
+//Internal Lead Cu parts (Crandle)** ******				
+
+//Top Ring											//18.03.13
+
+ G4VSolid * PbRS4CuCrandle 
+   = new G4Tubs("PbRS4Cu",
+	       PbRS4CuCrandleRagTop-PbRS4CuCrandleSpesTop,
+	       PbRS4CuCrandleRagTop,
+	       PbRS4CuCrandleAltTop/2.0,
+	       0.0*deg, theC->CAngle*deg );
+
+ for(G4int iii=0; iii<6;iii++)
+    PbRS4CuCrandle = new G4SubtractionSolid ( "PbRS4Cu", PbRS4CuCrandle,
+			PbRS4LatHole,
+			  new G4RotationMatrix,
+			PbRS4LatHoleP[iii]); 
+
+ G4double PbRS4CuCrandleEdgeAlt = 10.;
+ G4VSolid * PbRS4CuCrandleEdge 
+   = new G4Cons ("PbRS4CuCrandleEdge",
+		 PbRS4CuCrandleRagTop-0.5*PbRS4CuCrandleEdgeAlt,
+		 PbRS4CuCrandleRagTop,
+		 PbRS4CuCrandleRagTop,
+		 PbRS4CuCrandleRagTop+PbRS4CuCrandleEdgeAlt,
+		 PbRS4CuCrandleEdgeAlt/2.,
+		 0.*deg,
+		 theC->CAngle*deg );
+
+ PbRS4CuCrandle = new G4SubtractionSolid ( "PbRS4Cu", PbRS4CuCrandle,
+			PbRS4CuCrandleEdge,
+			  new G4RotationMatrix,G4ThreeVector(0,0,(PbRS4CuCrandleEdgeAlt-PbRS4CuCrandleAltTop)/2.)); 
+
+//Bottom
+ G4VSolid * PbRS4CuCrandleBot					//18.03.13 
+   = new G4Tubs("PbRS4Cu",
+	       0.,
+	       PbRS4CuCrandleRagBot,
+	       PbRS4CuCrandleAltBot/2.0,
+	       0.0*deg, theC->CAngle*deg );
+
+//Unione di tutti i pezzi del Crandle
+
+ PbRS4CuCrandle = new G4UnionSolid ("PbRS4Cu", PbRS4CuCrandle,  			      //27.05.13
+		      PbRS4CuCrandleBot, new G4RotationMatrix(),
+		      G4ThreeVector(0.,0.,-(PbRS4CuCrandleAltTop+PbRS4CuCrandleAltBot)/2.));
+
+//Internal Lead Cu parts (Ring sopra il side lead)** ******				//13.03.13
+
+ G4VSolid * PbRS4CuRing 
+   = new G4Tubs("PbRS4Cu",
+	       PbRS4CuRingRag-PbRS4CuRingSpes,
+	       PbRS4CuRingRag,
+	       PbRS4CuRingAlt/2.0+1.e-1,
+	       0.0*deg, theC->CAngle*deg );
+
+ for(G4int iii=0; iii<6;iii++)
+    PbRS4CuRing = new G4SubtractionSolid ( "PbRS4Cu", PbRS4CuRing,
+			PbRS4LatHole,
+			  new G4RotationMatrix,
+			PbRS4LatHoleP[iii]); 
+
+//Internal Lead Bottom in Pb****************
+
+
+ G4VSolid * PbRS4Bottom					//18.03.13 
+   = new G4Tubs("PbRS4Bottom",
+	       0.,
+	       PbRS4PbBotRag,
+	       PbRS4PbBotAlt/2.0,
+	       0.0*deg, theC->CAngle*deg );
+
+
+
+// ** TIRANTI DI SOSTEGNO DEL PB INTERNO ** ****************//18.03.13
+
+  G4Tubs * AcRods 
+   = new G4Tubs("AcRods",
+		 0.,
+		 SteelRods,
+    	         SteelRodsLenght/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+// ** 4th Radiaton Shield 600mK ** ****************//13.03.13 ok
+
+  G4VSolid * CuRS4Lat
+   = new G4Tubs("CuRS4Shield",
+		 CuRS4Rag-CuRS4Spes,
+		 CuRS4Rag,
+		 CuRS4Alt/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4VSolid * CuRS4Scassi 
+   = new G4Tubs("CuRS4Scassi",
+		 0.,
+		 GiuntiCuBeRag+1.*cm,
+		 GiuntiCuBeAlt/2.0+1*cm,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4VSolid * CuRS4Ring 
+   = new G4Tubs("CuRS4Shield",
+	       CuRS4RingRag-CuRS4RingSpes,
+	       CuRS4RingRag,
+	       CuRS4RingAlt/2.0,
+	       0.0*deg, theC->CAngle*deg );
+
+  G4VSolid * CuRS4Cone 
+   = new G4Cons("CuRS4Shield",
+		 CuRS4ConeRagInf-CuRS4Spes,
+		 CuRS4ConeRagInf,
+		 CuRS4Rag-CuRS4Spes,
+		 CuRS4Rag,
+		 CuRS4ConeAlt/2.0,
+		 0.*deg,
+		 theC->CAngle*deg );
+		 
+  G4VSolid * CuRS4Bot 
+   = new G4Tubs("CuRS4Shield",
+		 0.,
+		 CuRS4ConeRagInf,
+		 CuRS4Spes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+ 
+
+ CuRS4Lat = new G4UnionSolid ("CuRS4Lat", CuRS4Lat,
+		      CuRS4Ring, new G4RotationMatrix(),
+		      G4ThreeVector(0.,0.,(CuRS4Alt-CuRS4RingAlt)/2.));
+
+ CuRS4Lat = new G4UnionSolid ("CuRS4Lat", CuRS4Lat,
+  			CuRS4Cone, new G4RotationMatrix(),
+			G4ThreeVector(0.,0.,(-CuRS4Alt-CuRS4ConeAlt)/2.));
+
+ CuRS4Lat = new G4UnionSolid ("CuRS4Lat", CuRS4Lat,
+  			CuRS4Bot, new G4RotationMatrix(),
+			G4ThreeVector(0.,0.,-CuRS4Alt/2-CuRS4ConeAlt-CuRS4Spes/2.));  //SC 12/3/13
+
+for(G4int i=0;i<NumScassiRS4;i++)
+ CuRS4Lat = new G4SubtractionSolid ("CuRS4Lat", CuRS4Lat,
+  			CuRS4Scassi, new G4RotationMatrix(),
+			ScassiRS4Pos[i]);
+
+  G4VSolid * CuRS4Flan 
+   = new G4Tubs("CuRS4Flange",
+		 0.,
+		 CuRS4FlanRag,
+		 CuRS4FlanSpes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4Tubs * CuRS4FlanHole;   
+    CuRS4FlanHole = new G4Tubs("PbRS4FlangeHole",
+    		   0.,
+    		   SteelRodsHole,
+    		   CuRS4FlanSpes/2.0+1.e-1,
+    		   0.0*deg, theC->CAngle*deg );
+   
+  for(G4int iii=0; iii<6;iii++)
+    CuRS4Flan = new G4SubtractionSolid ( "CuRS4Flange", CuRS4Flan,
+    		    CuRS4FlanHole,
+                    new G4RotationMatrix,
+  		    PbRS4LatHoleP[iii]);  
+
+// ** GIUNTI CU-BE** ****************//06.05.13 
+ 
+  G4VSolid * GiuntiCuBe 
+   = new G4Tubs("GiuntiCuBe",
+		 SteelRods, // was 0 - OC
+		 GiuntiCuBeRag,
+		 GiuntiCuBeAlt/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+ for(G4int iii=0; iii<6;iii++)
+    GiuntiCuBe = new G4SubtractionSolid ( "GiuntiCuBe", GiuntiCuBe,
+			PbRS4LatHole,
+			  new G4RotationMatrix,
+			PbRS4LatHoleP[iii]); 
+
+
+// ** 5TH RADIATION SHIELD 50mK** ****************//13.03.13 ok
+
+  G4VSolid  * CuRS5Lat
+   = new G4Tubs("CuRS5Shield",
+		 CuRS5Rag-CuRS5Spes,
+		 CuRS5Rag,
+		 CuRS5Alt/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4VSolid * CuRS5Ring 
+   = new G4Tubs("CuRS5Shield",
+		 CuRS5RingRag-CuRS5RingSpes,
+		 CuRS5RingRag,
+		 CuRS5RingAlt/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4VSolid * CuRS5Cone 
+   = new G4Cons("CuRS5Shield",
+		 CuRS5ConeRagInf-CuRS5Spes,
+		 CuRS5ConeRagInf,
+		 CuRS5Rag-CuRS5Spes,
+		 CuRS5Rag,
+		 CuRS5ConeAlt/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4VSolid * CuRS5Bot 
+   = new G4Tubs("CuRS5Shield",
+		 0.,
+		 CuRS5ConeRagInf,
+		 CuRS5Spes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+		 
+  CuRS5Lat = new G4UnionSolid ("CuRS5Lat", CuRS5Lat,
+  			CuRS5Ring, new G4RotationMatrix(),
+			G4ThreeVector(0.,0.,(CuRS5Alt-CuRS5RingAlt)/2.));
+
+  CuRS5Lat = new G4UnionSolid ("CuRS5Lat", CuRS5Lat,
+  			CuRS5Cone, new G4RotationMatrix(),
+			G4ThreeVector(0.,0.,(-CuRS5Alt-CuRS5ConeAlt)/2.));
+
+  CuRS5Lat = new G4UnionSolid ("CuRS5Lat", CuRS5Lat,
+  			CuRS5Bot, new G4RotationMatrix(),
+			G4ThreeVector(0.,0.,-CuRS5Alt/2-CuRS5ConeAlt-CuRS5Spes/2.));//SC 12/3/13
+
+
+  G4Tubs * CuRS5Flan 
+   = new G4Tubs("CuRS5Shield",
+		 0.,
+		 CuRS5FlanRag,
+		 CuRS5FlanSpes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+
+// ** 6th Radiaton Shield  10mK** ****************//13.03.13 ok
+  G4double CuRS6AltDif = CuRS6RingAlt-CuRS6RingDouble1ZRelToRing0;
+
+  G4VSolid * CuRS6Tiles
+   = new G4Tubs("CuRS6Tiles",
+		 CuRS6Rag-CuRS6Spes-CuRS6TilesSpes,
+		 CuRS6Rag-CuRS6Spes,
+		 (CuRS6Alt-CuRS6AltDif)/2.,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4VSolid * CuRS6Lat
+   = new G4Tubs("CuRS6Shield",
+		 CuRS6Rag-CuRS6Spes,
+		 CuRS6Rag,
+		 CuRS6Alt/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4VSolid * CuRS6Bot 
+   = new G4Tubs("CuRS6Shield",
+		 0.,
+		 CuRS6BotRag,
+		 CuRS6Spes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4VSolid * CuRS6Ring 
+   = new G4Tubs("CuRS6Shield",
+		 CuRS6RingRag-CuRS6RingSpes,
+		 CuRS6RingRag,
+		 CuRS6RingAlt/2.0,
+		 0.0*deg, theC->CAngle*deg );
+  
+  G4VSolid * CuRS6RingDouble 
+   = new G4Tubs("CuRS6Shield",
+		 CuRS6RingRag-CuRS6RingSpes,
+		 CuRS6RingRag,
+		 CuRS6RingAlt,
+		 0.0*deg, theC->CAngle*deg );
+  
+  
+  CuRS6Lat = new G4UnionSolid ("CuRS6Lat", CuRS6Lat,
+  			CuRS6Ring, new G4RotationMatrix(),
+			G4ThreeVector(0.,0.,(CuRS6Alt-CuRS6RingAlt)/2));
+
+  CuRS6Lat = new G4UnionSolid ("CuRS6Lat", CuRS6Lat,										
+		    CuRS6RingDouble, new G4RotationMatrix(),
+		    G4ThreeVector(0.,0.,(CuRS6Alt-CuRS6RingAlt)/2+CuRS6RingDouble1ZRelToRing0));
+
+  CuRS6Lat = new G4UnionSolid ("CuRS6Lat", CuRS6Lat,
+		    CuRS6RingDouble, new G4RotationMatrix(),
+		    G4ThreeVector(0.,0.,(CuRS6Alt-CuRS6RingAlt)/2+CuRS6RingDouble2ZRelToRing0));
+
+  CuRS6Lat = new G4UnionSolid ("CuRS6Lat", CuRS6Lat,
+		    CuRS6RingDouble, new G4RotationMatrix(),
+		    G4ThreeVector(0.,0.,(CuRS6Alt-CuRS6RingAlt)/2+CuRS6RingDouble3ZRelToRing0));
+
+  CuRS6Lat = new G4UnionSolid ("CuRS6Lat", CuRS6Lat,
+		    CuRS6RingDouble, new G4RotationMatrix(),
+		    G4ThreeVector(0.,0.,(CuRS6Alt-CuRS6RingAlt)/2+CuRS6RingDouble4ZRelToRing0));
+
+  CuRS6Lat = new G4UnionSolid ("CuRS6Lat", CuRS6Lat,
+		      CuRS6Ring, new G4RotationMatrix(),
+		      G4ThreeVector(0.,0.,(CuRS6Alt-CuRS6RingAlt)/2+CuRS6Ring5ZRelToRing0));
+
+  CuRS6Lat = new G4UnionSolid ("CuRS6Lat", CuRS6Lat,
+		      CuRS6Bot, new G4RotationMatrix(),
+		      G4ThreeVector(0.,0.,-(CuRS6Alt+CuRS6BotAlt)/2));
+
+  G4VSolid * CuRS6Flan 
+   = new G4Tubs("CuRS6Shield",
+		 0.,
+		 CuRS6FlanRag,
+		 CuRS6FlanSpes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+// 10 mK flange DCS holes
+  G4Tubs * CuRS6FlanHole
+    = new G4Tubs("CuRS6FlanHole",
+		0.,
+		CalTubeCuSpes,
+		CuRS6FlanSpes/2.0,
+		0.0*deg, theC->CAngle*deg );
+
+  for( G4int isa=0; isa<NumHoles; isa++ )
+    CuRS6Flan = new G4SubtractionSolid( "CuRS6Flan", CuRS6Flan,
+				   CuRS6FlanHole,
+				   new G4RotationMatrix(),
+				   HoleP[isa]);
+
+// ** 6th Radiaton Shield (10mK) PET wrapping ** ****************//07.11.13 ok
+
+//  G4VSolid * PETRS6 
+//   = new G4Tubs("PETRS6Shield",
+//		 PETRS6Rag-PETRS6Spes,
+//		 PETRS6Rag,
+//		 PETRS6Alt/2.0,
+//		 0.0*deg, theC->CAngle*deg );
+
+
+
+// ** Cu top plate above Std Pb** **********************//22.01.13
+
+  G4VSolid * CuTopPlate 
+   = new G4Tubs("CuTopPlate",
+		 0.,
+		 CuTopPlateRag,
+		 CuTopPlateSpes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+  G4Tubs * CuTopPlateHole	   //buchi per canaline sorgenti se fossero dritte
+     = new G4Tubs("CuTopPlateHole",
+    	 0.,
+    	 CalTubeCuRag,
+    	 CuTopPlateSpes/2.0+1*mm,
+    	 0.0*deg, theC->CAngle*deg );
+  
+  for( G4int isa=0; isa<NumHoles; isa++ ) 
+     CuTopPlate = new G4SubtractionSolid ( "CuTopPlate", CuTopPlate,
+    		  CuTopPlateHole, 
+    		  new G4RotationMatrix(), 
+    		  HoleP[isa]);
+
+// ** Std Pb plug** *************************************//22.01.13
+
+  G4VSolid * StdPb 
+   = new G4Tubs("StdPb",
+		 0.,
+		 StdPbRag,
+		 StdPbSpes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+// Adding in StdPb hole ****// 30July2015
+  G4Tubs * StdPbHole
+    = new G4Tubs("StdPbHole",
+		0.,
+		CalTubeCuRag,
+		StdPbSpes/2.0+1*mm,
+		0.0*deg, theC->CAngle*deg );
+
+  for( G4int isa=0; isa<NumHoles; isa++ )
+    StdPb = new G4SubtractionSolid( "StdPb", StdPb,
+				   StdPbHole,
+				   new G4RotationMatrix(),
+				   HoleP[isa]);
+	         
+// ** Cu bottom plate below Std Pb ** ******************//22.01.13
+
+  G4VSolid * CuBottomPlate 
+   = new G4Tubs("CuBottomPlate",
+		 0.,
+		 CuBottomPlateRag,
+		 CuBottomPlateSpes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4Tubs * CuBottomPlateHole
+    = new G4Tubs("CuBottomPlateHole",
+  		0.,
+  		CalTubeCuRag,
+  		CuBottomPlateSpes/2.0+1*mm,
+  		0.0*deg, theC->CAngle*deg );
+  
+  for( G4int isa=0; isa<NumHoles; isa++ )
+    CuBottomPlate = new G4SubtractionSolid( "CuBottomPlate", CuBottomPlate,
+  				   CuBottomPlateHole,
+  				   new G4RotationMatrix(),
+  				   HoleP[isa]);
+
+   G4Tubs * SoapPb
+     = new G4Tubs("SoapPb",
+   		SoapPbR1,
+   		SoapPbR2,
+   		SoapPbAlt/2.0,
+   		0.0*deg, theC->CAngle*deg );
+		
+// ** Cu TSP plate ** ************************************//23.01.13
+
+  G4VSolid * CuTSP 
+   = new G4Tubs("CuTSP",
+		 0.,
+		 CuTSPRag,
+		 CuTSPAlt/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4Tubs * CuTSPHole	   //buchi per canaline sorgenti se fossero dritte
+     = new G4Tubs("CuTSPHole",
+		 0.,
+		 CalTubeCuRag,
+		 CuTSPAlt/2.0+1*mm,
+		 0.0*deg, theC->CAngle*deg );
+
+  for( G4int isa=0; isa<NumHoles; isa++ ) 
+     CuTSP = new G4SubtractionSolid ( "CuTSP", CuTSP,
+			  CuTSPHole, 
+			  new G4RotationMatrix(), 
+			  HoleP[isa]);
+
+   G4Tubs * SoapTSP
+     = new G4Tubs("SoapTSP",
+   		SoapTSPR1,
+   		SoapTSPR2,
+   		SoapTSPAlt/2.0,
+   		0.0*deg, theC->CAngle*deg );
+
+// ** Detector Cu Up plate** *****************************//23.01.13
+
+  G4VSolid * CuDetUpPlate 
+   = new G4Tubs("CuDetUpPlate",
+		 0.,
+		 CuDetUpPlateRag,
+		 CuDetUpPlateSpes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4Tubs * CuDetUpPlateHole	   //buchi per canaline sorgenti se fossero dritte
+     = new G4Tubs("CuDetUpPlateHole",
+		 0.,
+		 CalTubeCuRag,
+		 CuDetUpPlateSpes/2.0+1*mm,
+		 0.0*deg, theC->CAngle*deg );
+
+  for( G4int isa=0; isa<NumHoles; isa++ ) 
+     CuDetUpPlate = new G4SubtractionSolid ( "CuDetUpPlate", CuDetUpPlate,
+			  CuDetUpPlateHole, 
+			  new G4RotationMatrix(), 
+			  HoleP[isa]);
+
+// ** Detector Cu Up plate Poly wrapping** **************//23.01.13
+
+//  G4VSolid * PETDetUpPlate 
+//   = new G4Tubs("PETDetUpPlate",
+//		 0.,
+//		 PETDetUpPlateRag,
+//		 PETDetUpPlateSpes/2.0,
+//		 0.0*deg, theC->CAngle*deg );
+//
+//  G4Tubs * PETDetUpPlateHole	   //buchi per canaline sorgenti se fossero dritte
+//     = new G4Tubs("PETDetUpPlateHole",
+//		 0.,
+//		 CalTubeCuRag,
+//		 PETDetUpPlateSpes/2.0,
+//		 0.0*deg, theC->CAngle*deg );
+//
+//  for( G4int isa=0; isa<NumHoles; isa++ ) 
+//     PETDetUpPlate = new G4SubtractionSolid ( "PETDetUpPlate", PETDetUpPlate,
+//			  PETDetUpPlateHole, 
+//			  new G4RotationMatrix(), 
+//			  HoleP[isa]);
+
+// ** Detector Cu bottom plate** **************************//23.01.13
+
+  G4VSolid * CuDetBottomPlate 
+   = new G4Tubs("CuDetBottomPlate",
+		 0.,
+		 CuDetBottomPlateRag,
+		 CuDetBottomPlateSpes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+  G4Tubs * CuDetBottomPlateHole	   //buchi per canaline sorgenti se fossero dritte
+     = new G4Tubs("CuDetBottomPlateHole",
+		 0.,
+		 CalTubeCuRag,
+		 CuDetBottomPlateSpes/2.0,
+		 0.0*deg, theC->CAngle*deg );
+
+  for( G4int isa=0; isa<NumHoles; isa++ ) 
+     CuDetBottomPlate = new G4SubtractionSolid ( "CuDetBottomPlate", CuDetBottomPlate,
+			  CuDetBottomPlateHole, 
+			  new G4RotationMatrix(), 
+			  HoleP[isa]);
+
+// ** Detector Cu bottom plate wrapping Poly ** ***********//23.01.13
+
+//  G4VSolid * PETDetBottomPlate 
+//   = new G4Tubs("PETDetBottomPlate",
+//		 0.,
+//		 PETDetBottomPlateRag,
+//		 PETDetBottomPlateSpes/2.0,
+//		 0.0*deg, theC->CAngle*deg );
+//
+//  G4Tubs * PETDetBottomPlateHole	   //buchi per canaline sorgenti se fossero dritte
+//     = new G4Tubs("PETDetBottomPlateHole",
+//		 0.,
+//		 CalTubeCuRag,
+//		 PETDetBottomPlateSpes/2.0,
+//		 0.0*deg, theC->CAngle*deg );
+//
+//  for( G4int isa=0; isa<NumHoles; isa++ ) 
+//     PETDetBottomPlate = new G4SubtractionSolid ( "PETDetBottomPlate", PETDetBottomPlate,
+//			  PETDetBottomPlateHole, 
+//			  new G4RotationMatrix(), 
+//			  HoleP[isa]);
+
+
+// ** DCS - Calibration tubes ** ***********************************//23.01.13
+
+  G4Tubs * CalTubeCu = new G4Tubs("CalTubeCu",
+    		   CalTubeCuRag-CalTubeCuSpes,
+    		   CalTubeCuRag,
+    		   CalTubeLen/2.0,
+    		   0.0*deg, theC->CAngle*deg );
+
+// ** DCS Tubes in Std Pb plug holes ***
+  G4Tubs * StdPbTubeDCS	= new G4Tubs("StdPbTubeDCS",
+	       CalTubeCuRag-CalTubeCuSpes,
+	       CalTubeCuRag,
+	       StdPbSpes/2.0,
+	       0.0*deg, theC->CAngle*deg );
+
+// ** DCS string geometry ** *************************************//10Jun2015
+
+  G4VSolid * SourceCapsuleTeflonLayer
+   = new G4Tubs("SourceCapsuleTeflonLayer",
+		0.,
+		SourceTeflonRag,
+		SourceCapsuleLen/2.0+SourceTeflonSpes+SourceCuSpes,
+		0.0*deg, theC->CAngle*deg);	
+
+  G4VSolid * SourceCapsuleTeflonSubtract
+  = new G4Tubs("SourceCapsuleTeflonSubtract",
+	       0.,
+	       SourceTeflonRag-SourceTeflonSpes,
+	       SourceCapsuleLen/2.0 + SourceCuSpes,
+	       0.0*deg, theC->CAngle*deg);
+
+  SourceCapsuleTeflonLayer = new G4SubtractionSolid("SourceCapsuleTeflonLayer", SourceCapsuleTeflonLayer,
+						    SourceCapsuleTeflonSubtract,
+						    new G4RotationMatrix(),
+						    G4ThreeVector(0.,0.,0.));
+
+
+  G4VSolid * WeightCapsuleTeflonLayer
+   = new G4Tubs("WeightCapsuleTeflonLayer",
+		0.,
+		SourceTeflonRag,
+		WeightCapsuleLen/2.0+SourceTeflonSpes+SourceCuSpes,
+		0.0*deg, theC->CAngle*deg);
+
+  G4VSolid * WeightCapsuleTeflonSubtract
+    = new G4Tubs("WeightCapsuleTeflonSubtract",
+		 0.,
+		 SourceTeflonRag-SourceTeflonSpes,
+		 WeightCapsuleLen/2.0 + SourceCuSpes,
+		 0.0*deg, theC->CAngle*deg);
+
+  WeightCapsuleTeflonLayer = new G4SubtractionSolid("WeightCapsuleTeflonLayer", WeightCapsuleTeflonLayer,
+						    WeightCapsuleTeflonSubtract,
+						    new G4RotationMatrix(),
+						    G4ThreeVector(0.,0.,0.));
+  
+  G4VSolid * SourceCapsuleCuLayer
+   = new G4Tubs("SourceCapsuleCuLayer",
+		0.,
+		SourceCuRag,
+		SourceCapsuleLen/2.0+SourceCuSpes,
+		0.0*deg, theC->CAngle*deg);
+
+  G4VSolid * SourceCapsuleCuSubtract
+   = new G4Tubs("SourceCapsuleCuSubtract",
+		0.,
+		SourceCuRag - SourceCuSpes,
+		SourceCapsuleLen/2.0,
+		0.0*deg, theC->CAngle*deg);
+
+  SourceCapsuleCuLayer = new G4SubtractionSolid("SourceCapsuleCuLayer", SourceCapsuleCuLayer,
+						SourceCapsuleCuSubtract,
+						new G4RotationMatrix(),
+						G4ThreeVector(0.,0.,0.));
+
+  G4VSolid * WeightCapsuleCuLayer
+   = new G4Tubs("WeightCapsuleCuLayer",
+		0.,
+		SourceCuRag,
+		WeightCapsuleLen/2.0+SourceCuSpes,
+		0.0*deg, theC->CAngle*deg);
+
+  G4VSolid * WeightCapsuleCuSubtract
+   = new G4Tubs("WeightCapsuleCuSubtract",
+		0.,
+		SourceCuRag-SourceCuSpes,
+		WeightCapsuleLen/2.0+SourceCuSpes,
+		0.0*deg, theC->CAngle*deg);
+
+  WeightCapsuleCuLayer = new G4SubtractionSolid("WeightCapsuleCuLayer", WeightCapsuleCuLayer,
+						WeightCapsuleCuSubtract,
+						new G4RotationMatrix(),
+						G4ThreeVector(0.,0.,0.));
+
+  G4Tubs * SourceTungsten = new G4Tubs("SourceTungsten",
+       	           0.,
+		   SourceTungstenRag,
+		   SourceCapsuleLen/2.0,
+		   0.0*deg, theC->CAngle*deg);
+
+  G4Tubs * WeightTungsten = new G4Tubs("WeightTungsten",
+       	 	   0.,
+		   SourceTungstenRag,
+		   WeightCapsuleLen/2.0,
+		   0.0*deg, theC->CAngle*deg);
+
+
+
+// *****************************************************************
+// *** Logical Volume ***   *****************************************
+// *****************************************************************
+
+  G4LogicalVolume * Cryost_log 
+    = new G4LogicalVolume (Cryost, MaterialMap["Vacuum"], "Cryost_L", 0,0,0);
+
+
+// ** First Radiaton Shield ** ****************
+
+  G4LogicalVolume * CuRS1Lat_log 
+    = new G4LogicalVolume (CuRS1Lat, MaterialMap["Copper"], "CuRS1_L", 0,0,0);
+
+  G4LogicalVolume * CuRS1Flan_log 
+    = new G4LogicalVolume (CuRS1Flan, MaterialMap["Steel"], "CuRS1_L", 0,0,0);
+
+
+// ** Second Radiaton Shield ** ****************
+
+  G4LogicalVolume * CuRS2Lat_log 
+    = new G4LogicalVolume (CuRS2Lat, MaterialMap["Copper"], "CuRS2_L", 0,0,0);
+
+  G4LogicalVolume * CuRS2Flan_log 
+    = new G4LogicalVolume (CuRS2Flan, MaterialMap["Copper"], "CuRS2_L", 0,0,0);
+
+// ** Second Radiaton Shield SI** ****************   //17.02.14
+
+  G4LogicalVolume * SIRS2Lat_log 
+    = new G4LogicalVolume (SIRS2Lat, MaterialMap["Mylar"], "SIRS2_L", 0,0,0);
+
+  G4LogicalVolume * SIRS2Flan_log 
+    = new G4LogicalVolume (SIRS2Flan, MaterialMap["Mylar"], "SIRS2_L", 0,0,0);
+
+
+// ** Third Radiaton Shield ** ****************
+
+  G4LogicalVolume * CuRS3Lat_log 
+    = new G4LogicalVolume (CuRS3Lat, MaterialMap["Copper"], "CuRS3_L", 0,0,0);
+
+  G4LogicalVolume * CuRS3Flan_log 
+    = new G4LogicalVolume (CuRS3Flan, MaterialMap["Copper"], "CuRS3_L", 0,0,0);
+
+// ** Third Radiaton Shield SI** ****************   //17.02.14
+
+  G4LogicalVolume * SIRS3Lat_log 
+    = new G4LogicalVolume (SIRS3Lat, MaterialMap["Mylar"], "SIRS3_L", 0,0,0);
+
+  G4LogicalVolume * SIRS3Flan_log 
+    = new G4LogicalVolume (SIRS3Flan, MaterialMap["Mylar"], "SIRS3_L", 0,0,0);
+
+// ** Internal Lead ** ****************
+      
+  G4LogicalVolume * PbRS4Lat_log 
+    = new G4LogicalVolume (PbRS4Lat, MaterialMap["Lead"], "PbRS4_L", 0,0,0);
+
+  G4LogicalVolume * PbRS4CuCrandle_log 
+    = new G4LogicalVolume (PbRS4CuCrandle, MaterialMap["Copper"], "PbRS4CuCrandle_L", 0,0,0);
+
+  G4LogicalVolume * PbRS4CuRing_log 
+    = new G4LogicalVolume (PbRS4CuRing, MaterialMap["Copper"], "PbRS4CuRing_L", 0,0,0);
+
+  G4LogicalVolume * PbRS4Bottom_log 
+    = new G4LogicalVolume (PbRS4Bottom, MaterialMap["Lead"], "PbRS4Bottom_L", 0,0,0);
+
+
+// ** Ac Rods ** ****************
+
+  G4LogicalVolume * AcRods_log 
+    = new G4LogicalVolume (AcRods, MaterialMap["Steel"], "AcRods_L", 0,0,0);
+
+// ** Fourth Radiaton Shield 600mK ** *******************//22.01.13
+
+  G4LogicalVolume * CuRS4Lat_log 
+    = new G4LogicalVolume (CuRS4Lat, MaterialMap["Copper"], "CuRS4Lat_L", 0,0,0);
+
+  G4LogicalVolume * CuRS4Flan_log 
+    = new G4LogicalVolume (CuRS4Flan, MaterialMap["Copper"], "CuRS4Lat_L", 0,0,0);
+
+// ** Giunti CuBe ** *********************//06.05.13
+
+  G4LogicalVolume * GiuntiCuBe_log 
+    = new G4LogicalVolume (GiuntiCuBe, MaterialMap["CuBe"], "GiuntiCuBe_L", 0,0,0);
+
+
+// ** Fifth Radiaton Shield 50mk ** *********************//22.01.13
+
+  G4LogicalVolume * CuRS5Lat_log 
+    = new G4LogicalVolume (CuRS5Lat, MaterialMap["Copper"], "CuRS5Lat_L", 0,0,0);
+
+  G4LogicalVolume * CuRS5Flan_log 
+    = new G4LogicalVolume (CuRS5Flan, MaterialMap["Copper"], "CuRS5Lat_L", 0,0,0);
+
+
+// ** Sixth Radiaton Shield 10mK ** *********************//22.01.13
+
+  G4LogicalVolume * CuRS6Lat_log 
+    = new G4LogicalVolume (CuRS6Lat, MaterialMap["Copper"], "CuRS6Lat_L", 0,0,0);
+
+
+  G4LogicalVolume * CuRS6Flan_log 
+    = new G4LogicalVolume (CuRS6Flan, MaterialMap["Copper"], "CuRS6Lat_L", 0,0,0);
+
+// ** 10 mK Cu tiles** ************************//23.01.13
+
+  G4LogicalVolume * CuRS6Tiles_log 
+    = new G4LogicalVolume (CuRS6Tiles, MaterialMap["Copper"], "CuRS6Tiles_L", 0,0,0);
+  CuRS6Tiles_log->SetSensitiveDetector(CuSD);
+
+// ** Sixth Radiaton Shield (10mK) PET wrapping ** *********************//07.11.13
+
+//  G4LogicalVolume * PETRS6_log 
+//    = new G4LogicalVolume (PETRS6, MaterialMap["Poly"], "PETRS6_L", 0,0,0);
+
+
+// ** Cu Top Plate Above Std Pb ** **********************//22.01.13
+
+  G4LogicalVolume * CuTopPlate_log 
+    = new G4LogicalVolume (CuTopPlate, MaterialMap["Copper"], "CuTopPlate_L", 0,0,0);
+
+// ** Std Pb plug** *************************************//22.01.13
+
+  G4LogicalVolume * StdPb_log 
+    = new G4LogicalVolume (StdPb, MaterialMap["Lead"], "StdPb_L", 0,0,0);
+
+// ** DCS Tubes in Std Pb plug ***** ******************* // 30July2015
+  G4LogicalVolume * StdPbTubeDCS_log
+    = new G4LogicalVolume (StdPbTubeDCS, MaterialMap["Copper"], "StdPbTubeDCS_L",0,0,0);
+
+// ** Roman Lead plug ** ********************************//23.01.13
+
+//  G4LogicalVolume * PbR_log 
+//    = new G4LogicalVolume (PbR, MaterialMap["Lead"], "PbR_L", 0,0,0);
+
+// ** Cu bottom plate below Roman Pb ** *****************//23.01.13
+
+  G4LogicalVolume * CuBottomPlate_log 
+    = new G4LogicalVolume (CuBottomPlate, MaterialMap["Copper"], "CuBottomPlate_L", 0,0,0);
+
+  G4LogicalVolume * SoapPb_log 
+    = new G4LogicalVolume (SoapPb, MaterialMap["Teflon"], "SoapPb_L", 0,0,0);
+
+// ** Cu TSP plate ** ***********************************//23.01.13
+
+  G4LogicalVolume * CuTSP_log 
+    = new G4LogicalVolume (CuTSP, MaterialMap["Copper"], "CuTSP_L", 0,0,0);
+
+  G4LogicalVolume * SoapTSP_log 
+    = new G4LogicalVolume (SoapTSP, MaterialMap["Teflon"], "SoapTSP_L", 0,0,0);
+
+// ** Detector Cu Up plate** ****************************//23.01.13
+
+  G4LogicalVolume * CuDetUpPlate_log 
+    = new G4LogicalVolume (CuDetUpPlate, MaterialMap["Copper"], "CuDetUpPlate_L", 0,0,0);
+  CuDetUpPlate_log->SetSensitiveDetector(CuSD);
+
+// ** Detector Cu Up plate wrapping** *******************//23.01.13
+
+//  G4LogicalVolume * PETDetUpPlate_log 
+//    = new G4LogicalVolume (PETDetUpPlate, MaterialMap["Poly"], "PETDetUpPlate_L", 0,0,0);
+
+// ** Detector Cu bottom plate** ************************//23.01.13
+
+  G4LogicalVolume * CuDetBottomPlate_log 
+    = new G4LogicalVolume (CuDetBottomPlate, MaterialMap["Copper"], "CuDetBottomPlate_L", 0,0,0);
+  CuDetBottomPlate_log->SetSensitiveDetector(CuSD);
+
+// ** Detector Cu bottom plate wrapping** ***************//23.01.13
+
+//  G4LogicalVolume * PETDetBottomPlate_log 
+//    = new G4LogicalVolume (PETDetBottomPlate, MaterialMap["Poly"], "PETDetBottomPlate_L", 0,0,0);
+
+
+// ** DCS - Calibration  tubes ** **********************//23.01.13
+
+// ** Internal tubes ** ********
+
+  G4LogicalVolume * IntCalTubeCu_log = new G4LogicalVolume (CalTubeCu, MaterialMap["Copper"], "IntCalT_L", 0,0,0); 		     
+  G4LogicalVolume * IntWeightCapsuleTeflonLayer_log = new G4LogicalVolume (WeightCapsuleTeflonLayer, MaterialMap["Teflon"], "IntCalT_L", 0,0,0);
+  G4LogicalVolume * IntSourceCapsuleTeflonLayer_log = new G4LogicalVolume (SourceCapsuleTeflonLayer, MaterialMap["Teflon"], "IntCalT_L", 0,0,0);
+  G4LogicalVolume * IntWeightCapsuleCuLayer_log = new G4LogicalVolume (WeightCapsuleCuLayer, MaterialMap["Copper"], "IntCalT_L", 0,0,0);
+  G4LogicalVolume * IntSourceCapsuleCuLayer_log = new G4LogicalVolume (SourceCapsuleCuLayer, MaterialMap["Copper"], "IntCalT_L", 0,0,0);
+  G4LogicalVolume * IntWeightTungsten8_log = new G4LogicalVolume (WeightTungsten, MaterialMap["Tungsten"], "IntCalT_L", 0,0,0);
+  G4LogicalVolume * IntSourceTungsten21_log = new G4LogicalVolume (SourceTungsten, MaterialMap["Tungsten"], "IntCalT_L", 0,0,0);
+  G4LogicalVolume * IntSourceTungsten4_log = new G4LogicalVolume (SourceTungsten, MaterialMap["Tungsten"], "IntCalT_L", 0,0,0);
+  G4LogicalVolume * IntSourceTungsten1_log = new G4LogicalVolume (SourceTungsten, MaterialMap["Tungsten"], "IntCalT_L", 0,0,0);
+
+
+// ** External tubes ** ********
+
+  //G4LogicalVolume * ExtSourceTeflon_log = new G4LogicalVolume (SourceTeflon, MaterialMap["Teflon"], "ExtCalT_L", 0,0,0); 
+  //G4LogicalVolume * ExtSourceCu_log = new G4LogicalVolume (SourceCu, MaterialMap["Copper"], "ExtCalT_L", 0,0,0); 
+  //G4LogicalVolume * ExtSourceTungsten_log = new G4LogicalVolume (SourceTungsten, MaterialMap["Tungsten"], "ExtCalT_L", 0,0,0);  //old version
+
+  G4LogicalVolume * ExtWeightCapsuleTeflonLayer_log = new G4LogicalVolume (WeightCapsuleTeflonLayer, MaterialMap["Teflon"], "ExtCalT_L", 0,0,0);
+  G4LogicalVolume * ExtSourceCapsuleTeflonLayer_log = new G4LogicalVolume (SourceCapsuleTeflonLayer, MaterialMap["Teflon"], "ExtCalT_L", 0,0,0);
+  G4LogicalVolume * ExtWeightCapsuleCuLayer_log = new G4LogicalVolume (WeightCapsuleCuLayer, MaterialMap["Copper"], "ExtCalT_L", 0,0,0);
+  G4LogicalVolume * ExtSourceCapsuleCuLayer_log = new G4LogicalVolume (SourceCapsuleCuLayer, MaterialMap["Copper"], "ExtCalT_L", 0,0,0);
+  G4LogicalVolume * ExtWeightTungsten8_log = new G4LogicalVolume (WeightTungsten, MaterialMap["Tungsten"], "ExtCalT_L", 0,0,0);
+  G4LogicalVolume * ExtSourceTungsten20_log = new G4LogicalVolume (SourceTungsten, MaterialMap["Tungsten"], "ExtCalT_L", 0,0,0); 
+  G4LogicalVolume * ExtSourceTungsten5_log = new G4LogicalVolume (SourceTungsten, MaterialMap["Tungsten"], "ExtCalT_L", 0,0,0); 
+
+
+
+// *****************************************************************
+// *** Visibility ***   ********************************************
+// *****************************************************************
+
+
+  Cryost_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+
+// ** First Radiaton Shield ** ****************
+
+//theC->GraphicMask[0] & (1 << (x-1)) checks to see if visualization of component "x" has been turned on/off with -k option
+// use GraphicMask[1] and %32 when above 32
+
+
+  if( theC->GraphicMask[0] & (1 << (5-1)) ) 
+   CuRS1Lat_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuRS1Lat_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[0] & (1 << (6-1)) ) 
+   CuRS1Flan_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,0.)) );
+  else
+   CuRS1Flan_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+
+// ** Second Radiaton Shield ** ****************
+
+  if( theC->GraphicMask[0] & (1 << (7-1)) ) 
+   CuRS2Lat_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuRS2Lat_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[0] & (1 << (8-1)) ) 
+   CuRS2Flan_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuRS2Flan_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Second Radiaton Shield SI** ****************
+
+  if( theC->GraphicMask[1] & (1 << (46-1)%32) ) 
+   SIRS2Lat_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,0.,1.)) );
+  else
+   SIRS2Lat_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[1] & (1 << (46-1)%32) ) 
+   SIRS2Flan_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,0.,1.)) );
+  else
+   SIRS2Flan_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+
+// ** Third Radiaton Shield ** ****************
+
+  if( theC->GraphicMask[0] & (1 << (9-1)) ) 
+   CuRS3Lat_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuRS3Lat_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[0] & (1 << (10-1)) ) 
+   CuRS3Flan_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuRS3Flan_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Third Radiaton Shield SI** ****************
+
+  if( theC->GraphicMask[1] & (1 << (46-1)%32) ) 
+   SIRS3Lat_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,1.,1.)) );
+  else
+   SIRS3Lat_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[1] & (1 << (46-1)%32) ) 
+   SIRS3Flan_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,1.,1.)) );
+  else
+   SIRS3Flan_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+
+// ** Internal Lead ** **********************************************************	//SC: 14.03.13
+      
+  if( theC->GraphicMask[0] & (1 << (13-1)) ) 
+   PbRS4Lat_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,1.,1.)) );
+  else
+   PbRS4Lat_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[0] & (1 << (14-1)) ) 
+   PbRS4CuCrandle_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   PbRS4CuCrandle_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[0] & (1 << (14-1)) ) 
+   PbRS4CuRing_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   PbRS4CuRing_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[0] & (1 << (13-1)) ) 
+   PbRS4Bottom_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,1.,1.)) );
+  else
+   PbRS4Bottom_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Ac Roads ** ****************
+
+  if( theC->GraphicMask[0] & (1 << (15-1)) ) 
+   AcRods_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.5,1.,0.)) );
+  else
+   AcRods_log->SetVisAttributes ( new G4VisAttributes(false) );
+   
+// ** Fourth Radiaton Shield 600mK** ****************//22.01.13
+
+  if( theC->GraphicMask[0] & (1 << (11-1)) ) 
+   CuRS4Lat_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuRS4Lat_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[0] & (1 << (12-1)) ) 
+   CuRS4Flan_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuRS4Flan_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Giunti CuBe ** *********************//06.05.13
+
+  if( theC->GraphicMask[1] & (1 << (43-1)%32) )  
+   GiuntiCuBe_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,0.)) );
+  else
+   GiuntiCuBe_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Fifth Radiaton Shield ** ********************************//22.01.13
+
+  if( theC->GraphicMask[0] & (1 << (16-1)) ) 
+   CuRS5Lat_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuRS5Lat_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[0] & (1 << (17-1)) ) 
+   CuRS5Flan_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuRS5Flan_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+
+// ** Sixth Radiaton Shield ** ********************************//22.01.13
+
+  if( theC->GraphicMask[0] & (1 << (18-1)) ) 
+   CuRS6Lat_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuRS6Lat_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[0] & (1 << (19-1)) ) 
+   CuRS6Flan_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuRS6Flan_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Sixth Radiaton Shield tiles ** ********************************//22.01.13
+
+  if( theC->GraphicMask[0] & (1 << (22-1)) ) 
+   CuRS6Tiles_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,0.)) );
+  else
+   CuRS6Tiles_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Sixth Radiaton Shield Poly wrapping** ********************************//22.01.13
+
+//  if( theC->GraphicMask[1] & (1 << (45-1)%32) ) 
+//   PETRS6_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,0.,1.)) );
+//  else
+//   PETRS6_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+
+// ** Cu Top Plate Above Std Pb ** ****************************//22.01.13
+
+  if( theC->GraphicMask[0] & (1 << (20-1)) ) 
+   CuTopPlate_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuTopPlate_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Std Pb Plug** *******************************************//22.01.13
+
+  if( theC->GraphicMask[0] & (1 << (21-1)) ) 
+   StdPb_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,1.,1.)) );
+  else
+   StdPb_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** DCS Tubes in Std Pb Plug ** ******************************* // 30July2015
+  if( theC->GraphicMask[0] & (1 << (23-1)) )
+    StdPbTubeDCS_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,1.)) );
+  else
+    StdPbTubeDCS_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+
+// ** Cu bottom plate below Roman Pb ** ***********************//23.01.13
+
+  if( theC->GraphicMask[0] & (1 << (24-1)) ) 
+   CuBottomPlate_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuBottomPlate_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Cu bottom plate GREEN SHIT** *****************************************//08.06.16
+
+  if( theC->GraphicMask[1] & (1 << (61-1)%32) ) 
+   SoapPb_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,1.,0.4)) );
+  else
+   SoapPb_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Cu TSP plate ** *****************************************//22.01.13
+
+  if( theC->GraphicMask[0] & (1 << (25-1)) ) 
+   CuTSP_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuTSP_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Cu TSP plate GREEN SHIT** *****************************************//08.06.16
+
+  if( theC->GraphicMask[1] & (1 << (62-1)%32) ) 
+   SoapTSP_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,1.,0.4)) );
+  else
+   SoapTSP_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Detector Cu Up plate** **********************************//22.01.13
+
+  if( theC->GraphicMask[0] & (1 << (26-1)) ) 
+   CuDetUpPlate_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuDetUpPlate_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Detector Cu Up plate wrapping** *************************//22.01.13
+
+//  if( theC->GraphicMask[0] & (1 << (27-1)) ) 
+//   PETDetUpPlate_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,0.,1.)) );
+//  else
+//   PETDetUpPlate_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Detector Cu bottom plate** ******************************//22.01.13
+
+  if( theC->GraphicMask[0] & (1 << (28-1)) ) 
+   CuDetBottomPlate_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,0.)) );
+  else
+   CuDetBottomPlate_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** Detector Cu bottom plate wrapping** *********************//22.01.13
+
+//  if( theC->GraphicMask[0] & (1 << (29-1)) ) 
+//   PETDetBottomPlate_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,0.,1.)) );
+//  else
+//   PETDetBottomPlate_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+
+// ** DCS - Calibration tubes ** ****************************//23.01.13
+
+// ** Internal tubes ** ********
+
+  if( theC->GraphicMask[0] & (1 << (30-1)) ) 
+    IntCalTubeCu_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,1.)) );
+  else 
+    IntCalTubeCu_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[0] & (1 << (31-1)) ) {
+    IntWeightCapsuleTeflonLayer_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,0.)) );
+    IntSourceCapsuleTeflonLayer_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,0.)) );
+    }
+  else {
+    IntWeightCapsuleTeflonLayer_log->SetVisAttributes ( new G4VisAttributes(false) );
+    IntSourceCapsuleTeflonLayer_log->SetVisAttributes ( new G4VisAttributes(false) );
+    }
+
+  if( theC->GraphicMask[0] & (1 << (32-1)) ) {
+    IntWeightCapsuleCuLayer_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,1.)) );
+    IntSourceCapsuleCuLayer_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,1.)) );
+    }
+  else {
+    IntWeightCapsuleCuLayer_log->SetVisAttributes ( new G4VisAttributes(false) );
+    IntSourceCapsuleCuLayer_log->SetVisAttributes ( new G4VisAttributes(false) );
+    }
+
+  if( theC->GraphicMask[1] & (1 << (54-1)%32) ) 
+    IntWeightTungsten8_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,1.)) );
+  else 
+    IntWeightTungsten8_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[1] & (1 << (55-1)%32) )
+   IntSourceTungsten21_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,1.)) );
+  else
+   IntSourceTungsten21_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[1] & (1 << (56-1)%32) )
+   IntSourceTungsten4_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,1.)) );
+  else
+   IntSourceTungsten4_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[1] & (1 << (57-1)%32) )
+   IntSourceTungsten1_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,1.)) );
+  else
+   IntSourceTungsten1_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// ** External tubes ** ********      
+
+  if( theC->GraphicMask[1] & (1 << (34-1)%32) ) {                                          
+    ExtWeightCapsuleTeflonLayer_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,0.)) );
+    ExtSourceCapsuleTeflonLayer_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,0.)) );
+    }
+  else {
+    ExtWeightCapsuleTeflonLayer_log->SetVisAttributes ( new G4VisAttributes(false) );
+    ExtSourceCapsuleTeflonLayer_log->SetVisAttributes ( new G4VisAttributes(false) );
+    }
+    
+  if( theC->GraphicMask[1] & (1 << (35-1)%32) ) {                           
+    ExtWeightCapsuleCuLayer_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,1.)) );
+    ExtSourceCapsuleCuLayer_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,0.,1.)) );
+    }
+  else {
+    ExtWeightCapsuleCuLayer_log->SetVisAttributes ( new G4VisAttributes(false) );
+    ExtSourceCapsuleCuLayer_log->SetVisAttributes ( new G4VisAttributes(false) );
+    }  
+
+  if( theC->GraphicMask[1] & (1 << (58-1)%32) )
+   ExtWeightTungsten8_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,1.)) );
+  else
+   ExtWeightTungsten8_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[1] & (1 << (59-1)%32) )
+   ExtSourceTungsten20_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,1.)) );
+  else
+   ExtSourceTungsten20_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if( theC->GraphicMask[1] & (1 << (60-1)%32) )
+   ExtSourceTungsten5_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,1.)) );
+  else
+   ExtSourceTungsten5_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+// *****************************************************************
+// *** Physical Volume ***   *****************************************
+// *****************************************************************
+
+
+  CryoPos = POFF+G4ThreeVector(0,0,CuRS1Z+CuRS1Cone1Alt+CuRS1Cone2Alt+CuRS1Alt/2.);
+  
+  G4VPhysicalVolume* Cryost_phys;  
+  Cryost_phys = new G4PVPlacement ( 0,CryoPos,"Cryost_P", 
+			  Cryost_log, Hall_phys , false, 0);
+
+
+G4cout << POFF << '\n' << G4endl;
+
+// ** First Radiaton Shield ** ****************
+
+  if(theC->minEn >0) CuRS1Lat_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+ 
+  CuRegion->AddRootLogicalVolume( CuRS1Lat_log );
+
+  G4VPhysicalVolume* CuRS1Lat_phys;  
+  CuRS1Lat_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS1Z+CuRS1Cone2Alt+CuRS1Cone1Alt+CuRS1Alt/2.),
+			  "CuRS1Lat_P", 
+			  CuRS1Lat_log, 
+			  Hall_phys , false, 0);
+
+
+  if(theC->minEn >0) CuRS1Flan_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  FeRegion->AddRootLogicalVolume( CuRS1Flan_log );
+
+  G4VPhysicalVolume* CuRS1Flan_phys;  
+   CuRS1Flan_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS1Z+CuRS1Cone2Alt+CuRS1Cone1Alt+CuRS1Alt+CuRS1FlanSpes/2.),
+			  "CuRS1Flan_P", 
+			  CuRS1Flan_log, 
+			  Hall_phys , false, 0);
+
+
+// ** Second Radiaton Shield ** ****************
+
+  if(theC->minEn >0) CuRS2Lat_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+ 
+  CuRegion->AddRootLogicalVolume( CuRS2Lat_log );
+
+  G4VPhysicalVolume* CuRS2Lat_phys;  
+  CuRS2Lat_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS2Z+CuRS2Cone2Alt+CuRS2Cone1Alt+CuRS2Alt/2.)-CryoPos,
+			  "CuRS2Lat_P", 
+			  CuRS2Lat_log, 
+			  Cryost_phys , false, 0);
+
+
+  if(theC->minEn >0) CuRS2Flan_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+
+  CuRegion->AddRootLogicalVolume( CuRS2Flan_log );
+
+  G4VPhysicalVolume* CuRS2Flan_phys;  
+  CuRS2Flan_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS2Z+CuRS2Cone2Alt+CuRS2Cone1Alt+CuRS2Alt+CuRS2FlanSpes/2.)-CryoPos,
+			  "CuRS2Flan_P", 
+			  CuRS2Flan_log, 
+			  Cryost_phys , false, 0);
+
+// ** Second Radiaton Shield SI** ****************
+
+  if(theC->minEn >0) SIRS2Lat_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+ 
+  G4VPhysicalVolume* SIRS2Lat_phys;  
+  SIRS2Lat_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS2Z+CuRS2Cone2Alt+CuRS2Cone1Alt+CuRS2Alt/2.)-CryoPos,
+			  "SIRS2Lat_P", 
+			  SIRS2Lat_log, 
+			  Cryost_phys , false, 0);
+
+
+  if(theC->minEn >0) SIRS2Flan_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+
+ 
+  G4VPhysicalVolume* SIRS2Flan_phys;  
+  SIRS2Flan_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS2Z+CuRS2Cone2Alt+CuRS2Cone1Alt+CuRS2Alt+CuRS2FlanSpes+SIRS2FlanSpes/2.)-CryoPos,
+			  "SIRS2Flan_P", 
+			  SIRS2Flan_log, 
+			  Cryost_phys , false, 0);
+
+// ** Third Radiation Shield ** ****************
+
+  if(theC->minEn >0) CuRS3Lat_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  CuRegion->AddRootLogicalVolume( CuRS3Lat_log );
+
+  G4VPhysicalVolume* CuRS3Lat_phys;  
+  CuRS3Lat_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS3Z+CuRS3Cone2Alt+CuRS3Cone1Alt+CuRS3Alt/2.)-CryoPos,
+			  "CuRS3Lat_P", 
+			  CuRS3Lat_log, 
+			  Cryost_phys , false, 0);
+
+
+
+  if(theC->minEn >0) CuRS3Flan_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+
+  CuRegion->AddRootLogicalVolume( CuRS3Flan_log );
+
+  G4VPhysicalVolume* CuRS3Flan_phys;  
+  CuRS3Flan_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS3Z+CuRS3Cone2Alt+CuRS3Cone1Alt+CuRS3Alt+CuRS3FlanSpes/2.)-CryoPos,
+			  "CuRS3Flan_P", 
+			  CuRS3Flan_log, 
+			  Cryost_phys , false, 0);
+
+
+
+// ** Third Radiaton Shield SI** ****************
+
+  if(theC->minEn >0) SIRS3Lat_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+ 
+  G4VPhysicalVolume* SIRS3Lat_phys;  
+  SIRS3Lat_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS3Z+CuRS3Cone2Alt+CuRS3Cone1Alt+CuRS3Alt/2.)-CryoPos,
+			  "SIRS3Lat_P", 
+			  SIRS3Lat_log, 
+			  Cryost_phys , false, 0);
+
+
+  if(theC->minEn >0) SIRS3Flan_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+
+ 
+  G4VPhysicalVolume* SIRS3Flan_phys;  
+  SIRS3Flan_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS3Z+CuRS3Cone2Alt+CuRS3Cone1Alt+CuRS3Alt+CuRS3FlanSpes+SIRS3FlanSpes/2.)-CryoPos,
+			  "SIRS3Flan_P", 
+			  SIRS3Flan_log, 
+			  Cryost_phys , false, 0);
+
+
+
+// ** Internal Lead ** ****************												//18.03.13
+      
+  if(theC->minEn >0) PbRS4Lat_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+
+  PbRegion->AddRootLogicalVolume( PbRS4Lat_log );
+
+  G4VPhysicalVolume* PbRS4Lat_phys;  
+  PbRS4Lat_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,PbRS4Z+PbRS4CuCrandleAltBot+PbRS4CuCrandleAltTop+PbRS4Alt/2.)-CryoPos, 	      //PbRS4Alt e`senza il crandle!!
+			"PbRS4Lat_P", 
+			PbRS4Lat_log, 
+			Cryost_phys , false, 0);
+
+  if(theC->minEn >0) PbRS4CuCrandle_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+
+  CuRegion->AddRootLogicalVolume( PbRS4CuCrandle_log );
+
+  G4VPhysicalVolume* PbRS4CuCrandle_phys;  
+
+  PbRS4CuCrandle_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,PbRS4Z+PbRS4CuCrandleAltBot+PbRS4CuCrandleAltTop/2.)-CryoPos,		
+			  "PbRS4CuCrandle_P", 
+			  PbRS4CuCrandle_log, 
+			  Cryost_phys , false, 0);
+
+  if(theC->minEn >0) PbRS4CuRing_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+
+  CuRegion->AddRootLogicalVolume( PbRS4CuRing_log );
+
+  G4VPhysicalVolume* PbRS4CuRing_phys;  
+  PbRS4CuRing_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,PbRS4Z+PbRS4CuCrandleAltBot+PbRS4CuCrandleAltTop+PbRS4Alt+PbRS4CuRingAlt/2.+1)-CryoPos,	      
+			"PbRS4CuRing_P", 
+			PbRS4CuRing_log, 
+			Cryost_phys , false, 0);
+
+  if(theC->minEn >0) PbRS4Bottom_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+
+  PbRegion->AddRootLogicalVolume( PbRS4Bottom_log );
+
+  G4VPhysicalVolume* PbRS4Bottom_phys;  
+  PbRS4Bottom_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,PbRS4Z+PbRS4CuCrandleAltBot+PbRS4PbBotAlt/2.)-CryoPos,		//PbRS4Alt e`senza il crandle!!
+			  "PbRS4Bottom_P", 
+			  PbRS4Bottom_log, 
+			  Cryost_phys , false, 0);
+
+
+// ** Ac Rods ** ****************				//18.03.13
+   
+  G4VPhysicalVolume* AcRods_phys;
+
+  FeRegion->AddRootLogicalVolume( AcRods_log );
+
+  for(G4int iii=0; iii<3;iii++){
+     AcRods_phys = new G4PVPlacement ( 0,POFF+ACRodsHoleP[iii]+G4ThreeVector(0,0,SteelRodsCenterZ)-CryoPos,
+			  "AcRods_P", 
+			  AcRods_log, 
+			  Cryost_phys , false, 0);
+  }
+
+
+// ** Fourth Radiaton Shield 600mK ** **********************//22.01.13
+
+  if(theC->minEn >0) CuRS4Lat_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  CuRegion->AddRootLogicalVolume( CuRS4Lat_log );
+
+  G4VPhysicalVolume* CuRS4Lat_phys;  
+  CuRS4Lat_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS4Z+CuRS4Spes+CuRS4ConeAlt+CuRS4Alt/2.)-CryoPos,
+			  "CuRS4Lat_P", 
+			  CuRS4Lat_log, 
+			  Cryost_phys , false, 0);
+  
+  if(theC->minEn >0) CuRS4Flan_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+ CuRegion->AddRootLogicalVolume( CuRS4Flan_log );
+
+  G4VPhysicalVolume* CuRS4Flan_phys;  
+  CuRS4Flan_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS4Z+CuRS4Spes+CuRS4ConeAlt+CuRS4Alt+CuRS4FlanSpes/2.)-CryoPos,
+			  "CuRS4Flan_P", 
+			  CuRS4Flan_log, 
+			  Cryost_phys , false, 0);
+
+
+// ** Giunti CuBe ** *********************************//06.05.13
+
+  if(theC->minEn >0) GiuntiCuBe_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  CuRegion->AddRootLogicalVolume( GiuntiCuBe_log );
+
+  G4VPhysicalVolume* GiuntiCuBe_phys;  
+  for(G4int i=0;i<NumGiuntiCuBe;i++)
+	GiuntiCuBe_phys = new G4PVPlacement ( 0,POFF+GiuntiCuBePos[i]-CryoPos,
+			  "GiuntiCuBe_P", 
+			  GiuntiCuBe_log, 
+			  Cryost_phys , false,0);
+
+
+// ** Fifth Radiaton Shield ** **********************//22.01.13
+
+  if(theC->minEn >0) CuRS5Lat_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  CuRegion->AddRootLogicalVolume( CuRS5Lat_log );
+
+  G4VPhysicalVolume* CuRS5Lat_phys;  
+  CuRS5Lat_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS5Z+CuRS5Spes+CuRS5ConeAlt+CuRS5Alt/2.)-CryoPos,
+			  "CuRS5Lat_P", 
+			  CuRS5Lat_log, 
+			  Cryost_phys , false, 0);
+
+
+
+  if(theC->minEn >0) CuRS5Flan_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+
+  CuRegion->AddRootLogicalVolume( CuRS5Flan_log );
+
+  G4VPhysicalVolume* CuRS5Flan_phys;  
+  CuRS5Flan_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS5Z+CuRS5Spes+CuRS5ConeAlt+CuRS5Alt+CuRS5FlanSpes/2.)-CryoPos,
+			  "CuRS5Flan_P", 
+			  CuRS5Flan_log, 
+			  Cryost_phys , false, 0);
+
+
+G4cout << "50 mK Flange Top (Z): " << POFF.z() + CuRS5Z + CuRS5ConeAlt+CuRS5Alt+CuRS5FlanSpes << "*mm" << "\n" << G4endl;
+
+// ** Sixth Radiaton Shield 10mK** **********************
+
+  if(theC->minEn >0) CuRS6Lat_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  CuRegion->AddRootLogicalVolume( CuRS6Lat_log );
+
+  G4VPhysicalVolume* CuRS6Lat_phys;  
+  CuRS6Lat_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS6Z+CuRS6BotAlt+CuRS6Alt/2.)-CryoPos,			//13.03.13
+			  "CuRS6Lat_P", 
+			  CuRS6Lat_log, 
+			  Cryost_phys , false, 0);
+
+// ** Sixth Radiaton Shield 10mK tiles ** **********************
+
+  if(theC->minEn >0) CuRS6Tiles_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+
+  CuRegion->AddRootLogicalVolume( CuRS6Tiles_log );
+
+  G4VPhysicalVolume* CuRS6Tiles_phys;  
+  CuRS6Tiles_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS6Z+CuRS6BotAlt+(CuRS6Alt-CuRS6AltDif)/2.)-CryoPos,			//13.03.13
+			  "CuRS6Tiles_P", 
+			  CuRS6Tiles_log, 
+			  Cryost_phys , false, 0);
+
+
+
+  if(theC->minEn >0) CuRS6Flan_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  CuRegion->AddRootLogicalVolume( CuRS6Flan_log );
+
+  G4VPhysicalVolume* CuRS6Flan_phys;  
+  CuRS6Flan_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuRS6Z+CuRS6BotAlt+CuRS6Alt+CuRS6FlanSpes/2.)-CryoPos,
+			  "CuRS6Flan_P", 
+			  CuRS6Flan_log, 
+			  Cryost_phys , false, 0);
+
+G4cout << "10 mk Flange Bot (Z): " << POFF.z()+CuRS6Z+CuRS6BotAlt+CuRS6Alt<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+G4cout << "10 mK Flange Top (Z): " << POFF.z()+CuRS6Z+CuRS6BotAlt+CuRS6Alt+CuRS6FlanSpes<<"*mm"<<"\n" << G4endl; //FOR DEBUG ONLY
+
+
+				      
+
+// ** Sixth Radiaton Shield (10mK) Poly wrapping** **********************
+
+//  if(theC->minEn >0) PETRS6_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+//  
+//
+//  G4VPhysicalVolume* PETRS6_phys;  
+//  PETRS6_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,PETRS6Z+PETRS6Alt/2.)-CryoPos,			//13.03.13
+//			  "PETRS6_P", 
+//			  PETRS6_log, 
+//			  Cryost_phys , false, 0);
+
+// ** Cu Top Plate Above Std Pb** **********************//22.01.13
+
+  if(theC->minEn >0) CuTopPlate_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  CuRegion->AddRootLogicalVolume( CuTopPlate_log );
+
+  G4VPhysicalVolume* CuTopPlate_phys;  
+  CuTopPlate_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuTopPlateZ+CuTopPlateSpes/2.)-CryoPos,
+			  "CuTopPlate_P", 
+			  CuTopPlate_log, 
+			  Cryost_phys , false, 0);
+
+//G4cout << "CuTopPlate Plug Bottom Z: " <<CuTopPlateZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+//G4cout << "CuTopPlate Plug Top Z: " <<CuTopPlateZ+CuTopPlateSpes<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+
+// ** Std Pb Plug** ************************************//22.01.13
+
+  if(theC->minEn >0) StdPb_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  PbRegion->AddRootLogicalVolume( StdPb_log );
+
+  G4VPhysicalVolume* StdPb_phys;  
+  StdPb_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,StdPbZ+StdPbSpes/2.)-CryoPos,
+			  "StdPb_P", 
+			  StdPb_log, 
+			  Cryost_phys , false, 0);
+
+// ** DCS Tubes in Std Pb Plug ** *********************** //30July2015
+  G4VPhysicalVolume* StdPbTubeDCS_phys;
+  for (G4int isa = 0; isa<NumHoles; isa++) {
+    StdPbTubeDCS_phys = new G4PVPlacement ( 0, POFF+HoleP[isa]+G4ThreeVector(0,0,StdPbZ+StdPbSpes/2.) - CryoPos,
+			  "StdPbTubeDCS_P",
+			  StdPbTubeDCS_log,
+			  Cryost_phys , false, isa);
+  }
+
+//G4cout << "StdPb Plug Bottom Z: " <<StdPbZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+//G4cout << "StdPb Plug Top Z: " <<StdPbZ+StdPbSpes<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+
+
+// ** Roman Lead plug ** ********************************//23.01.13
+
+/* if(theC->minEn >0) PbR_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  PbRegion->AddRootLogicalVolume( PbR_log );
+
+  G4VPhysicalVolume* PbR_phys;  
+  PbR_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,PbRZ+PbRSpes/2.)-CryoPos,
+			  "PbR_P", 
+			  PbR_log, 
+			  Cryost_phys , false, 0);
+*/
+//G4cout << "PbR Plug Bottom Z: " <<PbRZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+//G4cout << "PbR Plug Top Z: " <<PbRZ+PbRSpes<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+
+// ** Cu bottom plate below Roman Pb ** *****************//23.01.13
+
+  if(theC->minEn >0) CuBottomPlate_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  CuRegion->AddRootLogicalVolume( CuBottomPlate_log );
+
+  G4VPhysicalVolume* CuBottomPlate_phys;  
+  CuBottomPlate_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuBottomPlateZ+CuBottomPlateSpes/2.)-CryoPos,
+			  "CuBottomPlate_P", 
+			  CuBottomPlate_log, 
+			  Cryost_phys , false, 0);
+
+  G4VPhysicalVolume* SoapPb_phys;
+  for( G4int isa=0; isa<NumHoles; isa++ )
+    SoapPb_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,SoapPbZ+SoapPbAlt/2.)-CryoPos+HoleP[isa],
+			  "SoapPb_P", 
+			  SoapPb_log, 
+			  Cryost_phys , false, 0);
+
+//G4cout << "CuBottomPlate Plug Bottom Z: " <<CuBottomPlateZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+//G4cout << "CuBottomPlate Plug Top Z: " <<CuBottomPlateZ+CuBottomPlateSpes<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+
+
+// ** Cu TSP plate ** ***********************************//23.01.13
+
+  if(theC->minEn >0) CuTSP_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  CuRegion->AddRootLogicalVolume( CuTSP_log );
+
+  G4VPhysicalVolume* CuTSP_phys;  
+  CuTSP_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuTSPZ+CuTSPAlt/2.)-CryoPos,
+			  "CuTSP_P", 
+			  CuTSP_log, 
+			  Cryost_phys , false, 0);
+
+  G4VPhysicalVolume* SoapTSP_phys;
+  for( G4int isa=0; isa<NumHoles; isa++ )
+   SoapTSP_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,SoapTSPZ+SoapTSPAlt/2.)-CryoPos+HoleP[isa],
+			  "SoapTSP_P", 
+			  SoapTSP_log, 
+			  Cryost_phys , false, 0);
+			  
+//G4cout << "CuTSP Plug Bottom Z: " <<CuTSPZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+//G4cout << "CuTSP Plug Top Z: " <<CuTSPZ+CuTSPAlt<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+
+
+// ** Detector Cu Up plate** ****************************//23.01.13
+
+  if(theC->minEn >0) CuDetUpPlate_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  CuRegion->AddRootLogicalVolume( CuDetUpPlate_log );
+
+  G4VPhysicalVolume* CuDetUpPlate_phys;  
+  CuDetUpPlate_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuDetUpPlateZ+CuDetUpPlateSpes/2.)-CryoPos,
+			  "CuDetUpPlate_P", 
+			  CuDetUpPlate_log, 
+			  Cryost_phys , false, 0);
+
+//G4cout << "CuDetUpPlate Plug Bottom Z: " <<CuDetUpPlateZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+//G4cout << "CuDetUpPlate Plug Top Z: " <<CuDetUpPlateZ+CuDetUpPlateSpes<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+
+
+// ** Detector Cu Up plate wrapping** *******************//23.01.13
+
+//  if(theC->minEn >0) PETDetUpPlate_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+//  
+//  G4VPhysicalVolume* PETDetUpPlate_phys;  
+//  PETDetUpPlate_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,PETDetUpPlateZ+PETDetUpPlateSpes/2.)-CryoPos,
+//			  "PETDetUpPlate_P", 
+//			  PETDetUpPlate_log, 
+//			  Cryost_phys , false, 0);
+
+
+
+// ** Detector Cu bottom plate** ************************//23.01.13
+
+  if(theC->minEn >0) CuDetBottomPlate_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  CuRegion->AddRootLogicalVolume( CuDetBottomPlate_log );
+
+  G4VPhysicalVolume* CuDetBottomPlate_phys;  
+  CuDetBottomPlate_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,CuDetBottomPlateZ+CuDetBottomPlateSpes/2.)-CryoPos,
+			  "CuDetBottomPlate_P", 
+			  CuDetBottomPlate_log, 
+			  Cryost_phys , false, 0);
+
+//G4cout << "CuDetBottomPlate Plug Bottom Z: " <<CuDetBottomPlateZ<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+//G4cout << "CuDetBottomPlate Plug Top Z: " <<CuDetBottomPlateZ+CuDetBottomPlateSpes<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+
+// ** Detector Cu bottom plate wrapping** ***************//23.01.13
+
+//  if(theC->minEn >0) PETDetBottomPlate_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+//  
+//  G4VPhysicalVolume* PETDetBottomPlate_phys;  
+//  PETDetBottomPlate_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,PETDetBottomPlateZ+PETDetBottomPlateSpes/2.)-CryoPos,
+//			  "PETDetBottomPlate_P", 
+//			  PETDetBottomPlate_log, 
+//			  Cryost_phys , false, 0);
+
+
+
+// ** DCS - Calibration  tubes ** ***********************//23.01.13
+
+/// old version////
+/*  G4VPhysicalVolume* IntSourceTeflon_phys; 
+  for( G4int isa=0; isa<NumHoles; isa++ )
+     IntSourceTeflon_phys = new G4PVPlacement (0,POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+SourceLen/2.))-CryoPos,
+    			    "IntSourceTeflon_P", 
+    			    IntSourceTeflon_log, 
+    			    Cryost_phys , false, isa);			    
+
+  G4VPhysicalVolume* IntSourceCu_phys; 
+  for( G4int isa=0; isa<NumHoles; isa++ )
+     IntSourceCu_phys = new G4PVPlacement (
+     0,POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+SourceLen/2.))-CryoPos,
+    			    "IntSourceCu_P", 
+    			    IntSourceCu_log, 
+    			    Cryost_phys , false, isa);
+     
+   G4VPhysicalVolume* IntSourceTungsten_phys;
+   for( G4int isa=0; isa<NumHoles; isa++ )
+   	IntSourceTungsten_phys = new G4PVPlacement (0,POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+CapsuleLen/2.))-CryoPos,
+			      "IntSourceTungsten_P",
+			      IntSourceTungsten_log,
+			      Cryost_phys , false, isa);
+*/
+
+// Add in additions for Interior source geometry and radiation ///// 16Jun2015 CJD
+
+// ** Internal tubes ** ********
+
+  G4VPhysicalVolume* IntCalTubeCu_phys; 
+  for( G4int isa=0; isa<NumHoles; isa++ )
+     IntCalTubeCu_phys = new G4PVPlacement (
+     0,POFF+HoleP[isa]+G4ThreeVector(0,0,(CalTubeZ+CalTubeLen/2.))-CryoPos,
+    			    "IntCalTubeCu_P", 
+    			    IntCalTubeCu_log, 
+    			    Cryost_phys , false, isa);
+
+// ** Teflon**
+
+  G4VPhysicalVolume* IntWeightCapsuleTeflonLayer_phys;
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+     for(G4int n_capsule = 0; n_capsule < 8; n_capsule++) {
+		IntWeightCapsuleTeflonLayer_phys = new G4PVPlacement (0,POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+WeightCapsuleLen/2.+CapsuleSpacing[n_capsule]))-CryoPos, 
+    			    "IntWeightCapsuleTeflonLayer_P", 
+    			    IntWeightCapsuleTeflonLayer_log, 
+    			    Cryost_phys , false, isa*8 + n_capsule);
+     }
+  }
+
+  G4VPhysicalVolume* IntSourceCapsuleTeflonLayer_phys;
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+     for(G4int n_capsule = 8; n_capsule < 34; n_capsule++) {
+		IntSourceCapsuleTeflonLayer_phys = new G4PVPlacement (0,POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule]))-CryoPos,
+    			    "IntSourceCapsuleTeflonLayer_P", 
+    			    IntSourceCapsuleTeflonLayer_log, 
+    			    Cryost_phys , false, isa*26 + n_capsule);
+     }
+  }
+
+// ** Copper **
+
+  G4VPhysicalVolume* IntWeightCapsuleCuLayer_phys;
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+     for(G4int n_capsule = 0; n_capsule < 8; n_capsule++) {
+		IntWeightCapsuleCuLayer_phys = new G4PVPlacement (0,POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+WeightCapsuleLen/2.+CapsuleSpacing[n_capsule]))-CryoPos,
+    			    "IntWeightCapsuleCuLayer_P", 
+    			    IntWeightCapsuleCuLayer_log, 
+    			    Cryost_phys , false, isa*8 + n_capsule);
+     }
+  }
+
+  G4VPhysicalVolume* IntSourceCapsuleCuLayer_phys;
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+     for(G4int n_capsule = 8; n_capsule < 34; n_capsule++) {
+		IntSourceCapsuleCuLayer_phys = new G4PVPlacement (0,POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule]))-CryoPos,
+    			    "IntSourceCapsuleCuLayer_P", 
+    			    IntSourceCapsuleCuLayer_log, 
+    			    Cryost_phys , false, isa*26 + n_capsule);
+     }
+  }
+
+// ** Tungsten **
+  G4VPhysicalVolume* IntWeightTungsten_8_phys; 
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+     for(G4int n_capsule = 0; n_capsule < 8; n_capsule++) {
+		IntWeightTungsten_8_phys = new G4PVPlacement (0,POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+WeightCapsuleLen/2.+CapsuleSpacing[n_capsule]))-CryoPos,
+    			    "IntWeightTungsten_8_P", 
+    			    IntWeightTungsten8_log, 
+    			    Cryost_phys , false, isa*8 + n_capsule);
+     }
+  }
+
+  G4VPhysicalVolume* IntSourceTungsten_21_phys; 
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+     for(G4int n_capsule = 8; n_capsule < 29; n_capsule++) {
+		IntSourceTungsten_21_phys = new G4PVPlacement (0,POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule]))-CryoPos,
+    			    "IntSourceTungsten_21_P", 
+    			    IntSourceTungsten21_log, 
+    			    Cryost_phys , false, isa*21 + n_capsule-8);
+     }
+  }
+
+  G4VPhysicalVolume* IntSourceTungsten_4_phys; 
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+     for(G4int n_capsule = 29; n_capsule < 33; n_capsule++) {
+		IntSourceTungsten_4_phys = new G4PVPlacement (0,POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule]))-CryoPos,
+    			    "IntSourceTungsten_4_P", 
+    			    IntSourceTungsten4_log, 
+    			    Cryost_phys , false, isa*4 + n_capsule-29);
+     }
+  }
+
+  G4VPhysicalVolume* IntSourceTungsten_1_phys; 
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+     for(G4int n_capsule = 33; n_capsule < 34; n_capsule++) {
+		IntSourceTungsten_1_phys = new G4PVPlacement (0,POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule]))-CryoPos,
+    			    "IntSourceTungsten_1_P", 
+    			    IntSourceTungsten1_log, 
+    			    Cryost_phys , false, isa + n_capsule-33);
+     }
+  }
+
+//for debug only
+//G4cout << "Interior Source Bot (Z) no CryoPos: "<<SourceZ+CapsuleSpacing[0]+0*CryoPos.z()+HoleP[0].z()+POFF.z()<<"*mm"<<"\n"<<G4endl; //FOR DEGUB ONLY!! 
+//G4cout << "Interior Source Top (Z) no CryoPos: "<<SourceZ+CapsuleSpacing[33]+SourceCapsuleLen+0*CryoPos.z()+HoleP[0].z()+POFF.z()<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+//G4cout << "Interior SourceZ: " << CuDetBottomPlateZ+CuDetBottomPlateSpes<<"*mm"<<"\n"<<G4endl; //FOR DEBUG ONLY!!
+
+// ** External Cals ** ********
+
+// Add in additions for Exterior source geometry and radiation 16Jun2015 CJD
+
+// ** Teflon**
+
+  G4VPhysicalVolume* ExtWeightCapsuleTeflonLayer_phys;
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+     for(G4int n_capsule = 0; n_capsule < 8; n_capsule++) {
+		ExtWeightCapsuleTeflonLayer_phys = new G4PVPlacement (0,POFF+HolePExt[isa]+G4ThreeVector(0,0,(SourceZ+WeightCapsuleLen/2.+CapsuleSpacing[n_capsule]))-CryoPos,
+    			    "ExtWeightCapsuleTeflonLayer_P", 
+    			    ExtWeightCapsuleTeflonLayer_log, 
+    			    Cryost_phys , false, isa*8 + n_capsule);
+     }
+  }
+
+  G4VPhysicalVolume* ExtSourceCapsuleTeflonLayer_phys;
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+     for(G4int n_capsule = 8; n_capsule < 33; n_capsule++) {
+		ExtSourceCapsuleTeflonLayer_phys = new G4PVPlacement (0,POFF+HolePExt[isa]+G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule]))-CryoPos,
+    			    "ExtSourceCapsuleTeflonLayer_P", 
+    			    ExtSourceCapsuleTeflonLayer_log, 
+    			    Cryost_phys , false, isa*25 + n_capsule);
+     }
+  }
+
+// ** Copper **
+
+  G4VPhysicalVolume* ExtWeightCapsuleCuLayer_phys;
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+     for(G4int n_capsule = 0; n_capsule < 8; n_capsule++) {
+		ExtWeightCapsuleCuLayer_phys = new G4PVPlacement (0,POFF+HolePExt[isa]+G4ThreeVector(0,0,(SourceZ+WeightCapsuleLen/2.+CapsuleSpacing[n_capsule]))-CryoPos,
+    			    "ExtWeightCapsuleCuLayer_P", 
+    			    ExtWeightCapsuleCuLayer_log, 
+    			    Cryost_phys , false, isa*8 + n_capsule);
+     }
+  }
+
+  G4VPhysicalVolume* ExtSourceCapsuleCuLayer_phys;
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+     for(G4int n_capsule = 8; n_capsule < 33; n_capsule++) {
+       ExtSourceCapsuleCuLayer_phys = new G4PVPlacement (0,POFF+HolePExt[isa]+G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule]))-CryoPos,
+    			    "ExtSourceCapsuleCuLayer_P", 
+    			    ExtSourceCapsuleCuLayer_log, 
+    			    Cryost_phys , false, isa*25 + n_capsule);
+     }
+  }
+
+// ** Tungsten **
+
+  G4VPhysicalVolume* ExtWeightTungsten_8_phys; 
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+     for(G4int n_capsule =0; n_capsule < 8; n_capsule++) {
+		ExtWeightTungsten_8_phys = new G4PVPlacement (0,POFF+HolePExt[isa]+G4ThreeVector(0,0,(SourceZ+WeightCapsuleLen/2.+CapsuleSpacing[n_capsule]))-CryoPos,
+    			    "ExtWeightTungsten_8_P", 
+    			    ExtWeightTungsten8_log, 
+    			    Cryost_phys , false, isa*8 + n_capsule);
+     }
+  }
+
+  G4VPhysicalVolume* ExtSourceTungsten_20_phys; 
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+     for(G4int n_capsule =8; n_capsule < 28; n_capsule++) {
+		ExtSourceTungsten_20_phys = new G4PVPlacement (0,POFF+HolePExt[isa]+G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule]))-CryoPos,
+    			    "ExtSourceTungsten_20_P", 
+    			    ExtSourceTungsten20_log, 
+    			    Cryost_phys , false, isa*20 + n_capsule-8);
+	 }
+  }
+
+  G4VPhysicalVolume* ExtSourceTungsten_5_phys; 
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+     for(G4int n_capsule =28; n_capsule < 33; n_capsule++) {
+		ExtSourceTungsten_5_phys = new G4PVPlacement (0,POFF+HolePExt[isa]+G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule]))-CryoPos,
+    			    "ExtSourceTungsten_5_P", 
+    			    ExtSourceTungsten5_log, 
+    			    Cryost_phys , false, isa*5 + n_capsule-28);
+	 }
+  }
+
+// *****************************************************************
+// *** Source ***   ************************************************
+// *****************************************************************
+
+// ** First Radiaton Shield ** ****************
+
+  if( Cel == 5 ) aSource.push_back(new G4DistributedSource(CuRS1Lat,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS1Z+CuRS1Cone2Alt+CuRS1Cone1Alt+CuRS1Alt/2.))));
+  if( Cel == 6 ) aSource.push_back(new G4DistributedSource(CuRS1Flan,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS1Z+CuRS1Cone2Alt+CuRS1Cone1Alt+CuRS1Alt+CuRS1FlanSpes/2.))));
+
+// ** Second Radiaton Shield ** ****************
+
+  if( Cel == 7 ) aSource.push_back(new G4DistributedSource(CuRS2Lat,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS2Z+CuRS2Cone2Alt+CuRS2Cone1Alt+CuRS2Alt/2.))));
+  if( Cel == 8 ) aSource.push_back(new G4DistributedSource(CuRS2Flan,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS2Z+CuRS2Cone2Alt+CuRS2Cone1Alt+CuRS2Alt+CuRS2FlanSpes/2.))));
+
+// ** Second Radiaton Shield SI** ****************
+
+if( Cel == 46 ) aSource.push_back(new G4DistributedSource(SIRS2Flan,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS2Z+CuRS2Cone2Alt+CuRS2Cone1Alt+CuRS2Alt+CuRS2FlanSpes+SIRS2FlanSpes/2.))));
+if( Cel == 46 ) aSource.push_back(new G4DistributedSource(SIRS3Flan,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS3Z+CuRS3Cone2Alt+CuRS3Cone1Alt+CuRS3Alt+CuRS3FlanSpes+SIRS3FlanSpes/2.))));
+
+// ** Third Radiaton Shield ** ****************
+
+  if( Cel == 9 ) aSource.push_back(new G4DistributedSource(CuRS3Lat,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS3Z+CuRS3Cone2Alt+CuRS3Cone1Alt+CuRS3Alt/2.))));
+  if( Cel == 10 ) aSource.push_back(new G4DistributedSource(CuRS3Flan,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS3Z+CuRS3Cone2Alt+CuRS3Cone1Alt+CuRS3Alt+CuRS3FlanSpes/2.))));
+
+G4cout << "4K Flan Bottom: " <<CuRS3Z+CuRS3Cone2Alt+CuRS3Cone1Alt+CuRS3Alt<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+
+// ** Third Radiaton Shield SI** ****************
+
+  if( Cel == 46 ) aSource.push_back(new G4DistributedSource(SIRS3Lat,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS3Z+CuRS3Cone2Alt+CuRS3Cone1Alt+CuRS3Alt/2.))));
+  if( Cel == 46 ) aSource.push_back(new G4DistributedSource(SIRS3Flan,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS3Z+CuRS3Cone2Alt+CuRS3Cone1Alt+CuRS3Alt-SIRS3FlanSpes/2.))));
+
+
+// ** Internal Lead ** ****************
+      
+  if( Cel == 13 ) aSource.push_back(new G4DistributedSource(PbRS4Lat,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,PbRS4Z+PbRS4CuCrandleAltBot+PbRS4CuCrandleAltTop+PbRS4Alt/2.))));
+  if( Cel == 14 ) aSource.push_back(new G4DistributedSource(PbRS4CuCrandle,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,PbRS4Z+PbRS4CuCrandleAltBot+PbRS4CuCrandleAltTop/2.))));
+  if( Cel == 14 ) aSource.push_back(new G4DistributedSource(PbRS4CuRing,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,PbRS4Z+PbRS4CuCrandleAltBot+PbRS4CuCrandleAltTop+PbRS4Alt+PbRS4CuRingAlt/2.+1.))));
+  if( Cel == 13 ) aSource.push_back(new G4DistributedSource(PbRS4Bottom,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,PbRS4Z+PbRS4CuCrandleAltBot+PbRS4PbBotAlt/2.))));
+
+// ** Ac Rods ** ****************************************//18.03.13
+			  
+  for(G4int iii=0; iii<3;iii++) {
+      if( Cel == 15  && (Elm <= 0 || iii == Elm-1) ) aSource.push_back(new G4DistributedSource(AcRods,G4Transform3D(G4RotationMatrix(),POFF+ACRodsHoleP[iii]+G4ThreeVector(0,0,SteelRodsCenterZ))));
+      if( theC->Mode == 3)
+      {
+          int v = theC->v1;
+          if(v == 0 || v == 15) AcRods_phys->CheckOverlaps(theC->DebugEvents);
+      }
+  }
+ 	 
+// ** Fourth Radiaton Shield ** *************************//12.03.13
+
+  if( Cel == 11 ) aSource.push_back(new G4DistributedSource(CuRS4Lat,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS4Z+CuRS4Spes+CuRS4ConeAlt+CuRS4Alt/2.))));
+
+  if( Cel == 12) aSource.push_back(new G4DistributedSource(CuRS4Flan,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS4Z+CuRS4Spes+CuRS4ConeAlt+CuRS4Alt+CuRS4FlanSpes/2.))));
+
+G4cout << "600mK Flan Top: " <<CuRS4Z+CuRS4Spes+CuRS4ConeAlt+CuRS4Alt+CuRS4FlanSpes<<"*mm"<<"\n"<<G4endl;  //FOR DEBUG ONLY!!!!
+
+
+// ** Giunti CuBe ** *********************************//06.05.13
+
+  for(G4int i=0;i<NumGiuntiCuBe;i++) {
+  	if( Cel == 43 ) aSource.push_back(new G4DistributedSource(GiuntiCuBe,G4Transform3D(G4RotationMatrix(),POFF+GiuntiCuBePos[i])));
+    if( theC->Mode == 3 )
+    {
+        int v = theC->v1;
+        if(v == 0 || v == 43) GiuntiCuBe_phys->CheckOverlaps(theC->DebugEvents);
+    }
+  }
+
+// ** Fifth Radiaton Shield ** **************************//12.03.13
+
+  if( Cel == 16 ) aSource.push_back(new G4DistributedSource(CuRS5Lat,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS5Z+CuRS5Spes+CuRS5ConeAlt+CuRS5Alt/2.))));
+
+  if( Cel == 17 ) aSource.push_back(new G4DistributedSource(CuRS5Flan,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS5Z+CuRS5Spes+CuRS5ConeAlt+CuRS5Alt+CuRS5FlanSpes/2.))));
+
+
+// ** Sixth Radiaton Shield ** *************************//13.03.13
+
+  if( Cel == 18 ) aSource.push_back(new G4DistributedSource(CuRS6Lat,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS6Z+CuRS6BotAlt+CuRS6Alt/2.))));
+
+  if( Cel == 19 ) aSource.push_back(new G4DistributedSource(CuRS6Flan,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS6Z+CuRS6BotAlt+CuRS6Alt+CuRS6FlanSpes/2.))));
+
+// ** Sixth Radiaton Shield tiles ** *************************//23.08.15
+
+  if( Cel == 22 ) aSource.push_back(new G4DistributedSource(CuRS6Tiles,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuRS6Z+CuRS6BotAlt+(CuRS6Alt-CuRS6AltDif)/2.) )));
+
+// ** Sixth Radiaton Shield Poly wrapping ** *************************//13.03.13
+//
+//  if( Cel == 45 ) aSource.push_back(new G4DistributedSource(PETRS6,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,PETRS6Z+CuRS6BotAlt+PETRS6Alt/2.))));
+
+// ** Cu Top Plate Above Std Pb ** **********************//22.01.13
+
+  if( Cel == 20 ) aSource.push_back(new G4DistributedSource(CuTopPlate,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuTopPlateZ+CuTopPlateSpes/2.))));
+
+
+// ** Std Pb Plug ** ************************************//22.01.13
+
+  if( Cel == 21 ) aSource.push_back(new G4DistributedSource(StdPb,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,StdPbZ+StdPbSpes/2.))));
+
+// ** DCS Guide Tubes in Std Pb Plug Holes ** ***********************//
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+    if( Cel == 23  && (Elm <= 0 || isa == Elm-1) ) {
+      aSource.push_back(new G4DistributedSource(StdPbTubeDCS,G4Transform3D(G4RotationMatrix(),POFF+HoleP[isa]+G4ThreeVector(0,0,StdPbZ+StdPbSpes/2.))));
+    }
+	if( theC->Mode == 3) {
+        int v = theC->v1;
+
+        if(v == 0 || v == 23)
+        {
+            StdPbTubeDCS_phys ->CheckOverlaps(theC->DebugEvents);
+        }
+	}
+  }
+
+// ** Cu bottom plate below Roman Pb ** *****************//23.01.13
+
+  if( Cel == 24 ) aSource.push_back(new G4DistributedSource(CuBottomPlate,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuBottomPlateZ+CuBottomPlateSpes/2.))));
+  if( Cel == 61 ) aSource.push_back(new G4DistributedSource(SoapPb,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,SoapPbZ+SoapPbAlt/2.))));
+
+// ** Cu TSP plate ** ***********************************//23.01.13
+
+  if( Cel == 25 ) aSource.push_back(new G4DistributedSource(CuTSP,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuTSPZ+CuTSPAlt/2.))));
+  if( Cel == 62 ) aSource.push_back(new G4DistributedSource(SoapTSP,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,SoapTSPZ+SoapTSPAlt/2.))));
+
+// ** Detector Cu Up plate** ****************************//23.01.13
+
+  if( Cel == 26 ) aSource.push_back(new G4DistributedSource(CuDetUpPlate,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuDetUpPlateZ+CuDetUpPlateSpes/2.))));
+
+// ** Detector Cu Up plate wrapping** *******************//23.01.13
+//
+//  if( Cel == 27 ) aSource.push_back(new G4DistributedSource(PETDetUpPlate,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,PETDetUpPlateZ+PETDetUpPlateSpes/2.))));
+
+// ** Detector Cu bottom plate** ************************//23.01.13
+
+  if( Cel == 28 ) aSource.push_back(new G4DistributedSource(CuDetBottomPlate,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,CuDetBottomPlateZ+CuDetBottomPlateSpes/2.))));
+
+// ** Detector Cu bottom plate wrapping** ***************//23.01.13
+//
+//  if( Cel == 29 ) aSource.push_back(new G4DistributedSource(PETDetBottomPlate,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,PETDetBottomPlateZ+PETDetBottomPlateSpes/2.))));
+
+
+// ** DCS - Calibration  tubes ** **********************//23.01.13
+
+// ** Internal tubes ** ********
+
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+    if( Cel == 30  && (Elm <= 0 || isa == Elm-1) ) {
+      aSource.push_back(new G4DistributedSource(CalTubeCu,G4Transform3D(G4RotationMatrix(),POFF+HoleP[isa]+G4ThreeVector(0,0,(CalTubeZ+CalTubeLen/2.)))));
+    }
+	if( theC->Mode == 3) {
+        int v = theC->v1;
+
+        if(v == 0 || v == 30)
+        {
+            IntCalTubeCu_phys->CheckOverlaps(theC->DebugEvents);
+            StdPbTubeDCS_phys ->CheckOverlaps(theC->DebugEvents);
+        }
+	}
+  }
+  
+
+  for( G4int isa =0; isa<NumHoles; isa++ ) {
+	for (G4int n_capsule = 0; n_capsule < 8; n_capsule++) {
+		if( Cel == 31 && (Elm <= 0 || isa == Elm-1) ) aSource.push_back( new G4DistributedSource(WeightCapsuleTeflonLayer, G4Transform3D(G4RotationMatrix(),POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+WeightCapsuleLen/2.+CapsuleSpacing[n_capsule]))))); //Teflon Layer on Weight Capsules
+		if( theC->Mode == 3) {
+            int v = theC->v1;
+            if(v == 0 || v == 31)
+                IntWeightCapsuleTeflonLayer_phys->CheckOverlaps(theC->DebugEvents);
+  		}
+	}
+	for (G4int n_capsule = 8; n_capsule < 34; n_capsule++) {
+		if( Cel == 31 && (Elm <= 0 || isa == Elm-1) ) aSource.push_back( new G4DistributedSource(SourceCapsuleTeflonLayer, G4Transform3D(G4RotationMatrix(), POFF+HoleP[isa] + G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule]))))); //Teflon Layer on Source Capsules
+  		if( theC->Mode == 3) {
+            int v = theC->v1;
+            if(v == 0 || v == 31)
+                IntSourceCapsuleTeflonLayer_phys->CheckOverlaps(theC->DebugEvents);
+  		}
+	}
+  }
+
+  for( G4int isa =0; isa<NumHoles; isa++) {
+    for (G4int n_capsule = 0; n_capsule < 8; n_capsule++) {
+      if( Cel == 32 && (Elm <= 0 || isa == Elm-1) ) aSource.push_back( new G4DistributedSource(WeightCapsuleCuLayer,G4Transform3D(G4RotationMatrix(),POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+WeightCapsuleLen/2.+CapsuleSpacing[n_capsule]))))); //Copper Layer on Weight Capsules
+	  if( theC->Mode == 3) {
+          int v = theC->v1;
+          if(v == 0 || v == 32)
+              IntWeightCapsuleCuLayer_phys->CheckOverlaps(theC->DebugEvents);
+	  }
+	}
+    for (G4int n_capsule = 8; n_capsule < 34; n_capsule++) {
+      if( Cel == 32 && (Elm <= 0 || isa == Elm-1) ) aSource.push_back( new G4DistributedSource(SourceCapsuleCuLayer,G4Transform3D(G4RotationMatrix(),POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule]))))); // Copper Layer on Source Capsules
+	  if( theC->Mode == 3) {
+          int v = theC->v1;
+          if(v == 0 || v == 32)
+              IntSourceCapsuleCuLayer_phys->CheckOverlaps(theC->DebugEvents);
+	  }
+	}
+  }
+
+  for( G4int isa=0; isa<NumHoles; isa++ ) {
+    for ( G4int n_capsule = 0; n_capsule < 8; n_capsule++) {
+    	if( Cel == 54  && (Elm <= 0 || isa == Elm-1) ) aSource.push_back(new G4DistributedSource(WeightTungsten, G4Transform3D(G4RotationMatrix(),POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+WeightCapsuleLen/2.+CapsuleSpacing[n_capsule])))));
+		if( theC->Mode == 3) {
+            int v = theC->v1;
+            if(v == 0 || v == 54)
+                IntWeightTungsten_8_phys->CheckOverlaps(theC->DebugEvents);
+		}
+	}
+  }
+
+  for( G4int isa=0; isa<NumHoles; isa++) {
+    for ( G4int n_capsule = 8; n_capsule <29; n_capsule++) {
+        if( Cel == 55  && (Elm <= 0 || isa == Elm-1) ) aSource.push_back(new G4DistributedSource(SourceTungsten, G4Transform3D(G4RotationMatrix(),POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule])))));
+		if( theC->Mode == 3) {
+            int v = theC->v1;
+            if(v == 0 || v == 55)
+                IntSourceTungsten_21_phys->CheckOverlaps(theC->DebugEvents);
+		}
+	}
+  }
+  
+  for( G4int isa=0; isa<NumHoles; isa++) {
+	for ( G4int n_capsule = 29; n_capsule <33; n_capsule++) {
+        if( Cel == 56  && (Elm <= 0 || isa == Elm-1) ) aSource.push_back(new G4DistributedSource(SourceTungsten, G4Transform3D(G4RotationMatrix(),POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule])))));
+		if( theC->Mode == 3) {
+            int v = theC->v1;
+            if(v == 0 || v == 56)
+                IntSourceTungsten_4_phys->CheckOverlaps(theC->DebugEvents);
+		}
+	}
+  }
+   
+  for( G4int isa=0; isa<NumHoles; isa++) {
+	for ( G4int n_capsule = 33; n_capsule <34; n_capsule++) {
+        if( Cel == 57  && (Elm <= 0 || isa == Elm-1) ) aSource.push_back(new G4DistributedSource(SourceTungsten, G4Transform3D(G4RotationMatrix(),POFF+HoleP[isa]+G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule])))));
+		if( theC->Mode == 3) {
+            int v = theC->v1;
+            if(v == 0 || v == 57)
+                IntSourceTungsten_1_phys->CheckOverlaps(theC->DebugEvents);
+		}
+	}
+  }
+
+// ** External sources ** ********    
+
+  for( G4int isa=0; isa<NumHolesExt; isa++ ) {
+	for (G4int n_capsule = 0; n_capsule < 8; n_capsule++) {
+		if( Cel == 34 && (Elm <= 0 || isa == Elm-1) ) aSource.push_back(new G4DistributedSource(WeightCapsuleTeflonLayer,G4Transform3D(G4RotationMatrix(),POFF+HolePExt[isa]+G4ThreeVector(0,0,(SourceZ+WeightCapsuleLen/2.+CapsuleSpacing[n_capsule]))))); // Teflon Layer on Weight Capsules
+		if( theC->Mode == 3) {
+            int v = theC->v1;
+            if(v == 0 || v == 34)
+                ExtWeightCapsuleTeflonLayer_phys->CheckOverlaps(theC->DebugEvents);
+		}
+	}
+	for (G4int n_capsule = 8; n_capsule < 33; n_capsule++) {
+		if( Cel == 34 && (Elm <= 0 || isa == Elm-1) ) aSource.push_back(new G4DistributedSource(SourceCapsuleTeflonLayer,G4Transform3D(G4RotationMatrix(),POFF+HolePExt[isa]+G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule]))))); // Teflon Layer on Source Capsules
+		if( theC->Mode == 3) 
+	 	{
+            int v = theC->v1;
+            if(v == 0 || v == 34)
+                ExtSourceCapsuleTeflonLayer_phys->CheckOverlaps(theC->DebugEvents);
+	 	}
+	}
+  }
+
+  for (G4int isa=0; isa<NumHolesExt; isa++ ) {
+	for (G4int n_capsule = 0; n_capsule < 8; n_capsule++) {
+		if( Cel == 35 && (Elm <= 0 || isa == Elm-1) ) aSource.push_back(new G4DistributedSource(WeightCapsuleCuLayer,G4Transform3D(G4RotationMatrix(),POFF+HolePExt[isa]+G4ThreeVector(0,0,(SourceZ+WeightCapsuleLen/2.+CapsuleSpacing[n_capsule]))))); // Copper Layer on Weight Capsules
+		if( theC->Mode == 3)  {
+            int v = theC->v1;
+            if(v == 0 || v == 35)
+                ExtWeightCapsuleCuLayer_phys->CheckOverlaps(theC->DebugEvents);
+		}
+	}
+	for (G4int n_capsule = 8; n_capsule < 33; n_capsule++) {
+		if( Cel == 35 && (Elm <= 0 || isa == Elm-1) ) aSource.push_back(new G4DistributedSource(SourceCapsuleCuLayer,G4Transform3D(G4RotationMatrix(),POFF+HolePExt[isa]+G4ThreeVector(0,0,(SourceZ+SourceCapsuleLen/2.+CapsuleSpacing[n_capsule]))))); // Copper Layer on Source Capsules
+		if( theC->Mode == 3) {
+            int v = theC->v1;
+            if(v == 0 || v == 35)
+                ExtSourceCapsuleCuLayer_phys->CheckOverlaps(theC->DebugEvents);
+		}
+	}
+  }
+
+  for( G4int isa=0; isa<NumHoles; isa++) {
+    for ( G4int n_capsule = 0; n_capsule <8; n_capsule++) {
+        if( Cel == 58  && (Elm <= 0 || isa == Elm-1) ) aSource.push_back(new G4DistributedSource(WeightTungsten, G4Transform3D(G4RotationMatrix(),POFF+HolePExt[isa]+G4ThreeVector(0,0,(SourceZ+WeightCapsuleLen/2.+CapsuleSpacing[n_capsule])))));
+		if( theC->Mode == 3) {
+            int v = theC->v1;
+            if(v == 0 || v == 58)
+                ExtWeightTungsten_8_phys->CheckOverlaps(theC->DebugEvents);
+    	}
+	}
+  }
+   
+  for( G4int isa=0; isa<NumHoles; isa++) {
+    for ( G4int n_capsule = 8; n_capsule <28; n_capsule++) {
+        if( Cel == 59  && (Elm <= 0 || isa == Elm-1) ) aSource.push_back(new G4DistributedSource(SourceTungsten, G4Transform3D(G4RotationMatrix(),POFF+HolePExt[isa]+G4ThreeVector(0,0,(SourceZ+WeightCapsuleLen/2.+CapsuleSpacing[n_capsule])))));
+		if( theC->Mode == 3) {
+            int v = theC->v1;
+            if(v == 0 || v == 59)
+                ExtSourceTungsten_20_phys->CheckOverlaps(theC->DebugEvents);
+    	}
+	}
+  }
+   
+  for( G4int isa=0; isa<NumHoles; isa++) {
+    for ( G4int n_capsule = 28; n_capsule <33; n_capsule++) {
+        if( Cel == 60  && (Elm <= 0 || isa == Elm-1) ) aSource.push_back(new G4DistributedSource(SourceTungsten, G4Transform3D(G4RotationMatrix(),POFF+HolePExt[isa]+G4ThreeVector(0,0,(SourceZ+WeightCapsuleLen/2.+CapsuleSpacing[n_capsule])))));
+		if( theC->Mode == 3) {
+            int v = theC->v1;
+            if(v == 0 || v == 60)
+                ExtSourceTungsten_5_phys->CheckOverlaps(theC->DebugEvents);
+     	}
+	}
+  }
+  
+
+//*************************************************************************************
+//*********  DUMMY VACUUM VOLUMES USED FOR PbRom GEOMETRY DEFINITION TESTS  ***********
+//*************************************************************************************
+
+//***** DUMMY Flat Cylinder around top part of PbRLat** *****************************
+
+  G4Tubs * DummyLat = new G4Tubs("DummyLat",
+    		   DummyLatRag-DummyLatSpes,
+    		   DummyLatRag,
+    		   DummyLatAlt/2.0,
+    		   0.0*deg, theC->CAngle*deg );
+
+  G4LogicalVolume * DummyLat_log 
+    = new G4LogicalVolume (DummyLat, MaterialMap["Vacuum"], "DummyLat_L", 0,0,0);
+
+  if( theC->GraphicMask[1] & (1 << (50-1)%32) ) 
+   DummyLat_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,0.,1.)) );
+  else
+   DummyLat_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if(theC->minEn >0) DummyLat_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  G4VPhysicalVolume* DummyLat_phys;  
+  DummyLat_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,DummyLatZ+DummyLatAlt/2.)-CryoPos,
+			  "DummyLat_P", 
+			  DummyLat_log, 
+			  Cryost_phys , false, 0);
+
+  if( Cel == 50 ) aSource.push_back(new G4DistributedSource(DummyLat,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,DummyLatZ+DummyLatAlt/2.))));
+  if( theC->Mode == 3) {
+      int v = theC->v1;
+      if(v == 0 || v == 50)
+          DummyLat_phys->CheckOverlaps(theC->DebugEvents);
+  }
+
+//***** DUMMY Flat Partial Disk at top of PbRLat** **********************************
+
+  G4VSolid * DummyTop = new G4Tubs("DummyTop",
+    		   DummyTopRag-DummyTopSpes,
+    		   DummyTopRag,
+    		   DummyTopAlt/2.0,
+    		   0.0*deg, theC->CAngle*deg );
+
+  G4Tubs * DummyTopHole = new G4Tubs("DummyTopHole",
+                0.,
+                SteelRodsHole,
+                DummyTopAlt/2.0+1.e-1,
+                0.0*deg, theC->CAngle*deg );
+
+  for(G4int iii = 0; iii < 6; iii++)
+      DummyTop = new G4SubtractionSolid( "DummyTop", DummyTop, 
+                DummyTopHole,
+                new G4RotationMatrix,
+                PbRS4LatHoleP[iii]);
+
+  G4LogicalVolume * DummyTop_log 
+    = new G4LogicalVolume (DummyTop, MaterialMap["Vacuum"], "DummyTop_L", 0,0,0);
+
+  if( theC->GraphicMask[1] & (1 << (51-1)%32) ) 
+   DummyTop_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,0.,1.)) );
+  else
+   DummyTop_log->SetVisAttributes ( new G4VisAttributes(false) );
+
+  if(theC->minEn >0) DummyTop_log->SetUserLimits(new G4UserLimits(1e4,1e4,1e4,theC->minEn));
+  
+  G4VPhysicalVolume* DummyTop_phys;  
+  DummyTop_phys = new G4PVPlacement ( 0,POFF+G4ThreeVector(0,0,DummyTopZ+DummyTopAlt/2.)-CryoPos,
+			  "DummyTop_P", 
+			  DummyTop_log, 
+			  Cryost_phys , false, 0);
+
+  if( Cel == 51 ) aSource.push_back(new G4DistributedSource(DummyTop,G4Transform3D(G4RotationMatrix(),POFF+G4ThreeVector(0,0,DummyTopZ+DummyTopAlt/2.))));
+  if( theC->Mode == 3) {
+      int v = theC->v1;
+      if(v == 0 || v == 51)
+          DummyTop_phys->CheckOverlaps(theC->DebugEvents);
+  }
+
+    if(theC->Mode == 3)
+    {
+        int v = theC->v1;
+
+        if(v == 0 || v == 5 ) CuRS1Lat_phys ->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 6 ) CuRS1Flan_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 7 ) CuRS2Lat_phys ->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 8 ) CuRS2Flan_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 9 ) CuRS3Lat_phys ->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 10) CuRS3Flan_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 11) CuRS4Lat_phys ->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 12) CuRS4Flan_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 13)
+        {
+            PbRS4Lat_phys->CheckOverlaps(theC->DebugEvents);
+            PbRS4Bottom_phys->CheckOverlaps(theC->DebugEvents);
+        }
+        if(v == 0 || v == 14)
+        {
+            PbRS4CuCrandle_phys->CheckOverlaps(theC->DebugEvents);
+            PbRS4CuRing_phys->CheckOverlaps(theC->DebugEvents);
+        }
+        if(v == 0 || v == 16) CuRS5Lat_phys ->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 17) CuRS5Flan_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 18) CuRS6Lat_phys ->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 19) CuRS6Flan_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 20) CuTopPlate_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 21) StdPb_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 22) CuRS6Tiles_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 24) CuBottomPlate_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 25) CuTSP_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 26) CuDetUpPlate_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 28) CuDetBottomPlate_phys->CheckOverlaps(theC->DebugEvents);
+        if(v == 0 || v == 46)
+        {
+            SIRS3Lat_phys ->CheckOverlaps(theC->DebugEvents);
+            SIRS3Flan_phys->CheckOverlaps(theC->DebugEvents);
+            SIRS2Lat_phys ->CheckOverlaps(theC->DebugEvents);
+            SIRS2Flan_phys->CheckOverlaps(theC->DebugEvents);
+        }
+    }
+         
+
