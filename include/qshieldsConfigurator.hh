@@ -26,7 +26,8 @@ public:
   void SetEED( int meta, G4int n, G4double EED, G4int k ) { EventEnergyDeposit[n][k][meta] += EED; } 
   void SetCuED( int meta, G4double CuED ) { CuEnergyDeposit[meta] += CuED; } 
   void SetPTFEED( int meta, G4double PTFEED ) { PTFEEnergyDeposit[meta] += PTFEED; } 
-  void SetNTDED( int meta, G4double NTDED ) { NTDEnergyDeposit[meta] += NTDED; } 
+  void SetNTDED( int meta, G4double NTDED ) { NTDEnergyDeposit[meta] += NTDED; }
+  void SetMuED (int meta, G4double MuED ) { MuEnergyDeposit[meta] += MuED; }
   void SetOtherED( int meta, G4double OtherED ) { OtherEnergyDeposit[meta] += OtherED; } 
   void OutUpdate(void) { 
 	if( OutType & 2) ROOTTree->AutoSave("SaveSelf");
@@ -94,7 +95,8 @@ public:
      CuEnergyDeposit[i] = 0.;
      PTFEEnergyDeposit[i] = 0.;
      NTDEnergyDeposit[i] = 0.;
-	 OtherEnergyDeposit[i] = 0.;
+     MuEnergyDeposit[i] = 0;
+     OtherEnergyDeposit[i] = 0.;
     }
     NumberOfCalls = 0; 
 	MetaTime = 0.;
@@ -179,6 +181,7 @@ public:
   double CuEnergyDeposit[2];
   double PTFEEnergyDeposit[2];
   double NTDEnergyDeposit[2];
+  double MuEnergyDeposit[2];
   double OtherEnergyDeposit[2];
   G4double SOffs;
   G4double SDepth;
@@ -291,6 +294,7 @@ public:
   double dCuEnergyDeposit;
   double dPTFEEnergyDeposit;
   double dNTDEnergyDeposit;
+  double dMuEnergyDeposit;
   double dOtherEnergyDeposit;
 //-- Microscopic variables
   int dNumInt;

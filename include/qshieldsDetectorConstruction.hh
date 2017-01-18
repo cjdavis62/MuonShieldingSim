@@ -50,6 +50,7 @@ private:
   qshieldsSD* CuSD;  //pointer to the copper sensitive detector
   qshieldsSD* PTFESD;  //pointer to the PTFE sensitive detector
   qshieldsSD* NTDSD;  //pointer to the NTD sensitive detector
+  qshieldsSD* MuSD; //pointer to the Muon Shield sensitive detector
   qshieldsSD* OTHERSD;  //pointer to the PEN tape sensitive detector
   std::vector<G4VPhysicalVolume*> SD_phys; //pointer to the physical Absorber
   G4VPhysicalVolume* Hall_phys;    //pointer to the physical World

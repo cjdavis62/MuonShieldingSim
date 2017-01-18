@@ -33,7 +33,7 @@
 #include "G4ios.hh"
 #define n_shields 5
 
-qshieldsDetectorConstruction::qshieldsDetectorConstruction():TSD(0),CuSD(0),PTFESD(),NTDSD(0),OTHERSD(0) {
+qshieldsDetectorConstruction::qshieldsDetectorConstruction():TSD(0),CuSD(0),PTFESD(),NTDSD(0),MuSD(0),OTHERSD(0) {
 
   theUserLimitsForRoom     = 0; 
   theUserLimitsForDetector = 0; 
@@ -138,6 +138,10 @@ G4double HallR;
     NTDSD = new qshieldsSD("NTDSD",this);
     SDman->AddNewDetector( NTDSD );
   } 
+  if(!MuSD) {
+    MuSD = new qshieldsSD("MuSD",this);
+    SDman->AddNewDetector( MuSD );
+  }
   if(!OTHERSD)
   {
     OTHERSD = new qshieldsSD("OTHERSD",this);

@@ -988,6 +988,7 @@ void qshieldsConfigurator::PrintStats() {
         dCuEnergyDeposit = CuEnergyDeposit[meta];
         dPTFEEnergyDeposit = PTFEEnergyDeposit[meta];
         dNTDEnergyDeposit = NTDEnergyDeposit[meta];
+	dMuEnergyDeposit = MuEnergyDeposit[meta];
         dOtherEnergyDeposit = OtherEnergyDeposit[meta];
 
         dChannel = i;
@@ -1033,6 +1034,7 @@ TTree *qshieldsConfigurator::CreateROOTTree()
   ROOTTree->Branch("EnergyDepositedInCopper",				&dCuEnergyDeposit,			"CuEnergyDeposit/D");
   ROOTTree->Branch("EnergyDepositedInPTFE",				&dPTFEEnergyDeposit,			"PTFEEnergyDeposit/D");
   ROOTTree->Branch("EnergyDepositedInNTD",				&dNTDEnergyDeposit,			"NTDEnergyDeposit/D");
+  ROOTTree->Branch("EnergyDepositedInMu",                               &dMuEnergyDeposit,                      "MuEnergyDeposit/D");
   ROOTTree->Branch("ParticleName",	"std::string",			&dParticleName);
   ROOTTree->Branch("DaughterName",	"std::string",			&dDaughterName);
   ROOTTree->Branch("ParticleInputEnergy",	&dEParticle,		"ParticleInputEnergy/D");

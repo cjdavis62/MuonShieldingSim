@@ -112,6 +112,7 @@ G4bool qshieldsSD::ProcessHits(G4Step* aStep,G4TouchableHistory*)
 	  ||  theTouchable->GetVolume()->GetName() == "FrameT_P" 
 	  ||  theTouchable->GetVolume()->GetName() == "FrameB_P" 
 	  ||  theTouchable->GetVolume()->GetName() == "Column_P" ) theC->SetCuED( meta, edep );
+  else if ( theTouchable->GetVolume()->GetName() == "MuonLatX_P" ) theC->SetMuED( meta, edep );
 // PENTape WireTray WirePad
   else  theC->SetOtherED( meta, edep );
 

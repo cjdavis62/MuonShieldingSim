@@ -222,6 +222,7 @@ G4LogicalVolume * Rock_log = new G4LogicalVolume(Rock, MaterialMap["GranSassoRoc
 
 // ** Muon Panels ** **************
 G4LogicalVolume * MuonLatX_log = new G4LogicalVolume(MuonLatX, MaterialMap["Polyvinyltoluene"], "MuonLatX_L", 0,0,0);
+MuonLatX_log->SetSensitiveDetector(MuSD);
 
 // ** Polyethylene External Shield ** ****************
    
