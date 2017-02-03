@@ -1043,6 +1043,7 @@ TTree *qshieldsConfigurator::CreateROOTTree()
   ROOTTree->Branch("ParticlePositionZ",		&dPositionZ,	"PositionZ/D");
   ROOTTree->Branch("ParticleDirectionX",	&dDirectionX,	"DirectionX/D");
   ROOTTree->Branch("ParticleDirectionY",	&dDirectionY,	"DirectionY/D");
+  ROOTTree->Branch("IsNeutron", &IsNeutron, "IsNeutron/I");
   if( outMicro) { 
     ROOTTree->Branch("PhotoInteractions",		&dNInt[0],			"PhotoInteractions/I");
     ROOTTree->Branch("ComptonInteractions",		&dNInt[1],			"ComptonInteractions/I");

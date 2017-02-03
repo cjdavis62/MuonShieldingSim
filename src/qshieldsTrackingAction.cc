@@ -59,6 +59,13 @@ void qshieldsTrackingAction::PreUserTrackingAction(const G4Track* track)
   qshieldsConfigurator* theC = qshieldsConfigurator::GetInstance();
   G4bool isNucleus=false, isExcited=false, isSecondary=false;
 
+  if (name == "neutron") {
+    theC->IsNeutron = true;
+  }
+  else {
+    theC->IsNeutron = false;
+  }
+
   if( particle->GetParticleType() == "nucleus" ) {
 	isNucleus = true;
 	G4Ions* anIon =  reinterpret_cast<G4Ions*>(particle);

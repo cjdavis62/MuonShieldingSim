@@ -296,6 +296,7 @@ public:
   double dNTDEnergyDeposit;
   double dMuEnergyDeposit;
   double dOtherEnergyDeposit;
+  int IsNeutron;
 //-- Microscopic variables
   int dNumInt;
   double dAvDist;

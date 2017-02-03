@@ -14,7 +14,6 @@
 #include "G4UIterminal.hh"
 #include "G4UItcsh.hh"
 #include "G4UIXm.hh"
-#include "G4UIExecutive.hh"
 #include "Randomize.hh"
 #include "G4Gendec.hh"
 #include "qshieldsDebug.hh"
@@ -28,7 +27,6 @@
 #include "G4PhysListFactory.hh"
 #else
 #include "PhysicsList.hh"
-#include "Shielding.hh"
 #endif
 #include "qshieldsPrimaryGeneratorAction.hh"
 #include "qshieldsRunAction.hh"
@@ -38,7 +36,6 @@
 #include "qshieldsConfigurator.hh"
 #include "qshieldsTrackingAction.hh"
 #include "G4VisExecutive.hh"
-#include "G4Version.hh"
 
 #include "TStyle.h"
 
@@ -53,7 +50,6 @@ int main(int argc,char** argv) {
   if( theConfigurator->OutType & 1) G4cout << "Text output File : " << theConfigurator->OutFile[0] << G4endl;
   if( theConfigurator->OutType & 2) G4cout << "Root output File : " << theConfigurator->OutFile[1] << G4endl;
   G4cout << "Number of generated particles/chains : "   << " " << theConfigurator->n_particles << G4endl;
-
 
   G4String nev(theConfigurator->NumberOfEvents.c_str());
   G4String macro(theConfigurator->MacroFile.c_str());
@@ -91,12 +87,7 @@ int main(int argc,char** argv) {
 //  PhysicsList *aPhysicsList = new PhysicsList(theConfigurator->neutron_gen,false);
 //  PhysicsList *aPhysicsList = new PhysicsList(true,false);
   PhysicsList *aPhysicsList = new PhysicsList();
-  if (theConfigurator->PhysListName == "shielding") {
-    runManager->SetUserInitialization (new Shielding);
-  }
-  else {
-    runManager->SetUserInitialization(aPhysicsList);
-  }
+  runManager->SetUserInitialization(aPhysicsList);
   if( theConfigurator->StepFactor > 0. ) aPhysicsList->SetCutScale(theConfigurator->StepFactor);
   aPhysicsList->SelectPhysicsList("Livermore_EM");
   if(theConfigurator->PhysListName == "livermore") aPhysicsList->SelectPhysicsList("Livermore_EM");
@@ -104,82 +95,74 @@ int main(int argc,char** argv) {
   if(theConfigurator->PhysListName == "standard") aPhysicsList->SelectPhysicsList("Standard_EM");
   if( theConfigurator->GenDecAN ) aPhysicsList->killRadioactiveDecays();
 #endif
-  
+
   // choose the Random engine
   CLHEP::HepRandom::setTheEngine(new CLHEP::HepJamesRandom( theConfigurator->RSeed ));
   G4cout << "Random Seed: " << CLHEP::HepRandom::getTheSeed() << G4endl;
+
+  G4UIsession* session=0;
   
+  if (theConfigurator->Mode == 0)   // Define UI session for interactive mode.
+    {
+      // G4UIterminal is a (dumb) terminal.
+#ifdef G4UI_USE_XM
+      session = new G4UIXm(argc,argv);
+#else
+      session = new G4UIterminal;
+#endif
+    }
+  
+#ifdef G4VIS_USE
+  // visualization manager
+  G4VisManager* visManager = new G4VisExecutive;
+//  G4VisManager* visManager = new qshieldsVisManager;
+  visManager->Initialize();
+#endif
+    
   // set user action classes
   runManager->SetUserAction(new qshieldsPrimaryGeneratorAction());
   runManager->SetUserAction(new qshieldsRunAction());
   runManager->SetUserAction(new qshieldsEventAction);
   runManager->SetUserAction(new qshieldsTrackingAction);
-  //  runManager->SetUserAction(new qshieldsStackingAction());
-  
+//  runManager->SetUserAction(new qshieldsStackingAction());
+ 
   //Initialize G4 kernel
   runManager->Initialize();
-  
-  // visualization manager
-  G4VisManager* visManager = new G4VisExecutive;
-  visManager->Initialize();
-
-  G4UImanager * UImanager = G4UImanager::GetUIpointer();
-
-  if (theConfigurator->Mode == 0)   // Define UI session for interactive mode.
-    {
-      G4cout << "Mode == 0" << G4endl;
-
-      G4UIExecutive * ui = new G4UIExecutive(argc,argv);
-
-      // G4UIterminal is a (dumb) terminal.
-      /*
-#ifdef G4UI_USE_TCSH
-      G4cout << "Actually this one" << G4endl;
-      G4UIsession * ui = new G4UIterminal(new G4UItcsh);
-#else
-      G4cout << "Doing this one" << G4endl;
-      G4UIsession * ui = new G4UIterminal();
-#endif
-      */
-      ui->SessionStart();
-      delete ui;
-    }
     
+  // get the pointer to the User Interface manager 
+  G4UImanager* UI = G4UImanager::GetUIpointer();  
 
+  if (session)   // Define UI session for interactive mode.
+    {
+      // G4UIterminal is a (dumb) terminal.
+      UI->ApplyCommand("/control/execute qshieldsPrerun.mac");    
+      session->SessionStart();
+      delete session;
+    }
   else           // Batch mode
-      { 
-	if ( theConfigurator->Mode == 1 ) {
-
-	  UImanager->ApplyCommand("/control/execute qshieldsPrerun.mac");    
-	  G4String command = "/control/execute ";
-	  UImanager->ApplyCommand(command+macro);
+    { 
+      if ( theConfigurator->Mode == 1 ) {
+		UI->ApplyCommand("/control/execute qshieldsPrerun.mac");    
+		G4String command = "/control/execute ";
+		UI->ApplyCommand(command+macro);
       }
-	else if ( theConfigurator->Mode == 2 ) {
-	  UImanager->ApplyCommand("/control/execute qshieldsPrerun.mac");    	
-	  if ( theConfigurator->OutType & 1 ) {
-	    theConfigurator->DataFile.open ( theConfigurator->OutFile[0].c_str() );
-	    for( G4int i=0; i<argc; i++ ) theConfigurator->DataFile << argv[i] << " ";
-	    theConfigurator->DataFile << G4endl;
-	  }
-	  if ( theConfigurator->OutType & 2 ) theConfigurator->ROOTFile = new TFile( theConfigurator->OutFile[1].c_str(), "RECREATE");
-
-	  for( G4int i=0; i<theConfigurator->NumberOfLoops; i++ ) {
-	    G4cout <<  "Batch " << i << " of " << nev << " events completed ..." << G4endl;
-	    UImanager->ApplyCommand("/run/beamOn "+nev);    
-	  }
-	  if( theConfigurator->OutType & 1 ) 
-	    theConfigurator->DataFile.close ();
-	  if( theConfigurator->OutType & 2 ) {
-	    // Write and close ROOT File
-	    theConfigurator->INFOtree->Fill();
-	    theConfigurator->INFOtree->Write();
-	    theConfigurator->ROOTTree->Write();
-	    theConfigurator->ROOTFile->Close();  
-	  }
-	}
+      else if ( theConfigurator->Mode == 2 ) {
+	    UI->ApplyCommand("/control/execute qshieldsPrerun.mac");    	
+		for( G4int i=0; i<theConfigurator->NumberOfLoops; i++ ) {
+	  		G4cout <<  "Batch " << i << " of " << nev << " events completed ..." << G4endl;
+	  		UI->ApplyCommand("/run/beamOn "+nev);    
+        }
+        if( theConfigurator->OutType & 1 ) 
+        	  theConfigurator->DataFile.close ();
+        if( theConfigurator->OutType & 2 ) {
+          // Write and close ROOT File
+          theConfigurator->INFOtree->Fill();
+          theConfigurator->INFOtree->Write("", TObject::kOverwrite);
+          theConfigurator->ROOTTree->Write("", TObject::kOverwrite);
+          theConfigurator->ROOTFile->Close();  
+        }
       }
-
-
+    }
 
   // job termination
 #ifdef G4VIS_USE
