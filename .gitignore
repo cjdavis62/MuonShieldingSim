@@ -1,3 +1,5 @@
 *.root
 *.o
 *.make
+*CMake*
+*.txt
