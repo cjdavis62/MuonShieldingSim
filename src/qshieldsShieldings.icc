@@ -254,14 +254,12 @@ MuonLatX_log->SetSensitiveDetector(MuSD);
 // ** Effective Rock Layer ** *************
 if (theC->GraphicMask[1] & (1 << (63-1)) ) {
   Rock_log->SetVisAttributes ( new G4VisAttributes(G4Colour(0.,0.,1.)));
-  G4cout << "test1" << G4endl;
  }
  else
    Rock_log->SetVisAttributes (new G4VisAttributes(G4Colour(false)));
 
 if (theC->GraphicMask[1] & (1 << (64-1))) {
   MuonLatX_log->SetVisAttributes ( new G4VisAttributes(G4Colour(1.,1.,1.)));
-G4cout << "test2" << G4endl;
  }
  else
    MuonLatX_log->SetVisAttributes (new G4VisAttributes(G4Colour(false)));
@@ -302,12 +300,13 @@ G4cout << "test2" << G4endl;
 // ** Effective Rock Layer ** ***************
 
 G4VPhysicalVolume* Rock_phys;
-Rock_phys = new G4PVPlacement (0, G4ThreeVector(0,0,0), "Rock_P", Rock_log, Hall_phys, false, 0);
+Rock_phys = new G4PVPlacement (0, POFF+G4ThreeVector(0,0,2224*mm), "Rock_P", Rock_log, Hall_phys, false, 0);
+
 
 // ** MuonLatX Panels ** ******************
 
 G4VPhysicalVolume* MuonLatX_phys;
-MuonLatX_phys = new G4PVPlacement (0, POFF+G4ThreeVector(0,0,MuonH), "MuonLatX_P", MuonLatX_log, Hall_phys, false, 0);
+MuonLatX_phys = new G4PVPlacement (0, POFF+G4ThreeVector(0,0,MuonH+MuonHoffset), "MuonLatX_P", MuonLatX_log, Hall_phys, false, 0);
 
 // ** Polyethylene External Shield ** ****************
 

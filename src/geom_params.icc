@@ -17,6 +17,7 @@ G4double RockDeltaPhi = 360 * deg;
 G4double MuonExtL = 137 * cm;
 G4double MuonIntL = 135 * cm;
 G4double MuonH = 100 * cm;
+G4double MuonHoffset = 50 * cm;
 
 //**********************************************************
 //** EXTERNAL SHIELDS ** ***********************************
